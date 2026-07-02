@@ -1,0 +1,193 @@
+================================================================================
+ SKILL.md Frontmatter Schema Validator
+ Scanning 95 files under '.'
+================================================================================
+
+── ./common/analysis-report/SKILL.md ──
+  ▲ WARN   tags mismatch: top=['analysis', 'chart', 'report', 'visualization'] vs openclaw=['analysis', 'report', 'visualization']
+  · INFO   recommended field 'category' is missing
+
+── ./common/chart-visualization/SKILL.md ──
+  · INFO   recommended field 'category' is missing
+
+── ./common/md-to-html-converter/SKILL.md ──
+  · INFO   recommended field 'category' is missing
+
+── ./media/kk-comic/SKILL.md ──
+  ▲ WARN   dir name 'kk-comic' does not match skill name 'baoyu-comic'
+
+── ./stock/a-stock-screener/SKILL.md ──
+  ✗ ERROR  [rich] missing required field 'tags'
+  · INFO   recommended field 'category' is missing
+
+── ./stock/kk-announcement-search/SKILL.md ──
+  · INFO   recommended field 'category' is missing
+
+── ./stock/kk-business-query/SKILL.md ──
+  ✗ ERROR  [rich] missing required field 'version'
+  ✗ ERROR  [rich] missing required field 'author'
+  ✗ ERROR  [rich] missing required field 'capabilities'
+  ✗ ERROR  [rich] missing required field 'permissions'
+  ✗ ERROR  [rich] missing required field 'metadata'
+  ✗ ERROR  [rich] missing required field 'tags'
+  ▲ WARN   dir name 'kk-business-query' does not match skill name 'hithink-business-query'
+  · INFO   recommended field 'category' is missing
+
+── ./stock/kk-cb-analysis/SKILL.md ──
+  ✗ ERROR  [rich] missing required field 'tags'
+  · INFO   recommended field 'category' is missing
+
+── ./stock/kk-common/SKILL.md ──
+  · INFO   recommended field 'category' is missing
+
+── ./stock/kk-earnings-forecast/SKILL.md ──
+  ✗ ERROR  [rich] missing required field 'version'
+  ✗ ERROR  [rich] missing required field 'author'
+  ✗ ERROR  [rich] missing required field 'license'
+  ✗ ERROR  [rich] missing required field 'capabilities'
+  ✗ ERROR  [rich] missing required field 'permissions'
+  ✗ ERROR  [rich] missing required field 'metadata'
+  ✗ ERROR  [rich] missing required field 'tags'
+  ▲ WARN   dir name 'kk-earnings-forecast' does not match skill name '盈利预测与一致预期分析'
+
+── ./stock/kk-earnings-revision/SKILL.md ──
+  ✗ ERROR  [rich] missing required field 'version'
+  ✗ ERROR  [rich] missing required field 'author'
+  ✗ ERROR  [rich] missing required field 'license'
+  ✗ ERROR  [rich] missing required field 'capabilities'
+  ✗ ERROR  [rich] missing required field 'permissions'
+  ✗ ERROR  [rich] missing required field 'metadata'
+  ✗ ERROR  [rich] missing required field 'tags'
+  ▲ WARN   dir name 'kk-earnings-revision' does not match skill name '盈利预期修正分析'
+
+── ./stock/kk-etf-analysis/SKILL.md ──
+  · INFO   recommended field 'category' is missing
+
+── ./stock/kk-event-query/SKILL.md ──
+  ✗ ERROR  [rich] missing required field 'version'
+  ✗ ERROR  [rich] missing required field 'author'
+  ✗ ERROR  [rich] missing required field 'capabilities'
+  ✗ ERROR  [rich] missing required field 'permissions'
+  ✗ ERROR  [rich] missing required field 'metadata'
+  ✗ ERROR  [rich] missing required field 'tags'
+  ▲ WARN   dir name 'kk-event-query' does not match skill name 'hithink-event-query'
+  · INFO   recommended field 'category' is missing
+
+── ./stock/kk-factor-research/SKILL.md ──
+  · INFO   recommended field 'category' is missing
+
+── ./stock/kk-financial-statement/SKILL.md ──
+  ✗ ERROR  [rich] missing required field 'version'
+  ✗ ERROR  [rich] missing required field 'author'
+  ✗ ERROR  [rich] missing required field 'license'
+  ✗ ERROR  [rich] missing required field 'capabilities'
+  ✗ ERROR  [rich] missing required field 'permissions'
+  ✗ ERROR  [rich] missing required field 'metadata'
+  ✗ ERROR  [rich] missing required field 'tags'
+  ▲ WARN   dir name 'kk-financial-statement' does not match skill name '财务报表深度解读'
+
+── ./stock/kk-futures-analysis/SKILL.md ──
+  · INFO   recommended field 'category' is missing
+
+── ./stock/kk-hithink-futures/SKILL.md ──
+  · INFO   recommended field 'category' is missing
+
+── ./stock/kk-industry-analysis/SKILL.md ──
+  ▲ WARN   tags mismatch: top=['A-share', 'finance', 'fundamental-analysis', 'industry-analysis', 'industry-chain', 'iwencai', 'pywencai'] vs openclaw=['A-share', 'finance', 'fundamental-analysis', 'industry-analysis', 'industry-chain']
+  · INFO   recommended field 'category' is missing
+
+── ./stock/kk-macro-query/SKILL.md ──
+  ✗ ERROR  [rich] missing required field 'version'
+  ✗ ERROR  [rich] missing required field 'author'
+  ✗ ERROR  [rich] missing required field 'capabilities'
+  ✗ ERROR  [rich] missing required field 'permissions'
+  ✗ ERROR  [rich] missing required field 'metadata'
+  ✗ ERROR  [rich] missing required field 'tags'
+  ▲ WARN   dir name 'kk-macro-query' does not match skill name 'hithink-macro-query'
+  · INFO   recommended field 'category' is missing
+
+── ./stock/kk-market-linkage-engine/SKILL.md ──
+  ✗ ERROR  [rich] missing required field 'capabilities'
+  ✗ ERROR  [rich] missing required field 'permissions'
+  ✗ ERROR  [rich] missing required field 'metadata'
+  · INFO   recommended field 'category' is missing
+
+── ./stock/kk-mcf/SKILL.md ──
+  ✗ ERROR  [rich] missing required field 'version'
+  ✗ ERROR  [rich] missing required field 'author'
+  ✗ ERROR  [rich] missing required field 'license'
+  ✗ ERROR  [rich] missing required field 'capabilities'
+  ✗ ERROR  [rich] missing required field 'permissions'
+  ✗ ERROR  [rich] missing required field 'metadata'
+  ✗ ERROR  [rich] missing required field 'tags'
+  ▲ WARN   dir name 'kk-mcf' does not match skill name '现金流折现估值模型'
+  · INFO   recommended field 'category' is missing
+
+── ./stock/kk-news-search/SKILL.md ──
+  ✗ ERROR  [rich] missing required field 'author'
+  ✗ ERROR  [rich] missing required field 'license'
+  ✗ ERROR  [rich] missing required field 'capabilities'
+  ✗ ERROR  [rich] missing required field 'permissions'
+  ✗ ERROR  [rich] missing required field 'metadata'
+  ✗ ERROR  [rich] missing required field 'tags'
+  · INFO   recommended field 'category' is missing
+
+── ./stock/kk-options-payoff/SKILL.md ──
+  · INFO   recommended field 'category' is missing
+
+── ./stock/kk-options-volatility/SKILL.md ──
+  · INFO   recommended field 'category' is missing
+
+── ./stock/kk-report-search/SKILL.md ──
+  ✗ ERROR  [rich] missing required field 'author'
+  ✗ ERROR  [rich] missing required field 'license'
+  ✗ ERROR  [rich] missing required field 'capabilities'
+  ✗ ERROR  [rich] missing required field 'permissions'
+  ✗ ERROR  [rich] missing required field 'metadata'
+  ✗ ERROR  [rich] missing required field 'tags'
+  · INFO   recommended field 'category' is missing
+
+── ./stock/kk-stock-analysis/SKILL.md ──
+  · INFO   recommended field 'category' is missing
+
+── ./stock/kk-strategy-research/SKILL.md ──
+  · INFO   recommended field 'category' is missing
+
+── ./stock/kk-valuation-model/SKILL.md ──
+  ✗ ERROR  [rich] missing required field 'version'
+  ✗ ERROR  [rich] missing required field 'author'
+  ✗ ERROR  [rich] missing required field 'license'
+  ✗ ERROR  [rich] missing required field 'capabilities'
+  ✗ ERROR  [rich] missing required field 'permissions'
+  ✗ ERROR  [rich] missing required field 'metadata'
+  ✗ ERROR  [rich] missing required field 'tags'
+  ▲ WARN   dir name 'kk-valuation-model' does not match skill name '估值模型方法论'
+
+── ./stock/kk-zhishu-query/SKILL.md ──
+  ✗ ERROR  [rich] missing required field 'version'
+  ✗ ERROR  [rich] missing required field 'author'
+  ✗ ERROR  [rich] missing required field 'capabilities'
+  ✗ ERROR  [rich] missing required field 'permissions'
+  ✗ ERROR  [rich] missing required field 'metadata'
+  ✗ ERROR  [rich] missing required field 'tags'
+  ▲ WARN   dir name 'kk-zhishu-query' does not match skill name 'hithink-zhishu-query'
+  · INFO   recommended field 'category' is missing
+
+================================================================================
+ SUMMARY
+================================================================================
+  Total files scanned : 95
+  Clean (no findings) : 66
+  Errors              : 76
+  Warnings            : 12
+  Info                : 24
+
+  Category        Files   Errors    Warns     Info
+  -------------- ------ -------- -------- --------
+  coding             59        0        0        0
+  common              3        0        1        3
+  media               5        0        1        0
+  research            3        0        0        0
+  stock              25       76       10       21
+
+✗ FAILED: 76 error(s) found.

@@ -1,0 +1,42 @@
+#!/bin/sh
+# KSkills pre-commit hook — validates all SKILL.md frontmatter
+#
+# Install:  git config core.hooksPath .githooks
+# Skip:     SKIP_VALIDATION=1 git commit
+
+if [ -n "$SKIP_VALIDATION" ]; then
+    exit 0
+fi
+
+echo "→ Running SKILL.md frontmatter validation..."
+
+PYTHON=$(command -v python3 || command -v python)
+if [ -z "$PYTHON" ]; then
+    echo "  ⚠  python3 not found, skipping validation"
+    exit 0
+fi
+
+# Check if PyYAML is available
+if ! "$PYTHON" -c "import yaml" 2>/dev/null; then
+    echo "  ⚠  PyYAML not installed (pip3 install pyyaml), skipping validation"
+    exit 0
+fi
+
+VALIDATOR="scripts/validate_skills.py"
+if [ ! -f "$VALIDATOR" ]; then
+    echo "  ⚠  $VALIDATOR not found, skipping validation"
+    exit 0
+fi
+
+"$PYTHON" "$VALIDATOR" .
+exit_code=$?
+
+if [ $exit_code -ne 0 ]; then
+    echo ""
+    echo "  ✗  VALIDATION FAILED — fix errors above before committing."
+    echo "     (Set SKIP_VALIDATION=1 to bypass temporarily.)"
+    exit 1
+fi
+
+echo "  ✓  All SKILL.md files pass validation."
+exit 0

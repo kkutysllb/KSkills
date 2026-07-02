@@ -150,6 +150,32 @@ python3 scripts/validate_skills.py stock
 
 输出按严重程度分级：`ERROR`（缺失必填字段 / YAML 解析失败）、`WARN`（名称不匹配等）、`INFO`（建议项缺失）。退出码非零表示存在 ERROR。
 
+### Pre-commit Hook（推荐）
+
+提交前自动校验，防止无效 frontmatter 入库：
+
+```bash
+# 安装（一次性）
+sh scripts/install-hooks.sh             # macOS / Linux
+python3 scripts/install-hooks.py        # 跨平台
+
+# 或手动设置
+git config core.hooksPath .githooks
+
+# 临时跳过校验
+SKIP_VALIDATION=1 git commit
+```
+
+### CI Pipeline
+
+仓库已配置 GitHub Actions 自动校验（`.github/workflows/validate.yml`），每次 push / PR 自动运行：
+
+```bash
+# 本地模拟 CI
+pip install pyyaml
+python3 scripts/validate_skills.py .
+```
+
 ---
 
 ## 许可证
