@@ -6,6 +6,10 @@ author: kk-quant
 license: Apache-2.0
 category: finance
 
+
+package:
+  type: python
+  entry: scripts/cli.py
 capabilities:
   - id: strategy-design
     description: "策略设计五问框架：数据/信号/仓位/回测/验证"

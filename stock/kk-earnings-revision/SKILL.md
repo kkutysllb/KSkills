@@ -6,6 +6,9 @@ author: kk-quant
 license: MIT
 category: analysis
 
+
+package:
+  type: knowledge-only
 capabilities:
   - id: earnings-revision-momentum
     description: "盈利修正动量分析：分析师评级上调/下调趋势及修正广度"

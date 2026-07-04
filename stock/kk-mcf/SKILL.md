@@ -6,6 +6,10 @@ author: kk-quant
 license: MIT
 category: finance
 
+
+package:
+  type: python
+  entry: scripts/validate_dcf.py
 capabilities:
   - id: dcf-modeling
     description: "DCF估值模型搭建：FCFF/FCFE现金流预测、自由现金流计算"

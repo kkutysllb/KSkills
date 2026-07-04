@@ -6,6 +6,10 @@ author: kk-quant
 license: MIT
 category: finance
 
+
+package:
+  type: python
+  entry: scripts/__main__.py
 capabilities:
   - id: financial-news
     description: "财经资讯搜索：从官媒、财经媒体、行业网站搜索最新财经新闻"

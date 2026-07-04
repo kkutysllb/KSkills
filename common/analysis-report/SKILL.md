@@ -6,6 +6,9 @@ author: kk-quant
 license: MIT
 category: report
 
+
+package:
+  type: knowledge-only
 capabilities:
   - id: report-generation
     description: "结构化分析报告生成：执行摘要+数据概览+核心分析+风险提示+参考资料"

@@ -6,6 +6,9 @@ description: >-
   "check this PR", "what's wrong with this code", "audit this change",
   "review my diff", "is this code good", or when the user shares a diff or
   pull request for feedback. Also trigger for security review requests.
+
+package:
+  type: knowledge-only
 ---
 
 # Code Review Skill

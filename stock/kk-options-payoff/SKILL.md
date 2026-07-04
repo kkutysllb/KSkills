@@ -6,6 +6,10 @@ author: kk-quant
 license: MIT
 category: finance
 
+
+package:
+  type: python
+  entry: scripts/
 capabilities:
   - id: bs-pricing
     description: "Black-Scholes 期权定价：支持欧式 Call/Put 定价、连续股息率调整"

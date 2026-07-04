@@ -21,6 +21,9 @@ tags:
   - Shibor
   - 龙虎榜
 
+
+package:
+  type: knowledge-only
 capabilities:
   - id: main-capital-flow
     description: "主力资金流向分析：个股/板块净流入、全市场净额、流入流出比"

@@ -6,6 +6,9 @@ author: kk-quant
 license: MIT
 category: finance
 
+
+package:
+  type: knowledge-only
 capabilities:
   - id: growth-stock-selection
     description: "成长股策略：EPS/营收增速双驱动，PEG 0.2~1.5，分级筛选成长性40%+盈利能力35%+创新投入15%+财务安全10%"

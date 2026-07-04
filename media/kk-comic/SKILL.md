@@ -2,6 +2,9 @@
 name: kk-comic
 description: 知识漫画创作器——将知识、教育、传记、教程类文本内容转化为多页叙事型漫画。支持 5 种艺术风格 × 7 种色调 × 7 种布局的自由组合，自动根据内容信号选择最佳视觉方案。触发词：知识漫画、教育漫画、传记漫画、教程漫画、科普漫画、Logicomix 风格、baoyu-comic、把这段内容画成漫画。
 version: 1.1.0
+
+package:
+  type: knowledge-only
 metadata:
   kkoclaw:
     homepage: https://github.com/kkoclaw

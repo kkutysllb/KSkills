@@ -5,6 +5,9 @@ description: >-
   which built-in Coding skills should guide the task. Trigger for multi-step
   changes, bug fixes, reviews, refactors, UI work, testing work, architecture
   changes, or whenever more than one engineering workflow might apply.
+
+package:
+  type: knowledge-only
 ---
 
 # Using Superpowers Skill

@@ -6,6 +6,9 @@ description: >-
   feature", "add this function", "create this endpoint", "build this module",
   "write a function that", "add support for", or when the user provides a
   specification, requirements document, or user story for implementation.
+
+package:
+  type: knowledge-only
 ---
 
 # Implement Feature Skill

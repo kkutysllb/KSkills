@@ -6,6 +6,10 @@ author: kk-quant
 license: Apache-2.0
 category: finance
 
+
+package:
+  type: python
+  entry: scripts/cli.py
 capabilities:
   - id: factor-analysis
     description: "IC/IR 统计分析 + 分层回测，检验单因子有效性"

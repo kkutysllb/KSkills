@@ -6,6 +6,10 @@ author: kk-quant
 license: MIT
 category: finance
 
+
+package:
+  type: python
+  entry: scripts/__main__.py
 capabilities:
   - id: research-report-search
     description: "研究报告搜索：搜索主流投研机构发布的深度研究报告"

@@ -6,6 +6,10 @@ author: kk-quant
 license: MIT
 category: finance
 
+
+package:
+  type: python
+  entry: scripts/__main__.py
 capabilities:
   - id: announcement-search
     description: "金融公告搜索：A股/港股/基金/ETF公告查询，覆盖定期报告/分红派息/回购增持/资产重组等类型"

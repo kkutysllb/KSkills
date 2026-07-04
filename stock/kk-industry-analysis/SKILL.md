@@ -6,6 +6,10 @@ author: kk-quant
 license: MIT
 category: finance
 
+
+package:
+  type: python
+  entry: scripts/analyze_industry.py
 capabilities:
   - id: industry-chain-analysis
     description: "产业链结构分析：上游/中游/下游拆解、核心公司识别、市值分布、PE、利润增长"

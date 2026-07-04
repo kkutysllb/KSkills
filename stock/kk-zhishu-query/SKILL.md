@@ -6,6 +6,10 @@ author: kk-quant
 license: Complete terms in LICENSE.txt
 category: finance
 
+
+package:
+  type: python
+  entry: scripts/cli.py
 capabilities:
   - id: index-quote
     description: "指数行情查询：上证指数、沪深300、创业板指等主要指数实时/历史行情"

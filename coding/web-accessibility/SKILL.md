@@ -4,6 +4,9 @@ description: >-
   Use this skill for accessibility work: keyboard navigation, ARIA labels,
   semantic HTML, focus management, contrast, reduced motion, and screen reader
   compatibility.
+
+package:
+  type: knowledge-only
 ---
 
 # Web Accessibility Skill

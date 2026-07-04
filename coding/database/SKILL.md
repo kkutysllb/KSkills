@@ -3,6 +3,9 @@ name: database
 description: >-
   Use this skill for schema changes, migrations, SQL, ORM models, indexes,
   transactions, data backfills, and persistence-layer bugs.
+
+package:
+  type: knowledge-only
 ---
 
 # Database Skill

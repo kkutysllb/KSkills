@@ -6,6 +6,10 @@ author: kk-quant
 license: Complete terms in LICENSE.txt
 category: finance
 
+
+package:
+  type: python
+  entry: scripts/cli.py
 capabilities:
   - id: gdp-query
     description: "GDP数据查询：国内生产总值及其增速"

@@ -6,6 +6,10 @@ author: kk-quant
 license: MIT
 category: visualization
 
+
+package:
+  type: node
+  entry: scripts/generate.js
 capabilities:
   - id: chart-selection
     description: "智能图表选择：根据数据特征自动推荐最合适的图表类型"

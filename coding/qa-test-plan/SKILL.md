@@ -3,6 +3,9 @@ name: qa-test-plan
 description: >-
   Use this skill when creating a QA plan, test matrix, manual verification
   checklist, browser test coverage, release validation, or regression suite.
+
+package:
+  type: knowledge-only
 ---
 
 # QA Test Plan Skill

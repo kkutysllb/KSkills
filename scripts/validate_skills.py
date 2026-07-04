@@ -33,7 +33,7 @@ RICH_OPTIONAL = ["requires", "inputs", "category"]
 MINIMAL_REQUIRED = ["name", "description"]
 MINIMAL_OPTIONAL = ["license", "version", "author"]
 
-KNOWN_KEYS = set(RICH_REQUIRED + RICH_OPTIONAL + MINIMAL_REQUIRED + MINIMAL_OPTIONAL + ["dependencies", "keywords"])
+KNOWN_KEYS = set(RICH_REQUIRED + RICH_OPTIONAL + MINIMAL_REQUIRED + MINIMAL_OPTIONAL + ["dependencies", "keywords", "package"])
 
 # ── Severity ─────────────────────────────────────────────────────────────────
 

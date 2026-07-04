@@ -6,6 +6,9 @@ description: >-
   erroring", "something is wrong", "it's not working", "investigate this issue",
   or when a stack trace, error message, or test failure is shared. Also trigger
   when the user asks to diagnose performance problems or memory leaks.
+
+package:
+  type: knowledge-only
 ---
 
 # Debug Skill

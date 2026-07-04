@@ -4,6 +4,9 @@ description: >-
   Use this skill for build tooling, package scripts, monorepo workspaces,
   bundlers, TypeScript compilation, Python packaging, task runners, and build
   failures.
+
+package:
+  type: knowledge-only
 ---
 
 # Build System Skill

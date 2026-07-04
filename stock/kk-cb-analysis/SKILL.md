@@ -54,6 +54,10 @@ tags:
   - 可转债
   - 问财
 
+
+package:
+  type: python
+  entry: scripts/cli.py
 metadata:
   openclaw:
     version: "1.0.0"

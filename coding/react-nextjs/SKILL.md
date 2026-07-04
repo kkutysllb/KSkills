@@ -4,6 +4,9 @@ description: >-
   Use this skill for React and Next.js coding: client/server component
   boundaries, hooks, hydration, routing, data fetching, query invalidation,
   layouts, and component composition.
+
+package:
+  type: knowledge-only
 ---
 
 # React Next.js Skill

@@ -6,6 +6,9 @@ author: kk-quant
 license: MIT
 category: analysis
 
+
+package:
+  type: knowledge-only
 capabilities:
   - id: absolute-valuation
     description: "绝对估值法：DCF现金流折现、DDM股息折现、SOTP分部估值"

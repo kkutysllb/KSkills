@@ -6,6 +6,10 @@ author: kk-quant
 license: Complete terms in LICENSE.txt
 category: finance
 
+
+package:
+  type: python
+  entry: scripts/cli.py
 capabilities:
   - id: business-composition
     description: "主营业务构成查询：产品/地区分布、收入占比等"

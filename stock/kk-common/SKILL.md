@@ -6,6 +6,9 @@ author: kk-quant
 license: MIT
 category: finance
 
+
+package:
+  type: knowledge-only
 capabilities:
   - id: iwencai-client
     description: "同花顺问财 OpenAPI 统一封装：HMAC 签名 + Trace-Id + 翻页 + 统一错误处理"

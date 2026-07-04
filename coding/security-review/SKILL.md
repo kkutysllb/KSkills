@@ -4,6 +4,9 @@ description: >-
   Use this skill for security-focused review of code, PRs, architecture,
   authentication, authorization, secrets, input handling, dependencies, and
   deployment configuration.
+
+package:
+  type: knowledge-only
 ---
 
 # Security Review Skill

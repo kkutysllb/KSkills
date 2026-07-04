@@ -6,6 +6,10 @@ author: kk-quant
 license: MIT
 category: finance
 
+
+package:
+  type: python
+  entry: scripts/analyze_stock_chan.py
 capabilities:
   - id: technical-analysis
     description: "个股多周期技术分析：日/周/月线+5/15/30/60分钟微观线，MACD/RSI/KDJ/布林带/ATR/OBV"

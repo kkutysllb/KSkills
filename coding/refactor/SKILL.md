@@ -7,6 +7,9 @@ description: >-
   this method", "reduce duplication", "improve code structure", "remove dead
   code", or when reviewing code that has maintainability issues. Also trigger
   for design-pattern introductions and architecture improvements.
+
+package:
+  type: knowledge-only
 ---
 
 # Refactor Skill

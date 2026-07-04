@@ -4,6 +4,9 @@ description: >-
   Use this skill for FastAPI backend work: routers, Pydantic models, request
   validation, dependency injection, middleware, service boundaries, and route
   tests.
+
+package:
+  type: knowledge-only
 ---
 
 # FastAPI Backend Skill

@@ -4,6 +4,9 @@ description: >-
   Use this skill when creating, improving, or reviewing OClaw Coding skills,
   including SKILL.md content, activation descriptions, built-in skill coverage,
   and skill registry tests.
+
+package:
+  type: knowledge-only
 ---
 
 # Skill Authoring Skill

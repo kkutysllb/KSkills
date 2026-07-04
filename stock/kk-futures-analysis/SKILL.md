@@ -6,6 +6,10 @@ author: kk-quant
 license: MIT
 category: finance
 
+
+package:
+  type: python
+  entry: scripts/
 capabilities:
   - id: daily-futures-analysis
     description: "日度股指期货行情分析：活跃合约识别、K线趋势、均线、振幅、OI变化"

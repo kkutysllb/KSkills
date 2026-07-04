@@ -6,6 +6,10 @@ author: kk-quant
 license: MIT
 category: finance
 
+
+package:
+  type: python
+  entry: scripts/cli.py
 capabilities:
   - id: etf-list
     description: "ETF列表查询（含五类分类标签：宽基/行业/商品/货币/跨境）"

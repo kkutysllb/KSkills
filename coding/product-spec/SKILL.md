@@ -3,6 +3,9 @@ name: product-spec
 description: >-
   Use this skill when writing a product specification, feature brief, user
   stories, workflow definition, MVP scope, or product decision record.
+
+package:
+  type: knowledge-only
 ---
 
 # Product Spec Skill

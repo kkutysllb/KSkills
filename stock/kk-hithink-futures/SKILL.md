@@ -6,6 +6,10 @@ author: kk-quant
 license: MIT
 category: finance
 
+
+package:
+  type: python
+  entry: scripts/cli.py
 capabilities:
   - id: futures-quote
     description: "期货行情查询：价格、涨跌幅、成交量、持仓量等"

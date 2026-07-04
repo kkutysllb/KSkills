@@ -3,6 +3,9 @@ name: release-engineering
 description: >-
   Use this skill for versioning, changelogs, release notes, packaging,
   deployment readiness, rollback planning, and release risk checks.
+
+package:
+  type: knowledge-only
 ---
 
 # Release Engineering Skill

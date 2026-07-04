@@ -3,6 +3,9 @@ name: workflow-automation
 description: >-
   Use this skill for scripts, CLIs, developer tooling, task automation, codegen,
   project maintenance commands, and repeatable local workflows.
+
+package:
+  type: knowledge-only
 ---
 
 # Workflow Automation Skill

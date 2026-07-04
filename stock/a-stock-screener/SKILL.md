@@ -60,6 +60,10 @@ tags:
   - factor
   - selection
 
+
+package:
+  type: python
+  entry: scripts/data_adapter.py
 metadata:
   openclaw:
     emoji: "🧭"

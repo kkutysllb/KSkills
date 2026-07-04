@@ -4,6 +4,9 @@ description: >-
   Use this skill for module design, boundaries, dependency direction, service
   extraction, core engine design, plugin systems, and cross-cutting technical
   decisions.
+
+package:
+  type: knowledge-only
 ---
 
 # Architecture Skill

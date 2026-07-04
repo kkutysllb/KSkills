@@ -4,6 +4,9 @@ description: >-
   Use this skill when preparing project handoff documentation, implementation
   summaries, maintenance notes, known limitations, next steps, or onboarding
   material for another engineer or user.
+
+package:
+  type: knowledge-only
 ---
 
 # Handoff Docs Skill

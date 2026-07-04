@@ -6,6 +6,10 @@ author: kk-quant
 license: Complete terms in LICENSE.txt
 category: finance
 
+
+package:
+  type: python
+  entry: scripts/cli.py
 capabilities:
   - id: earnings-forecast-event
     description: "业绩预告查询：预增、预减、扭亏等"

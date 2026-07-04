@@ -3,6 +3,9 @@ name: ci-cd
 description: >-
   Use this skill for CI pipelines, build scripts, test workflows, lint/typecheck
   gates, release jobs, caching, artifacts, and environment setup.
+
+package:
+  type: knowledge-only
 ---
 
 # CI/CD Skill

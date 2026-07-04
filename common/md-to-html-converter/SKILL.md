@@ -6,6 +6,10 @@ author: kk-quant
 license: MIT
 category: utility
 
+
+package:
+  type: python
+  entry: scripts/convert.py
 capabilities:
   - id: markdown-conversion
     description: "Markdown转HTML：解析所有标准Markdown元素，内联CSS样式，响应式布局"
