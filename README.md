@@ -2,7 +2,7 @@
 
 KSkills 是一套面向 Coding Agent / OClaw 平台的**技能包（Skill Pack）集合**。每个技能是一个独立目录，核心是 `SKILL.md` 文件（YAML frontmatter + Markdown 指南），按类别归档，开箱即用。
 
-本仓库共收录 **95 个技能**，覆盖软件工程、金融量化、内容创作、深度研究四大领域。
+本仓库共收录 **96 个技能**，覆盖软件工程、金融量化、内容创作、深度研究四大领域。
 
 ---
 
@@ -11,11 +11,11 @@ KSkills 是一套面向 Coding Agent / OClaw 平台的**技能包（Skill Pack�
 ```
 KSkills/
 ├── coding/     # 软件工程技能（59）
-├── stock/      # 金融量化技能（25）
+├── stock/      # 金融量化技能（26）
 ├── media/      # 内容创作技能（5）
 ├── research/   # 深度研究技能（3）
 ├── common/     # 跨领域公共技能（3）
-└── scripts/    # 维护工具（frontmatter 校验器）
+└── scripts/    # 维护工具（frontmatter 校验器 + 打包/安装/卸载）
 ```
 
 每个技能目录约定：
@@ -42,7 +42,7 @@ KSkills/
 | **工程治理** | `security-hardening` `security-review` `build-system` `dependency-upgrade` `diff-analysis` `codebase-analysis` `environment-setup` `scratch-workspace` `using-git-worktrees` `workflow-automation` `ui-polish` `patch-authoring` |
 | **文档与协作** | `docs` `handoff-docs` `context-management` `agent-memory-isolation` `subagent-orchestration` `skill-authoring` `using-superpowers` `qiongqi-roi` |
 
-### 📈 stock — 金融量化（25）
+### 📈 stock — 金融量化（26）
 
 A股 / 港股 / 美股 / 期货 / 期权的量化分析与数据查询技能。
 
@@ -156,7 +156,6 @@ python3 scripts/validate_skills.py stock
 
 ```bash
 # 安装（一次性）
-sh scripts/install-hooks.sh             # macOS / Linux
 python3 scripts/install-hooks.py        # 跨平台
 
 # 或手动设置

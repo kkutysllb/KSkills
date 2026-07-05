@@ -34,3 +34,33 @@ jobs:
         run: |
           echo "::error::One or more SKILL.md files failed validation."
           echo "Run 'python3 scripts/validate_skills.py .' locally to see details."
+
+  smoke-test:
+    needs: validate
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install Python dependencies
+        run: pip install pyyaml
+
+      - name: Install system dependencies
+        run: sudo apt-get update && sudo apt-get install -y zip unzip
+
+      - name: Ensure scripts are executable
+        run: chmod +x scripts/*.sh
+
+      - name: Run toolchain end-to-end smoke test
+        run: ./scripts/test_toolchain.sh coding/refactor
+
+      - name: Summary on failure
+        if: failure()
+        run: |
+          echo "::error::Smoke test failed — toolchain is broken."
+          echo "Run './scripts/test_toolchain.sh coding/refactor' locally to diagnose."
