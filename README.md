@@ -178,6 +178,84 @@ python3 scripts/validate_skills.py .
 
 ---
 
+## 打包与分发
+
+每个技能可独立打包成 `.skill` 压缩包（zip 格式），便于在其他平台（Claude Code / OClaw / Qoder 等）安装使用。
+
+### 打包
+
+```bash
+# 打包单个技能（最常用）
+python3 scripts/build_skill.py stock/kk-business-query
+
+# 指定输出目录（默认 dist/）
+python3 scripts/build_skill.py coding/test-driven-development -o ./releases
+
+# 批量打包所有技能
+python3 scripts/build_skill.py --all
+
+# 跳过校验快速打包（调试用，不推荐）
+python3 scripts/build_skill.py stock/kk-business-query --no-validate
+```
+
+输出：`dist/<name>-<version>.skill`，内含技能全部文件 + 自动生成的 `SKILL-MANIFEST.json` 清单（含每个文件的 sha256 校验和、依赖声明）。
+
+**自动排除**：`__pycache__/`、`.pytest_cache/`、`__MACOSX/`、`node_modules/`、`.DS_Store`、`*.pyc` 等构建产物与系统缓存。
+
+### 安装
+
+安装器不假设目标目录 —— 由调用平台通过参数指定：
+
+```bash
+# 安装到指定目录（平台负责选择目标位置）
+./scripts/install_skill.sh dist/kk-business-query-1.0.0.skill ~/.agents/skills/
+
+# 仅查看包内容
+./scripts/install_skill.sh dist/kk-business-query-1.0.0.skill --list
+
+# 校验包完整性（zip + sha256）
+./scripts/install_skill.sh dist/kk-business-query-1.0.0.skill --verify
+
+# 强制覆盖已存在的安装
+./scripts/install_skill.sh dist/kk-business-query-1.0.0.skill ~/.agents/skills/ --force
+
+# 非交互模式（自动执行 install.sh，适用于 CI）
+KSKILLS_AUTO_INSTALL=1 ./scripts/install_skill.sh dist/foo.skill ~/.agents/skills/
+```
+
+安装流程：① 压缩包完整性校验 → ② sha256 文件校验 → ③ 解压到目标目录 → ④ 环境变量检查（按 `permissions.env` 声明）→ ⑤ 询问是否执行 `install.sh`（安装 Python 依赖等）。
+
+### SKILL-MANIFEST.json
+
+每个 `.skill` 包内自动生成的清单文件：
+
+```json
+{
+  "name": "kk-business-query",
+  "version": "1.0.0",
+  "package_type": "python",       // knowledge-only | python | node
+  "entry": "scripts/cli.py",
+  "requires": {
+    "bins": ["python3"],
+    "packages": ["pandas"],
+    "env": ["IWENCAI_API_KEY"]
+  },
+  "files": [
+    {"path": "SKILL.md", "sha256": "...", "size": 1234}
+  ]
+}
+```
+
+### 按技能类型区别
+
+| 类型 | `.skill` 包含 | 安装复杂度 |
+|------|---------------|-----------|
+| **knowledge-only**（coding/ 大多数） | SKILL.md + CHANGELOG.md | 解压即用 |
+| **python**（stock/ 多数） | 全量 + scripts/ + requirements.txt | 解压 + 可选 `pip install` |
+| **node**（chart-visualization） | 全量 + package.json | 解压 + 可选 `npm install` |
+
+---
+
 ## 许可证
 
 各技能许可证见其 frontmatter 的 `license` 字段。
