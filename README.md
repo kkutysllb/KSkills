@@ -2,7 +2,7 @@
 
 KSkills 是一套面向 Coding Agent / OClaw 平台的**技能包（Skill Pack）集合**。每个技能是一个独立目录，核心是 `SKILL.md` 文件（YAML frontmatter + Markdown 指南），按类别归档，开箱即用。
 
-本仓库共收录 **96 个技能**，覆盖软件工程、金融量化、内容创作、深度研究四大领域。
+本仓库共收录 **95 个技能**，覆盖软件工程、金融量化、内容创作、深度研究四大领域。
 
 ---
 
@@ -11,7 +11,7 @@ KSkills 是一套面向 Coding Agent / OClaw 平台的**技能包（Skill Pack�
 ```
 KSkills/
 ├── coding/     # 软件工程技能（59）
-├── stock/      # 金融量化技能（26）
+├── stock/      # 金融量化技能（25）
 ├── media/      # 内容创作技能（5）
 ├── research/   # 深度研究技能（3）
 ├── common/     # 跨领域公共技能（3）
@@ -50,9 +50,11 @@ A股 / 港股 / 美股 / 期货 / 期权的量化分析与数据查询技能。
 |------|------|
 | **数据查询** | `kk-common`（iWencai/Tushare 统一客户端）`kk-zhishu-query` `kk-business-query` `kk-event-query` `kk-macro-query` `kk-announcement-search` `kk-news-search` `kk-report-search` `kk-hithink-futures` |
 | **个股分析** | `kk-stock-analysis`（十五维一体）`kk-financial-statement`（三表深度解读）`kk-valuation-model`（DCF/DDM/SOTP）`kk-cb-analysis`（可转债）`kk-etf-analysis` |
-| **量化研究** | `kk-factor-research`（因子研究）`kk-strategy-research`（策略回测）`kk-backtrader-strategies` `kk-selection-strategies` `a-stock-screener`（对话式选股） |
+| **量化研究** | `kk-factor-research`（因子研究）`kk-strategy-research`（策略回测）`backtrader-strategies`（策略适配器库）`kk-selection-strategies` `a-stock-screener`（对话式选股） |
 | **衍生品** | `kk-futures-analysis`（股指期货）`kk-options-payoff`（盈亏分析）`kk-options-volatility`（波动率） |
-| **市场宏观** | `kk-industry-analysis`（行业六维一体）`kk-market-linkage-engine`（市场联动）`kk-earnings-forecast`（盈利预测）`kk-earnings-revision`（预期修正）`kk-mcf` `kk-chan-theory`（缠论） |
+| **市场宏观** | `kk-industry-analysis`（行业六维一体）`kk-market-linkage-engine`（市场联动）`kk-earnings-forecast`（盈利预测）`kk-earnings-revision`（预期修正）`kk-mcf` |
+
+> **变更说明**：原 `kk-chan-theory`（缠论）已内嵌为 `kk-stock-analysis/chan_theory_v2/`，不再作为独立技能分发；原 `kk-backtrader-strategies` 重命名为 `backtrader-strategies`（Python 包名对齐）。
 
 ### 🎨 media — 内容创作（5）
 
