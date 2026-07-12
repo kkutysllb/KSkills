@@ -81,6 +81,37 @@ python3 scripts/build_skill.py --all
 
 ---
 
+## 场景 4b：打包某个类别目录下的所有技能
+
+只需发布某个类别（如仅股票类、仅编码类）时，直接传入类别目录名，
+脚本会自动识别并批量打包该目录下所有技能：
+
+```bash
+# 打包 stock/ 下全部 36 个技能
+python3 scripts/build_skill.py stock
+# → dist/kk-business-query-1.0.0.skill
+# → dist/kk-factor-research-1.0.0.skill
+# → ...
+
+# 打包 coding/ 下全部技能，输出到指定目录
+python3 scripts/build_skill.py coding -o ./releases
+
+# 同时打包多个类别（在一条命令里）
+python3 scripts/build_skill.py media research
+# → 会先处理 media/ ，再处理 research/，末尾给出汇总
+```
+
+**智能识别规则**（无需新参数）：
+
+| 传入路径                            | 脚本行为                         |
+|------------------------------------|---------------------------------|
+| `stock/kk-business-query`（含 SKILL.md） | 打包单个技能（向后兼容）         |
+| `stock`（不含 SKILL.md，但子目录有）   | 批量打包该类别下所有技能          |
+| `stock coding/refactor`（混传）       | 先批量打包 stock/，再打包单个 refactor |
+| 不含 SKILL.md 且无子技能的目录         | 报错退出                        |
+
+---
+
 ## 场景 5：CI/CD 集成（非交互模式）
 
 在 GitHub Actions 等 CI 环境中，用 `KSKILLS_AUTO_INSTALL=1` 跳过所有交互：
@@ -107,6 +138,19 @@ KSKILLS_AUTO_INSTALL=1 ./scripts/install_skill.sh \
 rm -rf ~/.agents/skills/kk-business-query
 ./scripts/install_skill.sh dist/kk-business-query-1.1.0.skill ~/.agents/skills/
 ```
+
+---
+
+## 命令选型速查
+
+| 需求                         | 推荐命令                                                |
+|-----------------------------|--------------------------------------------------------|
+| 打包一个技能                  | `build_skill.py stock/kk-business-query`                 |
+| 打包某类别下所有技能           | `build_skill.py stock`                                   |
+| 同时打包多个类别/技能          | `build_skill.py media research coding/refactor`          |
+| 打包整个仓库                  | `build_skill.py --all`                                   |
+| 跳过校验（调试用）             | 追加 `--no-validate`                                      |
+| 不生成清单文件                | 追加 `--no-manifest`                                      |
 
 ---
 

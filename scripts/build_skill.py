@@ -1,17 +1,30 @@
 #!/usr/bin/env python3
 """
-Skill Packager — 打包单个技能目录为 .skill 压缩包
+Skill Packager — 打包技能目录为 .skill 压缩包
+
+支持三种打包范围：
+  1. 单个技能   : python3 scripts/build_skill.py stock/kk-business-query
+  2. 类别目录   : python3 scripts/build_skill.py stock          # 打包 stock/ 下所有技能
+  3. 全仓库     : python3 scripts/build_skill.py --all
 
 Usage:
-    python3 scripts/build_skill.py <skill-dir>
+    python3 scripts/build_skill.py <skill-dir | category-dir>
     python3 scripts/build_skill.py <skill-dir> -o ./releases
+    python3 scripts/build_skill.py stock -o ./releases          # 类别目录批量打包
     python3 scripts/build_skill.py --all
     python3 scripts/build_skill.py <skill-dir> --no-validate
     python3 scripts/build_skill.py <skill-dir> --no-manifest
 
+智能识别规则（传入位置参数时）：
+  - 目录直接含 SKILL.md         → 视为单个技能目录，打包之
+  - 目录不含 SKILL.md 但子目录有 → 视为类别目录，批量打包其下所有技能
+  - 两者皆无                    → 报错退出
+
 Examples:
     python3 scripts/build_skill.py stock/kk-business-query
     python3 scripts/build_skill.py coding/test-driven-development -o ./dist
+    python3 scripts/build_skill.py stock                        # 打包 stock 下所有技能
+    python3 scripts/build_skill.py media research               # 同时打包多个类别（未来扩展）
     python3 scripts/build_skill.py --all
 
 输出: <output-dir>/<name>-<version>.skill （zip 格式，扩展名 .skill）
@@ -258,13 +271,43 @@ def package_one(skill_path: Path, output_dir: Path, *, validate: bool, manifest:
     return out_file
 
 
-def package_all(root: Path, output_dir: Path, *, validate: bool, manifest: bool) -> list[Path]:
-    """批量打包 root 下所有技能（含 SKILL.md 的目录）。"""
-    skills = sorted({
-        p.parent for p in root.rglob("SKILL.md")
-        if ".git" not in p.parts and "dist" not in p.parts
-    })
-    print(f"📂 发现 {len(skills)} 个技能\n")
+def discover_skills(root: Path) -> list[Path]:
+    """递归扫描 root 下所有含 SKILL.md 的技能目录（去重并排序）。
+
+    过滤规则：跳过 .git / dist / 顶级输出目录，避免把构建产物当技能。
+    """
+    # root 可能是仓库根、类别目录（stock/）、或子类别目录
+    # 相对 root 的路径片段用于过滤；.git / dist 在任意层级都跳过
+    skills = []
+    seen = set()
+    for p in root.rglob("SKILL.md"):
+        # 用 resolve 后的路径去重，避免符号链接导致重复
+        parent = p.parent.resolve()
+        if parent in seen:
+            continue
+        # 过滤：路径中任一片段命中即跳过
+        if any(part in {".git", "dist", "build"} for part in p.parts):
+            continue
+        seen.add(parent)
+        skills.append(p.parent)
+    return sorted(skills)
+
+
+def package_all(root: Path, output_dir: Path, *, validate: bool, manifest: bool,
+                scope_label: Optional[str] = None) -> list[Path]:
+    """批量打包 root 下所有技能（含 SKILL.md 的目录）。
+
+    Args:
+        root: 扫描根（仓库根 或 类别目录）
+        scope_label: 显示用的人类可读范围描述，默认取 root 目录名
+    """
+    skills = discover_skills(root)
+    label = scope_label or root.name or str(root)
+    print(f"📂 扫描范围：{label}")
+    print(f"   发现 {len(skills)} 个技能\n")
+    if not skills:
+        print(f"⚠️  {root} 下未发现任何 SKILL.md，无可打包内容。")
+        return []
     results = []
     failed = []
     for sp in skills:
@@ -289,16 +332,24 @@ def package_all(root: Path, output_dir: Path, *, validate: bool, manifest: bool)
 def main(argv=None) -> int:
     ap = argparse.ArgumentParser(
         prog="build_skill.py",
-        description="把单个技能目录打包成 .skill 压缩包",
+        description="把技能目录打包成 .skill 压缩包（支持单技能 / 类别目录批量 / 全仓库）",
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""\
 示例:
+  # 单个技能
   python3 scripts/build_skill.py stock/kk-business-query
   python3 scripts/build_skill.py coding/test-driven-development -o ./releases
+
+  # 类别目录下所有技能（自动识别）
+  python3 scripts/build_skill.py stock              # 打包 stock/ 下全部技能
+  python3 scripts/build_skill.py coding -o ./dist   # 打包 coding/ 下全部技能
+  python3 scripts/build_skill.py media research     # 同时打包多个类别目录
+
+  # 全仓库
   python3 scripts/build_skill.py --all
 """,
     )
-    ap.add_argument("skill_dir", nargs="?", help="技能目录路径（如 stock/kk-business-query）")
+    ap.add_argument("paths", nargs="*", help="技能目录或类别目录路径（如 stock/kk-foo 或 stock）；可传多个")
     ap.add_argument("-o", "--output", default="dist", help="输出目录（默认 dist/）")
     ap.add_argument("--all", action="store_true", help="打包仓库内所有技能")
     ap.add_argument("--no-validate", action="store_true", help="跳过 frontmatter 校验")
@@ -309,19 +360,75 @@ def main(argv=None) -> int:
     output_dir = Path(args.output).resolve()
 
     if args.all:
-        package_all(repo_root, output_dir, validate=not args.no_validate, manifest=not args.no_manifest)
+        if args.paths:
+            ap.error("--all 不能与位置参数同时使用")
+        package_all(repo_root, output_dir, validate=not args.no_validate,
+                    manifest=not args.no_manifest, scope_label="全仓库")
         return 0
 
-    if not args.skill_dir:
+    if not args.paths:
         ap.print_help()
         return 1
 
-    skill_path = Path(args.skill_dir)
-    if not skill_path.is_absolute():
-        candidate = repo_root / args.skill_dir
-        skill_path = candidate if candidate.exists() else Path(args.skill_dir)
-    res = package_one(skill_path, output_dir, validate=not args.no_validate, manifest=not args.no_manifest)
-    return 0 if res else 1
+    # 解析每个位置参数：可能是相对路径或绝对路径
+    resolved_paths: list[Path] = []
+    for raw in args.paths:
+        p = Path(raw)
+        if not p.is_absolute():
+            cand = repo_root / raw
+            p = cand if cand.exists() else Path(raw)
+        if not p.exists():
+            print(f"❌ 路径不存在: {raw}")
+            return 1
+        resolved_paths.append(p.resolve())
+
+    # 分类处理：单技能 / 类别目录
+    single_skills: list[Path] = []
+    category_dirs: list[Path] = []
+    for p in resolved_paths:
+        if (p / "SKILL.md").exists():
+            single_skills.append(p)
+        elif any(True for _ in p.rglob("SKILL.md")):
+            category_dirs.append(p)
+        else:
+            print(f"❌ 未发现 SKILL.md（既不是技能目录，也不是类别目录）: {p}")
+            return 1
+
+    exit_code = 0
+    total_ok = 0
+    total_fail = 0
+
+    # 1) 单技能：逐个打包
+    for sp in single_skills:
+        print(f"{'─' * 60}")
+        res = package_one(sp, output_dir, validate=not args.no_validate, manifest=not args.no_manifest)
+        if res:
+            total_ok += 1
+        else:
+            total_fail += 1
+            exit_code = 1
+        print()
+
+    # 2) 类别目录：批量打包
+    for cat in category_dirs:
+        print("═" * 60)
+        results = package_all(cat, output_dir, validate=not args.no_validate,
+                              manifest=not args.no_manifest,
+                              scope_label=f"类别目录 {cat.name}/")
+        total_ok += len(results)
+        # package_all 内部已统计失败，这里仅以「期望 vs 实际」粗略推断
+        expected = len(discover_skills(cat))
+        total_fail += max(0, expected - len(results))
+        if expected > len(results):
+            exit_code = 1
+        print()
+
+    # 多目标汇总
+    if len(resolved_paths) > 1 or category_dirs:
+        print("═" * 60)
+        print(f"  汇总：成功 {total_ok} / 失败 {total_fail}")
+
+    return exit_code
 
 
 if __name__ == "__main__":
