@@ -133,9 +133,16 @@ class LinkageFetcher:
     #  2. 北向资金
     # ==================================================================
     def fetch_northbound(self, days: int = 30, end: Optional[str] = None) -> pd.DataFrame:
-        """沪深港通每日资金流向（使用 hsgt 接口，支持日期范围）。"""
+        """沪深港通每日资金流向（使用 moneyflow_hsgt 接口，支持日期范围）。"""
         start, end = self._date_range(days, end)
-        df = self.ts.hsgt(start_date=start, end_date=end)
+        try:
+            df = self.ts.moneyflow_hsgt(start_date=start, end_date=end)
+        except Exception:
+            # Fallback to hsgt interface for older tokens
+            try:
+                df = self.ts.hsgt(start_date=start, end_date=end)
+            except Exception:
+                return pd.DataFrame()
         return self._clean(df)
 
     def fetch_northbound_top10(self, trade_date: str, market: str = "north") -> pd.DataFrame:

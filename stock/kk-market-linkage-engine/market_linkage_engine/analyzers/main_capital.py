@@ -57,7 +57,6 @@ class MainCapitalAnalyzer(BaseAnalyzer):
                         net_col = cand
                         break
             if net_col:
-                total_net = float(stocks[net_col].sum())
                 in_count = int((stocks[net_col] > 0).sum())
                 out_count = int((stocks[net_col] < 0).sum())
                 top_in = stocks.nlargest(top_n, net_col)[["ts_code", "name", net_col]] \
@@ -65,19 +64,15 @@ class MainCapitalAnalyzer(BaseAnalyzer):
                 top_out = stocks.nsmallest(top_n, net_col)[["ts_code", "name", net_col]] \
                     if "name" in stocks.columns else stocks.nsmallest(top_n, net_col)[["ts_code", net_col]]
                 detail.update({
-                    "total_net": total_net,
-                    "total_net_yi": total_net / 1e8,
                     "in_count": in_count,
                     "out_count": out_count,
                     "top_in": top_in.to_dict("records"),
                     "top_out": top_out.to_dict("records"),
                 })
-                res["signals"].append(
-                    f"全市场主力资金净{('流入' if total_net > 0 else '流出')} "
-                    f"{yi(total_net)}，净流入个股 {in_count} vs 净流出 {out_count}"
-                )
 
         # ----- 板块维度 -----
+        # The sector data (moneyflow) includes ALL stocks — use its sum as the
+        # full-market total net, not just the top-N stocks fetched above.
         sector_df = sector if len(sector) else (ind_ths if len(ind_ths) else pd.DataFrame())
         if len(sector_df):
             sector_net_col = None
@@ -87,6 +82,16 @@ class MainCapitalAnalyzer(BaseAnalyzer):
                     break
             name_col = "name" if "name" in sector_df.columns else None
             if sector_net_col:
+                # Full-market net = sum of all stock net amounts.
+                # Tushare moneyflow returns net_amount in 万元 (10k yuan).
+                total_net_wan = float(sector_df[sector_net_col].sum())
+                total_net_yi = total_net_wan / 1e4  # 万 → 亿
+                detail["total_net"] = total_net_wan
+                detail["total_net_yi"] = total_net_yi
+                res["signals"].append(
+                    f"全市场主力资金净{('流入' if total_net_yi > 0 else '流出')} "
+                    f"{total_net_yi:+.1f}亿，净流入个股 {detail.get('in_count', '?')} vs 净流出 {detail.get('out_count', '?')}"
+                )
                 top_sec_in = sector_df.nlargest(MAIN_CAPITAL_TOP_SECTORS, sector_net_col)
                 top_sec_out = sector_df.nsmallest(MAIN_CAPITAL_TOP_SECTORS, sector_net_col)
                 detail["top_sectors_in"] = (
@@ -99,18 +104,21 @@ class MainCapitalAnalyzer(BaseAnalyzer):
                 )
 
         # ----- 评分 -----
+        # total_net is in 万元 from Tushare moneyflow.
+        # Thresholds: 50亿 = 5_000_000万, 10亿 = 1_000_000万
         total_net = detail.get("total_net", 0.0)
+        total_net_yi = detail.get("total_net_yi", total_net / 1e4 if total_net else 0)
         score = 50
-        if total_net > 5e9:       # > 50亿
+        if total_net_yi > 50:
             score = 75; res["bias"] = "bullish"
             res["signals"].append("🟢 主力大幅净流入，做多意愿强烈")
-        elif total_net > 1e9:
+        elif total_net_yi > 10:
             score = 60; res["bias"] = "bullish"
             res["signals"].append("🟢 主力小幅净流入")
-        elif total_net < -5e9:
+        elif total_net_yi < -50:
             score = 25; res["bias"] = "bearish"
             res["signals"].append("🔴 主力大幅净流出，谨慎情绪浓厚")
-        elif total_net < -1e9:
+        elif total_net_yi < -10:
             score = 40; res["bias"] = "bearish"
             res["signals"].append("🔴 主力小幅净流出")
         else:

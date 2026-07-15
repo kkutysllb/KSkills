@@ -186,8 +186,19 @@ def main():
         print(f"开始批量搜索，共 {len(queries)} 个查询")
         
         batch_results = search.batch_search(queries, args.limit)
-        
-        for query, (success, results, message) in batch_results.items():
+
+        for query, result in batch_results.items():
+            success = result.get("success", False)
+            message = result.get("error", "")
+            raw = result.get("raw_response", {})
+            if isinstance(raw, dict):
+                results = raw.get("datas", raw.get("data", []))
+                if not isinstance(results, list):
+                    results = []
+            elif isinstance(raw, list):
+                results = raw
+            else:
+                results = []
             if success:
                 all_results.extend(results)
                 print(f"✓ {query}: 找到 {len(results)} 条结果")
@@ -204,11 +215,23 @@ def main():
         
     else:
         start_time = time.time()
-        
-        success, results, message = search.search(args.query, args.limit)
-        
+
+        result = search.search(args.query, args.limit)
+        success = result.get("success", False)
+        message = result.get("error", "")
+        # Extract announcement list from the iWencai raw_response
+        raw = result.get("raw_response", {})
+        results = []
+        if isinstance(raw, dict):
+            # iWencai returns datas array with announcement records
+            results = raw.get("datas", raw.get("data", []))
+            if not isinstance(results, list):
+                results = []
+        elif isinstance(raw, list):
+            results = raw
+
         execution_time = Utils.calculate_execution_time(start_time)
-        
+
         if success:
             all_results = results
             

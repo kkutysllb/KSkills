@@ -95,7 +95,8 @@ class ChanBuySellPointAnalyzer:
             context = contexts[level]
             bsp_list = self._analyze_single_level_bsp(context)
             all_bsp[level] = bsp_list
-            self.logger.info(f"✅ {level.value}级别: 识别买卖点 {len(bsp_list)} 个")
+            level_label = level.value if hasattr(level, 'value') else str(level)
+            self.logger.info(f"✅ {level_label}级别: 识别买卖点 {len(bsp_list)} 个")
         
         # 仅在多级别情况下应用多级别确认
         if len(contexts) > 1:

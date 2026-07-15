@@ -9,7 +9,7 @@ category: finance
 
 package:
   type: python
-  entry: scripts/
+  entry: scripts/analysis-engine/analyze_option_payoff.py
 capabilities:
   - id: bs-pricing
     description: "Black-Scholes 期权定价：支持欧式 Call/Put 定价、连续股息率调整"

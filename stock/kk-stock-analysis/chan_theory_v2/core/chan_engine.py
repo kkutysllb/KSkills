@@ -268,7 +268,8 @@ class ChanEngine:
                 result = self.analyze(data, symbol, level, AnalysisLevel.COMPLETE)
                 results[level] = result
             except Exception as e:
-                print(f"⚠️ {level.value}级别分析失败: {e}")
+                import logging
+                logging.getLogger(__name__).warning(f"{level.value}级别分析失败: {e}")
                 continue
         
         if len(results) < 1:
@@ -315,7 +316,8 @@ class ChanEngine:
                     results[level].buy_sell_points = bsp_list
                     
         except Exception as e:
-            print(f"⚠️ 多级别买卖点分析失败: {e}")
+            import logging
+            logging.getLogger(__name__).warning(f"多级别买卖点分析失败: {e}")
     
     def get_trading_signals(self, result: ChanAnalysisResult) -> Dict[str, Any]:
         """

@@ -45,7 +45,7 @@ capabilities:
 permissions:
   network: true
   filesystem: true
-  shell: false
+  shell: true
 
 metadata:
   openclaw:
@@ -64,15 +64,20 @@ metadata:
       - Shibor
       - 龙虎榜
 
-dependencies:
-  - kk-common (同级公共库)
-  - tushare
-  - pandas
+requires:
+  bins: ["python3"]
+  env: ["TUSHARE_TOKEN"]
 ---
 
 # kk-market-linkage-engine
 
 A 股市场联动分析引擎 — 通过 8 大资金与情绪维度的交叉验证，判断市场整体方向与结构性强弱。
+
+## ⚠️ 重要：无需安装任何依赖
+
+**本技能及其所有依赖（kk-common、tushare、pandas 等）已在运行环境中预装完毕。**
+**直接运行下方的命令即可，绝对禁止执行 pip install、npm install 或任何其他安装命令。**
+**不要尝试安装 kk-common 或任何其他依赖包——它们已经就绪。**
 
 ## 触发场景
 
@@ -90,7 +95,7 @@ A 股市场联动分析引擎 — 通过 8 大资金与情绪维度的交叉验�
 | # | 维度 | 数据源 | 信号逻辑 |
 |---|------|--------|----------|
 | 1 | **主力资金流向** | Tushare `moneyflow` / `moneyflow_dc` | 个股/板块净流入、全市场净额、流入流出比 |
-| 2 | **北向资金流向** | Tushare `hsgt` / `hsgt_top10` | 沪深股通净额、连续性（连续N日）、十大活跃股 |
+| 2 | **北向资金流向** | Tushare `moneyflow_hsgt` / `hsgt_top10` | 沪深股通净额、连续性（连续N日）、十大活跃股 |
 | 3 | **两融趋势** | Tushare `margin` / `margin_detail` | 融资余额趋势、净买入额、杠杆水平 |
 | 4 | **股指期货基差** | Tushare `fut_daily` / `index_daily` | IF/IC/IH/IM 升贴水、基差率、多空持仓 |
 | 5 | **7 大期权 ETF 波动率** | Tushare `opt_daily` | PCR（认沽认购比）、IV、认购/认沽活跃度 |
@@ -113,7 +118,7 @@ A 股市场联动分析引擎 — 通过 8 大资金与情绪维度的交叉验�
 
 ## 用法
 
-### 命令行
+### 命令行（直接运行，无需安装）
 
 ```bash
 # 日度分析
@@ -135,7 +140,7 @@ python -m market_linkage_engine daily -f summary     # 一句话总结
 python -m market_linkage_engine daily -o report.md
 ```
 
-### Python API
+### Python API（直接导入，无需安装）
 
 ```python
 from market_linkage_engine import LinkageEngine
@@ -161,9 +166,11 @@ print(main_capital["score"], main_capital["signals"])
 
 ## 环境变量
 
+凭证已在本机环境变量中配置，直接使用即可：
+
 ```bash
-TUSHARE_TOKEN=your_tushare_pro_token      # 必需
-IWENCAI_TOKEN=your_iwencai_token          # 可选（启用问财时）
+TUSHARE_TOKEN        # 必需，已配置
+IWENCAI_API_KEY      # 可选（启用问财时），已配置
 ```
 
 ## 架构

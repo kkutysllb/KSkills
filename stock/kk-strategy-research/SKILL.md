@@ -175,7 +175,7 @@ class SignalEngine:
 ## Python 依赖
 
 ```bash
-pip install pandas numpy
+# 依赖已预装，无需执行 pip install
 ```
 
 ## 知识库

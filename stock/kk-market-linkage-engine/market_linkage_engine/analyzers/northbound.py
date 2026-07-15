@@ -57,6 +57,9 @@ class NorthboundAnalyzer(BaseAnalyzer):
         df = df.tail(days).reset_index(drop=True)
         df = df.sort_values("trade_date").reset_index(drop=True)
 
+        # 保证 net_col 列为数值类型
+        df[net_col] = pd.to_numeric(df[net_col], errors='coerce')
+
         # 沪股通 / 深股通分别净额
         sh_col = next((c for c in ("hgt", "sh_money", "ggt_ss") if c in df.columns), None)
         sz_col = next((c for c in ("sgt", "sz_money", "ggt_sz") if c in df.columns), None)
@@ -77,10 +80,13 @@ class NorthboundAnalyzer(BaseAnalyzer):
         detail = {
             "trade_date": latest["trade_date"].strftime("%Y%m%d"),
             "latest_net": latest_net,
-            "latest_net_yi": latest_net / 1e4 if abs(latest_net) < 1e8 else latest_net / 1e8,
-            "latest_sh": float(latest[sh_col]) if sh_col else None,
-            "latest_sz": float(latest[sz_col]) if sz_col else None,
+            # Tushare moneyflow_hsgt returns north_money in 万元 (10k yuan),
+            # not yuan. Convert to 亿 (100M yuan) by dividing by 1e4.
+            "latest_net_yi": latest_net / 1e4,
+            "latest_sh": float(latest[sh_col]) / 1e4 if sh_col else None,
+            "latest_sz": float(latest[sz_col]) / 1e4 if sz_col else None,
             "cum_net": cum_net,
+            "cum_net_yi": cum_net / 1e4,
             "net_positive_days": net_positive_days,
             "total_days": len(df),
             "streak": streak,
@@ -97,23 +103,27 @@ class NorthboundAnalyzer(BaseAnalyzer):
                 detail["top10"] = top.to_dict("records")
 
         # 信号评分
+        # NOTE: latest_net and cum_net are in 万元 from Tushare moneyflow_hsgt.
+        # NORTH_STRONG_IN/OUT are in 亿. Convert: 1亿 = 10000万.
         score = 50
         signals = []
+        latest_net_yi = latest_net / 1e4  # 万 → 亿
+        cum_net_yi = cum_net / 1e4        # 万 → 亿
         # 单日强度
-        if latest_net > NORTH_STRONG_IN * 1e8:
-            score += 18; signals.append(f"🟢 单日大幅净流入 {yi(latest_net)}")
-        elif latest_net > 0:
-            score += 6; signals.append(f"🟢 单日小幅净流入 {yi(latest_net)}")
-        elif latest_net < NORTH_STRONG_OUT * 1e8:
-            score -= 18; signals.append(f"🔴 单日大幅净流出 {yi(latest_net)}")
-        elif latest_net < 0:
-            score -= 6; signals.append(f"🔴 单日小幅净流出 {yi(latest_net)}")
+        if latest_net_yi > NORTH_STRONG_IN:
+            score += 18; signals.append(f"🟢 单日大幅净流入 {latest_net_yi:.1f}亿")
+        elif latest_net_yi > 0:
+            score += 6; signals.append(f"🟢 单日小幅净流入 {latest_net_yi:.1f}亿")
+        elif latest_net_yi < NORTH_STRONG_OUT:
+            score -= 18; signals.append(f"🔴 单日大幅净流出 {latest_net_yi:.1f}亿")
+        elif latest_net_yi < 0:
+            score -= 6; signals.append(f"🔴 单日小幅净流出 {latest_net_yi:.1f}亿")
 
         # 累计趋势
-        if cum_net > 0:
-            score += 5; signals.append(f"🟢 {len(df)}日累计净流入 {yi(cum_net)}")
+        if cum_net_yi > 0:
+            score += 5; signals.append(f"🟢 {len(df)}日累计净流入 {cum_net_yi:.1f}亿")
         else:
-            score -= 5; signals.append(f"🔴 {len(df)}日累计净流出 {yi(cum_net)}")
+            score -= 5; signals.append(f"🔴 {len(df)}日累计净流出 {cum_net_yi:.1f}亿")
 
         # 连续性（连续3日以上才有信号意义）
         if streak >= 3:

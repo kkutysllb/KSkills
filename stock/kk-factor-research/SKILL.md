@@ -175,7 +175,7 @@ composite = factor_combination([value_f, momentum_f], method='orthogonal')
 ## Python 依赖
 
 ```bash
-pip install pandas numpy scipy
+# 依赖已预装，无需执行 pip install
 ```
 
 ## 注意事项

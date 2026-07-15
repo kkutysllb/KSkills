@@ -62,7 +62,8 @@ class AnnouncementSearch:
         payload = {
             "channels": self.channels,
             "app_id": self.app_id,
-            "query": query
+            "query": query,
+            "limit": limit,
         }
         
         url = f"{self.base_url}{self.endpoint}"

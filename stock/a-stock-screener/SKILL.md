@@ -117,8 +117,8 @@ metadata:
 ## 快速开始
 
 ```bash
-# 1) 安装依赖
-pip install -r requirements.txt
+# 1) 依赖已预装，跳过安装
+# pip install -r requirements.txt  # 不需要！
 
 # 2) 离线冒烟测试（无需 Tushare token）
 python -m scripts.cli --query "高股息低估蓝筹股" --top 10 --mock

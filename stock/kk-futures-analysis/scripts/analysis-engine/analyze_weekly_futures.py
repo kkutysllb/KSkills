@@ -572,14 +572,75 @@ def main():
 
     args = parser.parse_args()
 
-    from analysis.weekly_futures_analyzer import WeeklyFuturesFetcher, WeeklyFuturesAnalyzer
+    # Reuse the daily analyzer with a wider time window (weeks_ago=0 → last 7 days,
+    # weeks_ago=1 → last 14 days, etc.). The FuturesAnalyzer.analyze_all() already
+    # supports a `days` parameter and produces the same result structure.
+    from analysis.futures_analyzer import FuturesDataFetcher, FuturesAnalyzer
 
-    fetcher = WeeklyFuturesFetcher()
-    analyzer = WeeklyFuturesAnalyzer(fetcher)
+    days = (args.weeks + 1) * 7
+    fetcher = FuturesDataFetcher()
+    analyzer = FuturesAnalyzer(fetcher)
 
-    print(f"正在采集周度期货数据...")
-    result = analyzer.analyze(weeks_ago=args.weeks)
+    print(f"正在采集周度期货数据（回溯 {days} 天）...")
+    result = analyzer.analyze_all(symbols=['IF', 'IC', 'IH', 'IM'], days=days)
 
-    # ==================== LLM 分析（JSON 输出也需要） ====================
+    # Add week-level metadata expected by the print functions.
+    from datetime import timedelta
+    week_end = datetime.now().strftime('%Y-%m-%d')
+    week_start = (datetime.now() - timedelta(days=7)).strftime('%Y-%m-%d')
+    week_days = []
+    for i in range(7):
+        d = (datetime.now() - timedelta(days=6 - i)).strftime('%Y-%m-%d')
+        week_days.append(d)
+
+    # Enrich symbol data with week_chg for the print functions.
+    for sym, sym_data in result.get('symbols', {}).items():
+        price = sym_data.get('price', {})
+        if 'pct_chg' in price:
+            price['week_chg'] = price.get('pct_chg', 0)
+        if 'oi_chg' in price:
+            price['week_oi_chg'] = price.get('oi_chg', 0)
+
+    # JSON 输出模式
+    if args.json:
+        def _default_serializer(obj):
+            if hasattr(obj, 'isoformat'):
+                return obj.isoformat()
+            if hasattr(obj, 'item'):
+                return obj.item()
+            return str(obj)
+        print(json.dumps(result, ensure_ascii=False, indent=2, default=_default_serializer))
+        return
+
+    # 一、市场概览
+    print_market_overview(result, week_start, week_end, week_days)
+
+    # 二、逐品种详细分析
+    print("\n## 二、逐品种详细分析\n")
+    for sym in ['IF', 'IC', 'IH', 'IM']:
+        sym_data = result.get('symbols', {}).get(sym, {})
+        if sym_data:
+            print_symbol_analysis(sym, sym_data, week_days)
+
+    # 三、综合研判
+    comp = result.get('composite', {})
+    if comp:
+        print("\n## 三、综合研判\n")
+        print(f"**综合评分：{comp.get('avg_score', 50):.1f}/100**")
+        print(f"**市场环境：{comp.get('market_env', '-')}**")
+        print(f"**品种分化：{comp.get('divergence_signal', '-')}**")
+
+    # 四、投资建议
+    suggestions = comp.get('suggestions', [])
+    if suggestions:
+        print("\n## 四、投资建议\n")
+        for s in suggestions:
+            print(f"- {s}")
+
+    # 免责声明
+    print("\n---")
+    print("⚠️ 以上分析基于 Tushare Pro 数据与逻辑推演，不构成投资建议。")
+
+
 if __name__ == '__main__':
     main()

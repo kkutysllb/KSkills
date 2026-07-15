@@ -9,7 +9,7 @@ category: finance
 
 package:
   type: python
-  entry: scripts/
+  entry: scripts/analysis-engine/analyze_option_volatility.py
 capabilities:
   - id: realized-vol
     description: "实现波动率计算：从历史价格序列计算多窗口(20d/60d/90d/252d)年化波动率"

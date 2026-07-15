@@ -70,6 +70,73 @@ logger = logging.getLogger(__name__)
 #  数据获取层
 # ═══════════════════════════════════════════════════════════════════════════
 
+# Tushare pro API handle (initialized lazily)
+_pro_api = None
+
+def _get_pro_api():
+    """Get a cached Tushare pro_api instance."""
+    global _pro_api
+    if _pro_api is None:
+        token = os.environ.get('TUSHARE_TOKEN', '')
+        if token:
+            ts.set_token(token)
+        _pro_api = ts.pro_api()
+    return _pro_api
+
+
+def _fetch_kline_data(ts_code, asset, start_date, end_date, freq):
+    """
+    Fetch K-line data with fallback: try pro_bar first (richer data),
+    fall back to pro.daily/weekly/monthly/pro_bar (minute) if pro_bar
+    is unavailable for this token tier.
+
+    Returns a DataFrame or None.
+    """
+    # Try pro_bar first
+    try:
+        df = ts.pro_bar(
+            ts_code=ts_code, asset=asset,
+            start_date=start_date, end_date=end_date, freq=freq
+        )
+        if df is not None and not df.empty:
+            return df
+    except Exception as e:
+        logger.debug(f'pro_bar failed ({e}), falling back to direct API')
+
+    # Fallback to direct pro API for daily/weekly/monthly
+    if freq in ('D', 'W', 'M') or freq in ('daily', 'weekly', 'monthly'):
+        pro = _get_pro_api()
+        api_map = {'D': 'daily', 'W': 'weekly', 'M': 'monthly',
+                   'daily': 'daily', 'weekly': 'weekly', 'monthly': 'monthly'}
+        api_name = api_map.get(freq, 'daily')
+        try:
+            api_func = getattr(pro, api_name, None)
+            if api_func:
+                df = api_func(ts_code=ts_code,
+                              start_date=start_date, end_date=end_date)
+                if df is not None and not df.empty:
+                    return df
+        except Exception as e:
+            logger.debug(f'pro.{api_name} also failed: {e}')
+
+    # For minute data, try pro_bar with adj='' explicitly
+    if freq not in ('D', 'W', 'M', 'daily', 'weekly', 'monthly'):
+        try:
+            pro = _get_pro_api()
+            # stk_mins supports 5min/15min/30min/60min
+            min_freq = freq.replace('min', 'min')
+            df = pro.stk_mins(ts_code=ts_code, freq=min_freq,
+                              start_date=start_date, end_date=end_date)
+            if df is not None and not df.empty:
+                return df
+        except Exception as e:
+            logger.debug(f'pro.stk_mins failed: {e}')
+
+    return None
+
+
+# ═══════════════════════════════════════════════════════════════════════════
+
 class ChanDataFetcher:
     """缠论数据获取器（基于 Tushare Pro API）"""
 
@@ -158,7 +225,7 @@ class ChanDataFetcher:
             end_date = current_date
             start_date = end_date - timedelta(days=lookback_days)
 
-            df = ts.pro_bar(
+            df = _fetch_kline_data(
                 ts_code=ts_code, asset='I',
                 start_date=start_date.strftime('%Y%m%d'),
                 end_date=end_date.strftime('%Y%m%d'),
@@ -239,7 +306,7 @@ class ChanDataFetcher:
             start_date = end_date - timedelta(days=lookback_days)
 
             if level in ['daily', 'weekly', 'monthly']:
-                df = ts.pro_bar(
+                df = _fetch_kline_data(
                     ts_code=ts_code, asset='E',
                     start_date=start_date.strftime('%Y%m%d'),
                     end_date=end_date.strftime('%Y%m%d'),
@@ -267,7 +334,7 @@ class ChanDataFetcher:
                         continue
             else:
                 # 分钟线
-                df = ts.pro_bar(
+                df = _fetch_kline_data(
                     ts_code=ts_code, asset='E',
                     start_date=start_date.strftime('%Y%m%d'),
                     end_date=end_date.strftime('%Y%m%d'),

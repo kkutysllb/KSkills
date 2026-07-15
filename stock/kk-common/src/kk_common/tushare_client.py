@@ -838,15 +838,24 @@ class TushareClient:
         """
         _rate_limit()
         try:
-            df = self.pro.hsgt(
+            df = self.pro.moneyflow_hsgt(
                 trade_date=trade_date,
                 start_date=start_date,
                 end_date=end_date
             )
             return _to_dataframe(df)
         except Exception as e:
-            logger.error(f"获取沪深港通数据失败: {e}")
-            return pd.DataFrame()
+            logger.debug(f"moneyflow_hsgt failed ({e}), trying hsgt")
+            try:
+                df = self.pro.hsgt(
+                    trade_date=trade_date,
+                    start_date=start_date,
+                    end_date=end_date
+                )
+                return _to_dataframe(df)
+            except Exception as e2:
+                logger.error(f"获取沪深港通数据失败: {e2}")
+                return pd.DataFrame()
 
     def margin_detail(self, ts_code: Optional[str] = None,
                       trade_date: Optional[str] = None) -> pd.DataFrame:
