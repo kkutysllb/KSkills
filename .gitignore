@@ -91,3 +91,7 @@ temp/
 *.pem
 *.key
 secrets.json
+
+# ===== Agent scratch / tool artifacts =====
+.scratch/
+.tool-results/

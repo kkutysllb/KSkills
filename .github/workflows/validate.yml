@@ -35,6 +35,29 @@ jobs:
           echo "::error::One or more SKILL.md files failed validation."
           echo "Run 'python3 scripts/validate_skills.py .' locally to see details."
 
+  verify-frontmatter:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: pip install pyyaml
+
+      - name: Verify rich frontmatter schema (stock/ + common/)
+        run: python3 scripts/verify_frontmatter.py .
+
+      - name: Summary on failure
+        if: failure()
+        run: |
+          echo "::error::One or more rich-schema SKILL.md files failed validation."
+          echo "Run 'python3 scripts/verify_frontmatter.py .' locally for details."
+
   smoke-test:
     needs: validate
     runs-on: ubuntu-latest

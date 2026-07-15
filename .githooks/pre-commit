@@ -22,16 +22,22 @@ if ! "$PYTHON" -c "import yaml" 2>/dev/null; then
     exit 0
 fi
 
-VALIDATOR="scripts/validate_skills.py"
-if [ ! -f "$VALIDATOR" ]; then
-    echo "  ⚠  $VALIDATOR not found, skipping validation"
-    exit 0
-fi
+run_validator() {
+    validator="$1"
+    if [ ! -f "$validator" ]; then
+        echo "  ⚠  $validator not found, skipping"
+        return 0
+    fi
+    "$PYTHON" "$validator" .
+    return $?
+}
 
-"$PYTHON" "$VALIDATOR" .
-exit_code=$?
+run_validator "scripts/validate_skills.py"
+code1=$?
+run_validator "scripts/verify_frontmatter.py"
+code2=$?
 
-if [ $exit_code -ne 0 ]; then
+if [ $code1 -ne 0 ] || [ $code2 -ne 0 ]; then
     echo ""
     echo "  ✗  VALIDATION FAILED — fix errors above before committing."
     echo "     (Set SKIP_VALIDATION=1 to bypass temporarily.)"
