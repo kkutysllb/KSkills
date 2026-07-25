@@ -25,7 +25,7 @@ capabilities:
   - id: multi-factor-ranking
     description: "多因子打分排序：Z-score 标准化 + 加权求和 + TopN"
   - id: report-generation
-    description: "结构化报告输出：Markdown 表格 + 行业分布 + 风险提示"
+    description: "结构化报告输出：委托 common/analysis-report 生成 Markdown + 暗色/亮色双主题 HTML 看板"
   - id: mock-mode
     description: "无网络 mock 模式：生成伪 A 股数据用于离线测试与冒烟验证"
   - id: cli-entry
@@ -158,6 +158,25 @@ WorkflowEngine (scripts/workflow_engine.py) 5 阶段
     ↓
 Markdown 选股报告
 ```
+
+### 阶段 5 报告生成（委托 analysis-report）
+
+打分排序完成后，本技能的 `ReportGenerator` **不自行编写看板或绘图代码**，而是委托 `common/analysis-report` 统一渲染三份交付物。流程：
+
+1. 将选股结果（TopN 明细、行业分布、因子得分、入选/剔除原因、风险与数据来源）整理为 `analysis-report` 的输入 JSON（含 `title` / `generated_at` / `summary` / `assessment` / `risk_level` / `data_overview` / `core_analysis` / `risks` / `references` / `charts`）。
+2. 为每个图表读取 `chart-visualization/references/generate_{type}.md`，按官方字段构造 `args`，并对同一份数据分别用 `theme: "dark"`（背景 `#101418`）与 `theme: "default"`（背景 `#ffffff`）生成两个 URL，写入 `charts[].dark` 与 `charts[].light`。至少 3 个图表（如行业分布饼图、TopN 因子雷达图、估值对比柱状图）。
+3. 执行渲染器，一次生成三份文件：
+
+   ```bash
+   python3 common/analysis-report/scripts/render_report.py \
+     --input report.json \
+     --output-dir . \
+     --basename 2026-07-25_{策略ID}_stock-screening
+   ```
+
+4. 在最终答复中列出 `{basename}.md`、`{basename}-dark.html`、`{basename}-light.html` 三份文件路径。
+
+报告只给研究结论、情景条件、风险等级和需跟踪指标，**不给出买入/卖出/持有等交易建议**。
 
 ## 内置 10 大策略
 

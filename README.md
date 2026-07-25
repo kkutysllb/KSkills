@@ -2,7 +2,7 @@
 
 KSkills 是一套面向 Coding Agent / OClaw 平台的**技能包（Skill Pack）集合**。每个技能是一个独立目录，核心是 `SKILL.md` 文件（YAML frontmatter + Markdown 指南），按类别归档，开箱即用。
 
-本仓库共收录 **95 个技能**，覆盖软件工程、金融量化、内容创作、深度研究四大领域。
+本仓库共收录 **94 个技能**，覆盖软件工程、金融量化、内容创作、深度研究四大领域。
 
 ---
 
@@ -14,7 +14,7 @@ KSkills/
 ├── stock/      # 金融量化技能（25）
 ├── media/      # 内容创作技能（5）
 ├── research/   # 深度研究技能（3）
-├── common/     # 跨领域公共技能（3）
+├── common/     # 跨领域公共技能（2）
 └── scripts/    # 维护工具（frontmatter 校验器 + 打包/安装/卸载）
 ```
 
@@ -64,9 +64,9 @@ A股 / 港股 / 美股 / 期货 / 期权的量化分析与数据查询技能。
 
 `deep-research`（深度网络研究）`academic-paper-review`（学术论文审阅）`consulting-analysis`（咨询报告）
 
-### 🧰 common — 跨领域公共（3）
+### 🧰 common — 跨领域公共（2）
 
-`analysis-report`（结构化分析报告）`chart-visualization`（26 种图表）`md-to-html-converter`（Markdown 转 HTML）
+`analysis-report`（结构化分析报告，强制 Markdown + 暗色/亮色双主题 HTML 看板）`chart-visualization`（26 种图表）
 
 ---
 

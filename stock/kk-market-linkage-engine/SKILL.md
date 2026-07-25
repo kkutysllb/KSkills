@@ -164,6 +164,25 @@ print(main_capital["score"], main_capital["signals"])
 | **Tushare Pro API** | T+1 | 结构化历史数据（主要数据源） |
 | **同花顺问财 OpenAPI** | 实时/盘中 | 实时数据补充（可选，`--iwencai` 启用） |
 
+## 报告生成（委托 analysis-report）
+
+当任务需要输出报告时，本技能**不自行编写看板或绘图代码**，而是委托 `common/analysis-report` 统一渲染。流程：
+
+1. 将市场联动分析结果（8 维度评分：主力资金/北向/两融/期指基差/期权 ETF 波动率/宽基 ETF 份额/Shibor/龙虎榜，以及综合情绪评分、品种分化、风险与数据来源）整理为 `analysis-report` 的输入 JSON（含 `title` / `generated_at` / `summary` / `assessment` / `risk_level` / `data_overview` / `core_analysis` / `risks` / `references` / `charts`）。
+2. 为每个图表读取 `chart-visualization/references/generate_{type}.md`，按官方字段构造 `args`，并对同一份数据分别用 `theme: "dark"`（背景 `#101418`）与 `theme: "default"`（背景 `#ffffff`）生成两个 URL，写入 `charts[].dark` 与 `charts[].light`。至少 3 个图表。
+3. 执行渲染器，一次生成三份文件：
+
+   ```bash
+   python3 common/analysis-report/scripts/render_report.py \
+     --input report.json \
+     --output-dir . \
+     --basename 2026-07-25_market-linkage
+   ```
+
+4. 在最终答复中列出 `{basename}.md`、`{basename}-dark.html`、`{basename}-light.html` 三份文件路径。
+
+报告只给研究结论、情景条件、风险等级和需跟踪指标，**不给出买入/卖出/持有等交易建议**。
+
 ## 环境变量
 
 凭证已在本机环境变量中配置，直接使用即可：

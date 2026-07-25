@@ -165,15 +165,26 @@ python3 scripts/analysis-engine/analyze_weekly_futures.py --weeks 1 --json
 - 加权综合评分（100分制）
 - 市场环境判断（偏多/中性偏多/中性/中性偏空/偏空）
 - 品种分化对比
-- 投资策略建议
+- 需跟踪指标与情景条件（不给出具体交易方向建议）
 
-### 阶段三：报告输出
+### 阶段三：报告生成（委托 analysis-report）
 
-1. 市场概览（综合评分 + 市场环境 + 品种评分）
-2. 逐品种详细分析（行情 + 贴升水 + 持仓）
-3. 综合研判（多空环境 + 策略建议）
-4. 投资建议
-5. 风险提示
+本技能**不自行编写报告或绘图代码**，而是委托 `common/analysis-report` 统一渲染。流程：
+
+1. 将综合评分、各维度评分、关键指标、风险与数据来源整理为 `analysis-report` 的输入 JSON（含 `title` / `generated_at` / `summary` / `assessment` / `risk_level` / `data_overview` / `core_analysis` / `risks` / `references` / `charts`）。
+2. 为每个图表读取 `chart-visualization/references/generate_{type}.md`，按官方字段构造 `args`，并对同一份数据分别用 `theme: "dark"`（背景 `#101418`）与 `theme: "default"`（背景 `#ffffff`）生成两个 URL，写入 `charts[].dark` 与 `charts[].light`。至少 3 个图表。
+3. 执行渲染器，一次生成三份文件：
+
+   ```bash
+   python3 common/analysis-report/scripts/render_report.py \
+     --input report.json \
+     --output-dir . \
+     --basename 2026-07-25_futures-analysis
+   ```
+
+4. 在最终答复中列出 `{basename}.md`、`{basename}-dark.html`、`{basename}-light.html` 三份文件路径。
+
+报告覆盖：市场概览（综合评分 + 市场环境 + 品种评分）、逐品种详细分析（行情 + 贴升水 + 持仓）、综合研判（多空环境 + 需跟踪指标）、风险提示。报告只给研究结论、情景条件、风险等级和需跟踪指标，**不给出买入/卖出/持有等交易建议**。
 
 ## 环境变量
 
