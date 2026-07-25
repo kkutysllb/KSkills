@@ -2,7 +2,7 @@
 
 KSkills 是一套面向 Coding Agent / OClaw 平台的**技能包（Skill Pack）集合**。每个技能是一个独立目录，核心是 `SKILL.md` 文件（YAML frontmatter + Markdown 指南），按类别归档，开箱即用。
 
-本仓库共收录 **94 个技能**，覆盖软件工程、金融量化、内容创作、深度研究四大领域。
+本仓库共收录 **95 个技能**，覆盖软件工程、金融量化、内容创作、深度研究四大领域。
 
 ---
 
@@ -11,7 +11,7 @@ KSkills 是一套面向 Coding Agent / OClaw 平台的**技能包（Skill Pack�
 ```
 KSkills/
 ├── coding/     # 软件工程技能（59）
-├── stock/      # 金融量化技能（25）
+├── stock/      # 金融量化技能（28）
 ├── media/      # 内容创作技能（5）
 ├── research/   # 深度研究技能（3）
 ├── common/     # 跨领域公共技能（2）
@@ -42,13 +42,14 @@ KSkills/
 | **工程治理** | `security-hardening` `security-review` `build-system` `dependency-upgrade` `diff-analysis` `codebase-analysis` `environment-setup` `scratch-workspace` `using-git-worktrees` `workflow-automation` `ui-polish` `patch-authoring` |
 | **文档与协作** | `docs` `handoff-docs` `context-management` `agent-memory-isolation` `subagent-orchestration` `skill-authoring` `using-superpowers` `qiongqi-roi` |
 
-### 📈 stock — 金融量化（26）
+### 📈 stock — 金融量化（28）
 
 A股 / 港股 / 美股 / 期货 / 期权的量化分析与数据查询技能。
 
 | 类别 | 技能 |
 |------|------|
-| **数据查询** | `kk-common`（iWencai/Tushare 统一客户端）`kk-zhishu-query` `kk-business-query` `kk-event-query` `kk-macro-query` `kk-announcement-search` `kk-news-search` `kk-report-search` `kk-hithink-futures` |
+| **数据源（唯一官方入口）** | `tushare-data`（Tushare 官方适配包；分析技能禁止直接 import tushare，须通过 `kk-common` 的 `FinanceDataGateway` 或 `TushareClient` 访问） |
+| **数据查询** | `kk-common`（金融数据网关 + iWencai/Tushare 统一客户端）`kk-zhishu-query` `kk-business-query` `kk-event-query` `kk-macro-query` `kk-announcement-search` `kk-news-search` `kk-report-search` `kk-hithink-futures` |
 | **个股分析** | `kk-stock-analysis`（十五维一体）`kk-financial-statement`（三表深度解读）`kk-valuation-model`（DCF/DDM/SOTP）`kk-cb-analysis`（可转债）`kk-etf-analysis` |
 | **量化研究** | `kk-factor-research`（因子研究）`kk-strategy-research`（策略回测）`backtrader-strategies`（策略适配器库）`kk-selection-strategies` `a-stock-screener`（对话式选股） |
 | **衍生品** | `kk-futures-analysis`（股指期货）`kk-options-payoff`（盈亏分析）`kk-options-volatility`（波动率） |
