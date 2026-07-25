@@ -59,7 +59,7 @@ if _project_root not in sys.path:
 # ── 数据库 ──────────────────────────────────────────────────────────────────
 from dotenv import load_dotenv
 load_dotenv(os.path.join(_project_root, '.env'))
-import tushare as ts
+from kk_common import get_finance_data_gateway
 
 # ── 缠论模块 ────────────────────────────────────────────────────────────────
 from chan_theory_v2.models.simple_backchi import SimpleBackchiAnalyzer
@@ -103,8 +103,7 @@ class TushareChanDataFetcher:
         token = os.environ.get('TUSHARE_TOKEN', '')
         if not token:
             raise ValueError('TUSHARE_TOKEN 环境变量未设置')
-        ts.set_token(token)
-        self.pro = ts.pro_api()
+        self.pro = get_finance_data_gateway()
         self._stock_basic_cache = None
 
     def _get_stock_basic(self) -> pd.DataFrame:
@@ -176,7 +175,7 @@ class TushareChanDataFetcher:
             start_date = end_date - timedelta(days=lookback_days)
 
             if freq == 'daily':
-                df = ts.pro_bar(
+                df = get_finance_data_gateway().pro_bar(
                     ts_code=symbol, asset='E',
                     start_date=start_date.strftime('%Y%m%d'),
                     end_date=end_date.strftime('%Y%m%d'),
@@ -202,7 +201,7 @@ class TushareChanDataFetcher:
                     except Exception:
                         continue
             else:
-                df = ts.pro_bar(
+                df = get_finance_data_gateway().pro_bar(
                     ts_code=symbol, asset='E',
                     start_date=start_date.strftime('%Y%m%d'),
                     end_date=end_date.strftime('%Y%m%d'),

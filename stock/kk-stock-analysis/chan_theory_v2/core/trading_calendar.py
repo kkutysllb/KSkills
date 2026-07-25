@@ -19,7 +19,7 @@ try:
     _script_dir = os.path.dirname(os.path.abspath(__file__))
     _project_root = os.path.dirname(os.path.dirname(_script_dir))
     load_dotenv(os.path.join(_project_root, '.env'))
-    import tushare as ts
+    from kk_common import get_finance_data_gateway
     _TS_AVAILABLE = True
 except ImportError:
     _TS_AVAILABLE = False
@@ -29,16 +29,12 @@ _pro = None
 
 
 def _get_pro_api():
-    """获取 Tushare Pro API 实例"""
+    """获取（缓存的）金融数据网关实例。"""
     global _pro
     if _pro is None:
         if not _TS_AVAILABLE:
-            raise RuntimeError("tushare 未安装")
-        token = os.environ.get('TUSHARE_TOKEN', '')
-        if not token:
-            raise ValueError('TUSHARE_TOKEN 环境变量未设置')
-        ts.set_token(token)
-        _pro = ts.pro_api()
+            raise RuntimeError("kk_common 未安装，请 pip install -e kk-common/")
+        _pro = get_finance_data_gateway()
     return _pro
 
 

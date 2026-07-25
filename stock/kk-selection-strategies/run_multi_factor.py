@@ -73,9 +73,8 @@ class TushareDataFetcher:
         token = os.environ.get("TUSHARE_TOKEN", "")
         if not token:
             raise RuntimeError("缺少环境变量 TUSHARE_TOKEN")
-        import tushare as ts
-        ts.set_token(token)
-        self.pro = ts.pro_api()
+        from kk_common import get_finance_data_gateway
+        self.pro = get_finance_data_gateway()
 
     def get_trade_date(self, date_str=None):
         """获取最近交易日"""

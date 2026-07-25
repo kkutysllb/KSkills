@@ -50,7 +50,7 @@ if _project_root not in sys.path:
 # ── Tushare API ──────────────────────────────────────────────────────────────
 from dotenv import load_dotenv
 load_dotenv(os.path.join(_project_root, '.env'))
-import tushare as ts
+from kk_common import get_finance_data_gateway
 import pandas as pd
 
 # ── 缠论模块 ────────────────────────────────────────────────────────────────
@@ -70,17 +70,14 @@ logger = logging.getLogger(__name__)
 #  数据获取层
 # ═══════════════════════════════════════════════════════════════════════════
 
-# Tushare pro API handle (initialized lazily)
+# 金融数据网关实例（延迟初始化，走 kk_common，不直接 import tushare）
 _pro_api = None
 
 def _get_pro_api():
-    """Get a cached Tushare pro_api instance."""
+    """获取（缓存的）金融数据网关实例。"""
     global _pro_api
     if _pro_api is None:
-        token = os.environ.get('TUSHARE_TOKEN', '')
-        if token:
-            ts.set_token(token)
-        _pro_api = ts.pro_api()
+        _pro_api = get_finance_data_gateway()
     return _pro_api
 
 
@@ -94,7 +91,7 @@ def _fetch_kline_data(ts_code, asset, start_date, end_date, freq):
     """
     # Try pro_bar first
     try:
-        df = ts.pro_bar(
+        df = get_finance_data_gateway().pro_bar(
             ts_code=ts_code, asset=asset,
             start_date=start_date, end_date=end_date, freq=freq
         )
@@ -169,8 +166,7 @@ class ChanDataFetcher:
         token = os.environ.get('TUSHARE_TOKEN', '')
         if not token:
             raise ValueError('TUSHARE_TOKEN 环境变量未设置')
-        ts.set_token(token)
-        self.pro = ts.pro_api()
+        self.pro = get_finance_data_gateway()
         self._stock_basic_cache = None
 
     def _get_stock_basic(self) -> pd.DataFrame:

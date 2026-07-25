@@ -228,11 +228,11 @@ class HarmonicPatternEngine:
 def _fetch_stock_data(stock_code: str, period: str = "daily", limit: int = 300) -> pd.DataFrame:
     """从 Tushare 获取股票 K 线数据。"""
     try:
-        import tushare as ts
+        from kk_common import get_finance_data_gateway
         token = os.environ.get("TUSHARE_TOKEN", "")
         if not token:
             raise ValueError("TUSHARE_TOKEN 环境变量未设置")
-        pro = ts.pro_api(token)
+        pro = get_finance_data_gateway()
 
         if '.' not in stock_code:
             stock_code = _resolve_stock_code(stock_code, pro)

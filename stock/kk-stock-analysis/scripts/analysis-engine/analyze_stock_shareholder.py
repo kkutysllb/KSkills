@@ -88,11 +88,10 @@ class TushareShareholderFetcher:
     def __init__(self):
         self.pro = None
         try:
-            import tushare as ts
+            from kk_common import get_finance_data_gateway
             token = os.getenv("TUSHARE_TOKEN")
             if token:
-                ts.set_token(token)
-                self.pro = ts.pro_api()
+                self.pro = get_finance_data_gateway()
         except ImportError:
             pass
 

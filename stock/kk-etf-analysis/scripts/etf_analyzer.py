@@ -29,9 +29,8 @@ if not TOKEN:
     print(json.dumps({"error": "TUSHARE_TOKEN 环境变量未设置"}))
     sys.exit(1)
 
-import tushare as ts
-ts.set_token(TOKEN)
-pro = ts.pro_api()
+from kk_common import get_finance_data_gateway
+pro = get_finance_data_gateway()
 
 # ──────────────────────────────────────────────
 # ETF 分类常量

@@ -986,6 +986,38 @@ class TushareClient:
             logger.error(f"获取行业板块失败: {e}")
             return pd.DataFrame()
 
+    def pro_bar(self, ts_code: Optional[str] = None, asset: str = 'E',
+                start_date: Optional[str] = None, end_date: Optional[str] = None,
+                freq: str = 'D', adj: Optional[str] = None, **kwargs: Any) -> pd.DataFrame:
+        """
+        获取股票/指数/基金/期货的复权行情（Tushare 顶层便捷函数 pro_bar）。
+
+        与 ``pro.daily`` 不同，``pro_bar`` 支持前复权(qfq)/后复权(hfq)，
+        是缠论、技术分析等需要连续复权序列场景的标准入口。
+
+        Args:
+            ts_code: 标的代码
+            asset: 资产类别 E=股票 I=指数 FD=基金 FT=期货
+            start_date: 起始日期 YYYYMMDD
+            end_date: 结束日期 YYYYMMDD
+            freq: 频率 D=日 W=周 M=月
+            adj: 复权类型 None=不复权 qfq=前复权 hfq=后复权
+
+        Returns:
+            复权行情 DataFrame
+        """
+        _rate_limit()
+        try:
+            df = ts.pro_bar(
+                ts_code=ts_code, asset=asset,
+                start_date=start_date, end_date=end_date,
+                freq=freq, adj=adj, **kwargs,
+            )
+            return _to_dataframe(df)
+        except Exception as e:
+            logger.error(f"获取 pro_bar 行情失败: {e}")
+            return pd.DataFrame()
+
 
 # 全局客户端实例
 _tushare_client: Optional['TushareClient'] = None

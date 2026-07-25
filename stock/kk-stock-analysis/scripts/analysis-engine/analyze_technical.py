@@ -666,8 +666,8 @@ def main():
         token = os.getenv('TUSHARE_TOKEN')
         if not token:
             raise ValueError('未找到 TUSHARE_TOKEN')
-        import tushare as _ts
-        _pro = _ts.pro_api(token)
+        from kk_common import get_finance_data_gateway
+        _pro = get_finance_data_gateway()
 
         stock_input = stock_input.strip()
         if _re.match(r'^\d{6}\.(SH|SZ)$', stock_input, _re.IGNORECASE):

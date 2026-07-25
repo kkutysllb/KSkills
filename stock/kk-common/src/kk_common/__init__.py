@@ -1,7 +1,7 @@
 """
 kk-common — kk_Skills 公共库
 
-提供所有技能包共享的三大核心模块：
+提供所有技能包共享的四大核心模块：
 
 1. **iwencai_client** — 同花顺问财 OpenAPI 统一客户端
    - API 密钥管理、请求头构造、查询执行、响应解析
@@ -11,7 +11,11 @@ kk-common — kk_Skills 公共库
    - 股票/期货/ETF/基金/宏观经济全量接口封装
    - 自动限速、环境变量密钥管理
 
-3. **formatters** — 金融分析格式化工具集
+3. **finance_data_gateway** — 金融数据网关（分析技能首选入口）
+   - 方法名与 Tushare 官方接口一致，实现可替换
+   - 分析技能必须通过本网关访问 Tushare，禁止直接 import tushare
+
+4. **formatters** — 金融分析格式化工具集
    - 百分比、进度条、信号标记、趋势图标、评分条
    - Markdown 表格生成、技术指标格式化
 """
@@ -24,6 +28,12 @@ from kk_common.iwencai_client import (
 )
 
 from kk_common.tushare_client import TushareClient, get_tushare_client, reset_tushare_client
+from kk_common.finance_data_gateway import (
+    FinanceDataGateway,
+    TushareDataAdapter,
+    get_finance_data_gateway,
+    reset_finance_data_gateway,
+)
 
 from kk_common.formatters import (
     pct,
@@ -53,6 +63,11 @@ __all__ = [
     "TushareClient",
     "get_tushare_client",
     "reset_tushare_client",
+    # finance_data_gateway
+    "FinanceDataGateway",
+    "TushareDataAdapter",
+    "get_finance_data_gateway",
+    "reset_finance_data_gateway",
     # formatters
     "pct",
     "bar",

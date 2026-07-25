@@ -37,7 +37,7 @@ except ImportError:
     sys.exit(1)
 
 try:
-    import tushare as ts
+    from kk_common import get_finance_data_gateway
 except ImportError:
     ts = None
 
@@ -53,8 +53,7 @@ class ValuationDataFetcher:
         self.pro = None
         token = os.getenv("TUSHARE_TOKEN")
         if ts and token:
-            ts.set_token(token)
-            self.pro = ts.pro_api()
+            self.pro = get_finance_data_gateway()
 
     @staticmethod
     def normalize_stock(stock: str) -> str:

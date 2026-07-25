@@ -30,7 +30,7 @@ except ImportError:
 
 # Tushare API 数据获取
 try:
-    import tushare as ts
+    from kk_common import get_finance_data_gateway
     _TUSHARE_AVAILABLE = True
 except ImportError:
     _TUSHARE_AVAILABLE = False
@@ -102,8 +102,7 @@ class SimpleBackchiStockSelector:
         token = os.environ.get('TUSHARE_TOKEN', '')
         if not token:
             raise ValueError('TUSHARE_TOKEN 环境变量未设置')
-        ts.set_token(token)
-        self.pro = ts.pro_api()
+        self.pro = get_finance_data_gateway()
         self._stock_basic_cache = None
         self.use_signal_scorer = use_signal_scorer
         
@@ -713,7 +712,7 @@ class SimpleBackchiStockSelector:
             else:
                 freq = 'daily'
             
-            df = ts.pro_bar(
+            df = get_finance_data_gateway().pro_bar(
                 ts_code=symbol, asset='E',
                 start_date=start_date.strftime('%Y%m%d'),
                 end_date=end_date.strftime('%Y%m%d'),

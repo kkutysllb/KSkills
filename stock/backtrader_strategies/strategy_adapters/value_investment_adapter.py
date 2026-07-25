@@ -28,7 +28,7 @@ if backend_root not in sys.path:
 
 # Tushare API 数据获取
 try:
-    import tushare as ts
+    from kk_common import get_finance_data_gateway
     _TUSHARE_AVAILABLE = True
 except ImportError:
     _TUSHARE_AVAILABLE = False
@@ -50,8 +50,7 @@ class ValueInvestmentAdapter:
         token = os.environ.get('TUSHARE_TOKEN', '')
         if not token:
             raise ValueError('TUSHARE_TOKEN 环境变量未设置')
-        ts.set_token(token)
-        self.pro = ts.pro_api()
+        self.pro = get_finance_data_gateway()
         self._stock_basic_cache = None
         
         # 策略参数 - 巴菲特式严格选股标准

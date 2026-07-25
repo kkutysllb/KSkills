@@ -18,21 +18,12 @@ from typing import Dict, List, Optional, Any
 
 import pandas as pd
 
-# Tushare 初始化
-_token = os.environ.get('TUSHARE_TOKEN', '')
-if _token:
-    try:
-        import tushare as ts
-        ts.set_token(_token)
-        pro = ts.pro_api()
-    except Exception:
-        pro = None
-else:
-    try:
-        import tushare as ts
-        pro = ts.pro_api()
-    except Exception:
-        pro = None
+# 金融数据网关初始化（走 kk_common，不直接 import tushare）
+try:
+    from kk_common import get_finance_data_gateway
+    pro = get_finance_data_gateway()
+except Exception:
+    pro = None
 
 
 # 品种代码映射: 简称 → Tushare 合约前缀

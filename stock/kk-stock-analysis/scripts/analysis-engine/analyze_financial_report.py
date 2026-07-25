@@ -759,8 +759,8 @@ def main():
     if not token:
         print("\n[错误] 未找到 TUSHARE_TOKEN，请在 .env 中配置")
         sys.exit(1)
-    import tushare as _ts
-    _pro = _ts.pro_api(token)
+    from kk_common import get_finance_data_gateway
+    _pro = get_finance_data_gateway()
 
     # 股票解析（通过 Tushare API，支持名称/代码/标准代码）
     print(f"\n正在查询股票信息: {stock_input!r} ...")

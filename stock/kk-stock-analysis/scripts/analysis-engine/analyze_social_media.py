@@ -36,7 +36,7 @@ except ImportError:
     sys.exit(1)
 
 try:
-    import tushare as ts
+    from kk_common import get_finance_data_gateway
 except ImportError:
     ts = None
 
@@ -118,8 +118,7 @@ class SocialMediaSentimentEngine:
         """初始化 Tushare Pro"""
         token = os.getenv("TUSHARE_TOKEN")
         if ts and token:
-            ts.set_token(token)
-            self.tushare_pro = ts.pro_api()
+            self.tushare_pro = get_finance_data_gateway()
 
     # ----------------------------------------------------------
     # 数据采集
