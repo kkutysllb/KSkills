@@ -1,6 +1,6 @@
 ---
-id: todo
 name: Todo
+description: "Track the active thread's step-by-step todo list and mark progress as work proceeds."
 ---
 # Todo Skill
 

@@ -1,6 +1,6 @@
 ---
-id: tdd
 name: Test-Driven Development
+description: "Write a failing test first, then implement until it passes, then refactor."
 ---
 # TDD Skill
 

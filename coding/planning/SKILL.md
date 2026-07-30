@@ -1,6 +1,6 @@
 ---
-id: planning
 name: Planning
+description: "Draft and refine implementation plans; gate coding work behind an approved plan."
 ---
 # Planning Skill
 

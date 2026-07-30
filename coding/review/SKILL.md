@@ -1,6 +1,6 @@
 ---
-id: review
 name: Code Review
+description: "Review uncommitted or branch changes and report findings by severity with file:line references."
 ---
 # Code Review Skill
 

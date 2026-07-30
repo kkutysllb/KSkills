@@ -1,6 +1,6 @@
 ---
-id: git-worktrees
 name: Git Worktrees
+description: "Isolate parallel work in git worktrees so branches don't clobber each other's working state."
 ---
 # Git Worktrees Skill
 

@@ -1,6 +1,6 @@
 ---
-id: debugging
 name: Systematic Debugging
+description: "Reproduce, isolate, hypothesize, and verify a fix for a bug — never guess."
 ---
 # Systematic Debugging Skill
 
