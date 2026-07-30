@@ -1,31 +1,15 @@
 ---
-name: security-review
-description: >-
-  Use this skill for security-focused review of code, PRs, architecture,
-  authentication, authorization, secrets, input handling, dependencies, and
-  deployment configuration.
-
-package:
-  type: knowledge-only
+id: security-review
+name: Security Review
 ---
-
 # Security Review Skill
 
-## Purpose
+Read-only security audit. Check each area:
 
-Identify security risks before code is shipped.
+- **Injection** — SQL/OS-command/template injection; unescaped output; path traversal.
+- **Auth & Authz** — missing checks, privilege escalation, insecure tokens/sessions.
+- **Secrets** — hardcoded keys, secrets in logs/URLs, committed `.env`.
+- **Dependencies** — known-vulnerable versions, typosquatted packages.
+- **Least privilege** — overly broad file/network/exec permissions, `danger-full-access` where read would do.
 
-## Workflow
-
-1. Locate trust boundaries and privileged operations.
-2. Review authentication, authorization, and data access paths.
-3. Check input parsing, file access, URL fetching, command execution, and SQL.
-4. Inspect secrets, logs, dependency changes, and deployment config.
-5. Produce findings with severity and concrete remediation.
-
-## Review Checklist
-
-- Findings cite specific files or decisions.
-- Risk is prioritized by exploitability and impact.
-- Automatic fixes are limited to deterministic safe changes.
-- Sensitive details are not included in user-facing output.
+Report each finding with severity (critical/high/medium/low), `file:line`, evidence, and a concrete remediation. Read-only — do not fix; recommend.

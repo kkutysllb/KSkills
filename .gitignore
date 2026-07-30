@@ -95,3 +95,7 @@ secrets.json
 # ===== Agent scratch / tool artifacts =====
 .scratch/
 .tool-results/
+
+# ===== Agent plan caches (local-only, not for GitHub) =====
+.zcode/
+.qiongqisdd/
