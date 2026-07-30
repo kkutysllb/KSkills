@@ -1,5 +1,5 @@
 ---
-name: report-search
+name: kk-report-search
 description: 收录了主流投研机构发布的研究报告，帮你快速获取专业、深度的分析逻辑、投资评级、目标价等重要投研决策信息。
 version: 2.0.0
 author: kk-quant
@@ -10,6 +10,10 @@ category: finance
 package:
   type: python
   entry: scripts/__main__.py
+requires:
+  packages: ["numpy", "pandas", "requests"]
+  env: ["IWENCAI_API_KEY"]
+
 capabilities:
   - id: research-report-search
     description: "研究报告搜索：搜索主流投研机构发布的深度研究报告"

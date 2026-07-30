@@ -476,7 +476,9 @@ def analyze_stock_valuation(stock_input: str) -> dict:
         'pb': round(float(latest['pb']), 2) if latest.get('pb') and latest['pb'] > 0 else None,
         'ps': round(float(latest['ps']), 2) if latest.get('ps') and latest['ps'] > 0 else None,
         'ps_ttm': round(float(latest['ps_ttm']), 2) if latest.get('ps_ttm') and latest['ps_ttm'] > 0 else None,
-        'circ_mv': round(float(latest['circ_mv']) / 1e8, 2) if latest.get('circ_mv') else None,
+        # daily_basic.circ_mv unit is 万元 (10k yuan) per Tushare official
+        # doc. Convert to 亿元 by dividing 1e4 (NOT 1e8, which would be for 元).
+        'circ_mv': round(float(latest['circ_mv']) / 1e4, 2) if latest.get('circ_mv') else None,
     }
 
     def hist_percentile(series, metric_key):

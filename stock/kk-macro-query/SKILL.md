@@ -10,6 +10,10 @@ category: finance
 package:
   type: python
   entry: scripts/cli.py
+requires:
+  packages: []
+  env: ["IWENCAI_API_KEY"]
+
 capabilities:
   - id: gdp-query
     description: "GDP数据查询：国内生产总值及其增速"

@@ -49,6 +49,7 @@ permissions:
     - IWENCAI_API_KEY
 
 requires:
+  packages: ["pandas"]
   bins: ["python3"]
   env: ["TUSHARE_TOKEN"]
 

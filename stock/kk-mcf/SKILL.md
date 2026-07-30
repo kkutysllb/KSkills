@@ -10,6 +10,9 @@ category: finance
 package:
   type: python
   entry: scripts/validate_dcf.py
+requires:
+  packages: ["openpyxl"]
+
 capabilities:
   - id: dcf-modeling
     description: "DCF估值模型搭建：FCFF/FCFE现金流预测、自由现金流计算"

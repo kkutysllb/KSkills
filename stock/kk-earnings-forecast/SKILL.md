@@ -9,6 +9,9 @@ category: analysis
 
 package:
   type: knowledge-only
+requires:
+  packages: []
+
 capabilities:
   - id: top-down-forecast
     description: "自上而下预测法：从GDP→行业→公司→EPS的宏观驱动盈利预测"

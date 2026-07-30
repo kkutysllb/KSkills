@@ -12,10 +12,36 @@ import pandas as pd
 
 
 def yi(value: float) -> str:
-    """元 → 亿元（保留 1 位小数）。"""
+    """元 → 亿元（保留 1 位小数）。
+
+    Use this when the input is in **元** (yuan). For data already in 亿元
+    (e.g. Tushare moneyflow_hsgt.north_money), use yi_from_yi() instead.
+    """
     if value is None or pd.isna(value):
         return "-"
     return f"{float(value) / 1e8:.1f}亿"
+
+
+def yi_from_yi(value: float) -> str:
+    """数值本身已是亿元 → 直接渲染为 'N亿'（保留 1 位小数）。
+
+    Tushare 部分接口（moneyflow_hsgt 的 north_money/south_money/hgt/sgt/
+    ggt_ss/ggt_sz）直接返回亿元单位的数值，调用方不需要再除以 1e8。
+    """
+    if value is None or pd.isna(value):
+        return "-"
+    return f"{float(value):.1f}亿"
+
+
+def yi_from_wan(value: float) -> str:
+    """万元 → 亿元（保留 1 位小数）。
+
+    Tushare moneyflow / moneyflow_dc / daily_basic.total_mv / circ_mv 等
+    接口的金额字段返回的是万元单位，调用方需要 /1e4 转为亿元。
+    """
+    if value is None or pd.isna(value):
+        return "-"
+    return f"{float(value) / 1e4:.1f}亿"
 
 
 def wan(value: float) -> str:

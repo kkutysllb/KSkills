@@ -9,6 +9,9 @@ category: flow
 
 package:
   type: knowledge-only
+requires:
+  packages: []
+
 capabilities:
   - id: three-statement-analysis
     description: "三大报表核心框架：利润表关键比率、资产/负债端重点、现金流质量矩阵"

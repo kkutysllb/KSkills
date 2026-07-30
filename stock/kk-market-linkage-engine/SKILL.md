@@ -65,6 +65,7 @@ metadata:
       - 龙虎榜
 
 requires:
+  packages: ["pandas"]
   bins: ["python3"]
   env: ["TUSHARE_TOKEN"]
 ---

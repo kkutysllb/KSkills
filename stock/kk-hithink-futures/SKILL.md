@@ -30,6 +30,7 @@ permissions:
     - IWENCAI_API_KEY
 
 requires:
+  packages: []
   bins: ["python3"]
   env: ["IWENCAI_API_KEY"]
 

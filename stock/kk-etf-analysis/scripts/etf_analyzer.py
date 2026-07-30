@@ -168,7 +168,8 @@ class ETFAnalyzer:
                     r["trade_date"] = f"{d[:4]}-{d[4:6]}-{d[6:]}"
                 except: pass
             if "fd_share" in r and r["fd_share"] is not None:
-                r["fd_share_yi"] = round(r["fd_share"] / 1e8, 4)
+                # fd_share unit is 万份 → convert to 亿份 by /1e4
+                r["fd_share_yi"] = round(r["fd_share"] / 1e4, 4)
         if len(records) >= 2:
             records.reverse()
             for i in range(1, len(records)):
@@ -176,7 +177,8 @@ class ETFAnalyzer:
                 curr = records[i].get("fd_share", 0) or 0
                 if prev and prev != 0:
                     records[i]["share_change_pct"] = round((curr - prev) / prev * 100, 4)
-                    records[i]["share_change_abs"] = round((curr - prev) / 1e8, 4)
+                    # fd_share diff is in 万份 → convert to 亿份 by /1e4
+                    records[i]["share_change_abs"] = round((curr - prev) / 1e4, 4)
             records.reverse()
         return {"data": records, "count": len(records)}
 
@@ -192,11 +194,14 @@ class ETFAnalyzer:
             return {"error": str(e)}
         if df is None or df.empty:
             return {"error": f"无行情数据: {ts_code}"}
+        # Unit contracts (verified against Tushare official docs + ground truth):
+        #   fund_daily.amount         → 千元  (convert to 亿元: / 1e5)
+        #   fund_share.fd_share       → 万份  (convert to 亿份: / 1e4)
         avg_amount = df["amount"].mean()
         latest = df.sort_values("trade_date", ascending=False).iloc[0]
         share_latest = None
         if df_share is not None and not df_share.empty:
-            share_latest = round(df_share.iloc[0].get("fd_share", 0) / 1e8, 4)
+            share_latest = round(df_share.iloc[0].get("fd_share", 0) / 1e4, 4)
         nav_latest = {}
         scale_est = None
         if nav_df is not None and not nav_df.empty:
@@ -204,14 +209,15 @@ class ETFAnalyzer:
         price = latest["close"]
         nav_val = nav_latest.get("unit_nav", price) if nav_latest else price
         if nav_val and nav_val > 0 and share_latest:
+            # scale_est: 净值(元) × 亿份 = 亿元
             scale_est = round(nav_val * share_latest, 2)
         return {
             "ts_code": ts_code,
             "trade_date": str(latest["trade_date"]),
             "latest_price": latest["close"],
             "pct_chg": latest["pct_chg"],
-            "amount_yi": round(latest["amount"] / 1e8, 4),
-            "avg_daily_amount_30d_yi": round(avg_amount / 1e8, 4),
+            "amount_yi": round(latest["amount"] / 1e5, 4),
+            "avg_daily_amount_30d_yi": round(avg_amount / 1e5, 4),
             "latest_share_yi": share_latest,
             "estimated_scale_yi": scale_est,
             "unit_nav": nav_latest.get("unit_nav") if nav_latest else None,
@@ -241,7 +247,8 @@ class ETFAnalyzer:
                     ret_60d = round((df_60.iloc[-1]["close"] / df_60.iloc[0]["close"] - 1) * 100, 2)
                 share_latest = None
                 if share_df is not None and not share_df.empty:
-                    share_latest = round(share_df.iloc[0].get("fd_share", 0) / 1e8, 4)
+                    # fd_share unit is 万份 → 亿份: /1e4
+                    share_latest = round(share_df.iloc[0].get("fd_share", 0) / 1e4, 4)
                 results.append({
                     "ts_code": code,
                     "name": f.get("name", code),
@@ -249,7 +256,7 @@ class ETFAnalyzer:
                     "track_benchmark": f.get("benchmark", ""),
                     "price": d.get("close"),
                     "pct_chg": d.get("pct_chg"),
-                    "amount_yi": round(d.get("amount", 0) / 1e8, 4),
+                    "amount_yi": round(d.get("amount", 0) / 1e5, 4),
                     "vol": d.get("vol"),
                     "pre_close": d.get("pre_close"),
                     "unit_nav": nav_latest.get("unit_nav"),
@@ -285,7 +292,8 @@ class ETFAnalyzer:
                 if daily is None or daily.empty: continue
                 d = daily.iloc[0]
                 pct_chg = d["pct_chg"]
-                amount_yi = d["amount"] / 1e8 if d["amount"] else 0
+                # fund_daily.amount is in 千元 → divide by 1e5 to get 亿元
+                amount_yi = d["amount"] / 1e5 if d["amount"] else 0
                 scale_est = amount_yi * 10
                 if min_pct_chg is not None and pct_chg < min_pct_chg: continue
                 if max_pct_chg is not None and pct_chg > max_pct_chg: continue
@@ -329,7 +337,7 @@ class ETFAnalyzer:
                         "track_benchmark": str(e.get("benchmark",""))[:60],
                         "price": d.get("close"),
                         "pct_chg": d.get("pct_chg"),
-                        "amount_yi": round(d.get("amount",0)/1e8,4) if d.get("amount") else None,
+                        "amount_yi": round(d.get("amount",0)/1e5,4) if d.get("amount") else None,
                         "management": e.get("management",""),
                     })
                 except: pass
@@ -400,7 +408,7 @@ class ETFAnalyzer:
                         "ts_code": etf["ts_code"], "name": etf["name"],
                         "track_benchmark": str(etf.get("benchmark",""))[:50],
                         "price": d.get("close"), "pct_chg": d.get("pct_chg"),
-                        "amount_yi": round(d.get("amount",0)/1e8,4) if d.get("amount") else None,
+                        "amount_yi": round(d.get("amount",0)/1e5,4) if d.get("amount") else None,
                         "m_fee": etf.get("m_fee",""),
                     })
                 except: pass

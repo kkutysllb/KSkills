@@ -17,7 +17,7 @@ from typing import Dict, Any, Optional
 import pandas as pd
 
 from .base import BaseAnalyzer
-from ..utils import yi, pct_str, signal_cn, md_table, safe_div
+from ..utils import yi_from_wan, pct_str, signal_cn, md_table, safe_div
 from ..config import (
     MAIN_CAPITAL_TOP_SECTORS,
     MAIN_CAPITAL_TOP_STOCKS,
@@ -125,9 +125,11 @@ class MainCapitalAnalyzer(BaseAnalyzer):
             score = 50; res["bias"] = "neutral"
             res["signals"].append("⚪ 主力资金净额接近平衡")
 
+        # total_net is in 万元 (from moneyflow_dc.net_amount sum).
+        # Use yi_from_wan() which divides by 1e4 to convert 万 → 亿.
         res["score"] = score
         res["summary"] = (
-            f"主力资金净{('流入' if total_net > 0 else '流出')} {yi(total_net)}，"
+            f"主力资金净{('流入' if total_net > 0 else '流出')} {yi_from_wan(total_net)}，"
             f"信号 {signal_cn(total_net)}（评分 {score}）"
         )
         res["detail"] = detail
@@ -139,27 +141,29 @@ class MainCapitalAnalyzer(BaseAnalyzer):
         lines.append(f"**综合评分：** {result['score']}/100  | **偏向：** {result['bias']}")
         lines.append(f"**结论：** {result['summary']}")
         lines.append("")
+        # All moneyflow / moneyflow_dc amount fields are in 万元;
+        # use yi_from_wan() to render as 亿元.
         if "total_net" in d:
             lines.append(
-                f"- 全市场主力净额：**{yi(d['total_net'])}** "
+                f"- 全市场主力净额：**{yi_from_wan(d['total_net'])}** "
                 f"（净流入 {d.get('in_count','-')} 只 / 净流出 {d.get('out_count','-')} 只）"
             )
         if d.get("top_sectors_in"):
             lines.append("\n**流入板块 TOP：**")
             df = pd.DataFrame(d["top_sectors_in"]).head(MAIN_CAPITAL_TOP_SECTORS)
-            lines.append(md_table(df, formatters={df.columns[-1]: yi}))
+            lines.append(md_table(df, formatters={df.columns[-1]: yi_from_wan}))
         if d.get("top_sectors_out"):
             lines.append("\n**流出板块 TOP：**")
             df = pd.DataFrame(d["top_sectors_out"]).head(MAIN_CAPITAL_TOP_SECTORS)
-            lines.append(md_table(df, formatters={df.columns[-1]: yi}))
+            lines.append(md_table(df, formatters={df.columns[-1]: yi_from_wan}))
         if d.get("top_in"):
             lines.append(f"\n**主力净流入个股 TOP {MAIN_CAPITAL_TOP_STOCKS}：**")
             df = pd.DataFrame(d["top_in"]).head(MAIN_CAPITAL_TOP_STOCKS)
-            lines.append(md_table(df, formatters={df.columns[-1]: yi}))
+            lines.append(md_table(df, formatters={df.columns[-1]: yi_from_wan}))
         if d.get("top_out"):
             lines.append(f"\n**主力净流出个股 TOP {MAIN_CAPITAL_TOP_STOCKS}：**")
             df = pd.DataFrame(d["top_out"]).head(MAIN_CAPITAL_TOP_STOCKS)
-            lines.append(md_table(df, formatters={df.columns[-1]: yi}))
+            lines.append(md_table(df, formatters={df.columns[-1]: yi_from_wan}))
         if result["signals"]:
             lines.append("\n**信号：**")
             for s in result["signals"]:

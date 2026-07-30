@@ -33,7 +33,7 @@ capabilities:
     description: "经营数据穿透：主营业务构成、客户/供应商、参控股公司、重大合同"
   - id: stock-selection
     description: "10大智能选股策略：价值投资/高股息/成长股/动量突破/技术突破/超跌反弹/涨停龙头/资金追踪/缠论背驰/多因子横截面"
-  - id: news-search
+  - id: kk-news-search
     description: "财经资讯搜索：覆盖官媒/财经媒体/行业网站的实时新闻搜索"
   - id: chan-theory-analysis
     description: "缠论分析：分型识别、笔构建、线段构建、中枢识别、MACD背驰、三类买卖点、多级别联立"
@@ -67,6 +67,7 @@ permissions:
     - IWENCAI_API_KEY
 
 requires:
+  packages: ["matplotlib", "numpy", "pandas", "python-dotenv", "scipy"]
   bins: ["python3"]
   env: ["TUSHARE_TOKEN", "IWENCAI_API_KEY"]
 

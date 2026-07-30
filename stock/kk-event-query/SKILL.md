@@ -10,6 +10,10 @@ category: finance
 package:
   type: python
   entry: scripts/cli.py
+requires:
+  packages: []
+  env: ["IWENCAI_API_KEY"]
+
 capabilities:
   - id: earnings-forecast-event
     description: "业绩预告查询：预增、预减、扭亏等"

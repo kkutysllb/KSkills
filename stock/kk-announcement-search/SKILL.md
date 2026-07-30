@@ -1,5 +1,5 @@
 ---
-name: announcement-search
+name: kk-announcement-search
 description: 支持A股、港股、基金、ETF等金融标的公告的查询，同时公告类型包括不限于定期财务报告、分红派息、回购增持、资产重组等等。
 version: 1.0.0
 author: kk-quant
@@ -11,7 +11,7 @@ package:
   type: python
   entry: scripts/__main__.py
 capabilities:
-  - id: announcement-search
+  - id: kk-announcement-search
     description: "金融公告搜索：A股/港股/基金/ETF公告查询，覆盖定期报告/分红派息/回购增持/资产重组等类型"
   - id: smart-query
     description: "智能查询处理：自动拆解复杂查询为多个简单查询，相关性排序"
@@ -26,6 +26,7 @@ permissions:
     - IWENCAI_API_KEY
 
 requires:
+  packages: ["requests"]
   bins: ["python3"]
   env: ["IWENCAI_API_KEY"]
 

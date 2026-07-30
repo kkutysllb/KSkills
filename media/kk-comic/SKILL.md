@@ -10,7 +10,7 @@ metadata:
     homepage: https://github.com/kkoclaw
     requires:
       skills:
-        - image-generation
+        - kk-image-generation
 ---
 
 # 知识漫画创作器 (Knowledge Comic Creator)
@@ -248,18 +248,18 @@ comic/{topic-slug}/
    - `prompt`：完整的英文生成提示词，包含场景、角色、风格、色调
    - `negative_prompt`：排除不希望出现的元素
    - `characters_detail`：从 `characters.md` 提取当前页面的角色描述
-   - `characters`：角色对象数组（供 image-generation 技能使用）
+   - `characters`：角色对象数组（供 kk-image-generation 技能使用）
 4. 保存到 `prompts/` 目录下，按 `NN-page.md` 命名
 
 ### Step 5：生成图像
 
-**目标**：使用 image-generation 技能逐页生成漫画图像。
+**目标**：使用 kk-image-generation 技能逐页生成漫画图像。
 
 **操作步骤**：
-1. 对每一页，调用 image-generation 技能：
+1. 对每一页，调用 kk-image-generation 技能：
 
 ```bash
-python /mnt/skills/public/image-generation/scripts/generate.py \
+python /mnt/skills/public/kk-image-generation/scripts/generate.py \
   --prompt-file /mnt/user-data/workspace/comic/{topic-slug}/prompts/03-page.md \
   --output-file /mnt/user-data/outputs/comic/{topic-slug}/03-page.png \
   --aspect-ratio 3:4
@@ -277,7 +277,7 @@ python /mnt/skills/public/image-generation/scripts/generate.py \
 for i in $(seq 0 12); do
   page_num=$(printf "%02d" $i)
   echo "🖼️  正在生成第 ${page_num} 页..."
-  python /mnt/skills/public/image-generation/scripts/generate.py \
+  python /mnt/skills/public/kk-image-generation/scripts/generate.py \
     --prompt-file /mnt/user-data/workspace/comic/{topic-slug}/prompts/${page_num}-page.json \
     --output-file /mnt/user-data/outputs/comic/{topic-slug}/${page_num}-page.png \
     --aspect-ratio 3:4

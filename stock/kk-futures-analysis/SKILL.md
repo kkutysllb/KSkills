@@ -30,6 +30,7 @@ permissions:
     - TUSHARE_TOKEN
 
 requires:
+  packages: ["pandas"]
   bins: ["python3"]
   env: ["TUSHARE_TOKEN"]
 

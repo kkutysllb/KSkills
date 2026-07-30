@@ -9,6 +9,9 @@ category: analysis
 
 package:
   type: knowledge-only
+requires:
+  packages: []
+
 capabilities:
   - id: absolute-valuation
     description: "绝对估值法：DCF现金流折现、DDM股息折现、SOTP分部估值"
