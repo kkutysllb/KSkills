@@ -1,4 +1,4 @@
-# kk-industry-analysis
+# industry-analysis
 
 A股行业六维一体深度分析引擎 — 跨平台技能包
 
@@ -39,7 +39,7 @@ python3 scripts/industry-query-cli.py --query "A股行业估值排名"
 ## 目录结构
 
 ```
-kk-industry-analysis/
+industry-analysis/
 ├── SKILL.md                          # 跨平台技能定义
 ├── README.md
 ├── LICENSE
@@ -75,7 +75,7 @@ kk-industry-analysis/
 chmod +x scripts/package.sh && scripts/package.sh
 ```
 
-输出：`dist/kk-industry-analysis.skill` + `dist/kk-industry-analysis-2.0.0.tar.gz`
+输出：`dist/industry-analysis.skill` + `dist/industry-analysis-2.0.0.tar.gz`
 
 ## 许可证
 

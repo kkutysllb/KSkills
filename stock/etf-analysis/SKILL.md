@@ -1,5 +1,5 @@
 ---
-name: kk-etf-analysis
+name: etf-analysis
 description: ETF全维度分析技能包——双引擎驱动（Tushare Pro 量化数据层 + 问财实时筛选层），支持13项ETF分析维度（列表/行情/净值/份额/规模/五类分类/跟踪指数/行业ETF/横向对比/持仓/经理/分红）和自然语言智能筛选，开箱即用的跨平台技能包。
 version: 1.0.0
 author: kk-quant
@@ -93,7 +93,7 @@ tags:
   - iwencai
 ---
 
-# kk-etf-analysis — ETF 全维度分析技能包
+# etf-analysis — ETF 全维度分析技能包
 
 ## 概述
 

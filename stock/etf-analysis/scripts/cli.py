@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-kk-etf-analysis CLI — ETF 全维度分析统一入口
+etf-analysis CLI — ETF 全维度分析统一入口
 
 支持两种引擎：
   tushare  — Tushare Pro ETF 分析（行情/净值/份额/规模/分类/指数/对比/持仓/经理/分红）
@@ -49,7 +49,7 @@ def run_selector(args):
 
 def show_help():
     help_text = """
-kk-etf-analysis — ETF 全维度分析技能包
+etf-analysis — ETF 全维度分析技能包
 ======================================
 
 引擎1: tushare — Tushare Pro ETF 分析（T+1 数据）

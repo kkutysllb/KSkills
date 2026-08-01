@@ -1,8 +1,8 @@
 #!/bin/sh
-# Install script for kk-etf-analysis
+# Install script for etf-analysis
 set -e
 
-echo "→ Installing kk-etf-analysis..."
+echo "→ Installing etf-analysis..."
 
 # Check Python
 if ! command -v python3 > /dev/null 2>&1; then
@@ -16,7 +16,7 @@ if [ -f requirements.txt ]; then
     echo "  → Python dependencies installed"
 fi
 
-echo "  ✓  kk-etf-analysis installed successfully."
+echo "  ✓  etf-analysis installed successfully."
 echo ""
 echo "  Environment variables needed:"
 echo "    See SKILL.md frontmatter for details."

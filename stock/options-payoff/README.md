@@ -1,4 +1,4 @@
-# kk-options-payoff
+# options-payoff
 
 期权盈亏分析引擎 — 跨平台技能包
 
@@ -52,7 +52,7 @@ python3 scripts/analysis-engine/analyze_option_payoff.py \
 ## 目录结构
 
 ```
-kk-options-payoff/
+options-payoff/
 ├── SKILL.md                              # 跨平台技能定义
 ├── README.md
 ├── LICENSE
@@ -82,7 +82,7 @@ kk-options-payoff/
 chmod +x scripts/package.sh && scripts/package.sh
 ```
 
-输出：`dist/kk-options-payoff.skill` + `dist/kk-options-payoff-1.0.0.tar.gz`
+输出：`dist/options-payoff.skill` + `dist/options-payoff-1.0.0.tar.gz`
 
 ## 许可证
 

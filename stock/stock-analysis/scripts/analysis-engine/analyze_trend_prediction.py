@@ -40,7 +40,7 @@ def main():
     if not os.path.exists(_MAIN_SCRIPT):
         print(json.dumps({
             "error": f"趋势预测主脚本不存在: {_MAIN_SCRIPT}",
-            "hint": "请确保 kk-stock-analysis 位于 kk_QuantFlows 项目目录内"
+            "hint": "请确保 stock-analysis 位于 kk_QuantFlows 项目目录内"
         }, ensure_ascii=False))
         sys.exit(1)
 

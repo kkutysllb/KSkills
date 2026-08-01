@@ -1,12 +1,12 @@
 #!/bin/sh
-# Uninstall script for kk-futures-analysis
+# Uninstall script for futures-analysis
 set -e
 
-echo "→ Uninstalling kk-futures-analysis..."
+echo "→ Uninstalling futures-analysis..."
 
 if [ -f package.json ]; then
     rm -rf node_modules 2>/dev/null || true
     echo "  → Removed node_modules"
 fi
 
-echo "  ✓  kk-futures-analysis uninstalled successfully."
+echo "  ✓  futures-analysis uninstalled successfully."

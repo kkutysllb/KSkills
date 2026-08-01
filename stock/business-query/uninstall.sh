@@ -1,12 +1,12 @@
 #!/bin/sh
-# Uninstall script for kk-business-query
+# Uninstall script for business-query
 set -e
 
-echo "→ Uninstalling kk-business-query..."
+echo "→ Uninstalling business-query..."
 
 if [ -f package.json ]; then
     rm -rf node_modules 2>/dev/null || true
     echo "  → Removed node_modules"
 fi
 
-echo "  ✓  kk-business-query uninstalled successfully."
+echo "  ✓  business-query uninstalled successfully."

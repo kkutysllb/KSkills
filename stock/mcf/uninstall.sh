@@ -1,12 +1,12 @@
 #!/bin/sh
-# Uninstall script for kk-mcf
+# Uninstall script for mcf
 set -e
 
-echo "→ Uninstalling kk-mcf..."
+echo "→ Uninstalling mcf..."
 
 if [ -f package.json ]; then
     rm -rf node_modules 2>/dev/null || true
     echo "  → Removed node_modules"
 fi
 
-echo "  ✓  kk-mcf uninstalled successfully."
+echo "  ✓  mcf uninstalled successfully."

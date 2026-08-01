@@ -1,5 +1,5 @@
 ---
-name: kk-financial-statement
+name: financial-statement
 description: 财务三大报表深度解读框架，涵盖三表勾稽关系、盈利质量（应计与现金流）分析、杜邦拆解，以及 10 余项财务造假红旗指标。
 version: 1.0.0
 author: kk-quant

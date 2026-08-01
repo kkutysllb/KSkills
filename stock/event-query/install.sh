@@ -1,8 +1,8 @@
 #!/bin/sh
-# Install script for kk-event-query
+# Install script for event-query
 set -e
 
-echo "→ Installing kk-event-query..."
+echo "→ Installing event-query..."
 
 # Check Python
 if ! command -v python3 > /dev/null 2>&1; then
@@ -16,7 +16,7 @@ if [ -f requirements.txt ]; then
     echo "  → Python dependencies installed"
 fi
 
-echo "  ✓  kk-event-query installed successfully."
+echo "  ✓  event-query installed successfully."
 echo ""
 echo "  Environment variables needed:"
 echo "    See SKILL.md frontmatter for details."

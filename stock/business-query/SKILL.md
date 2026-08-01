@@ -1,5 +1,5 @@
 ---
-name: kk-business-query
+name: business-query
 description: 查询主营业务构成、主要客户、供应商、参控股公司、股权投资、重大合同等经营相关数据，支持自然语言问句输入，返回相关经营数据结果。当用户询问主营业务构成、主要客户、供应商信息、参控股公司、股权投资、重大合同等经营数据查询问题时，必须使用此技能。
 version: 1.0.0
 author: kk-quant

@@ -5,7 +5,7 @@ description: |
   本 skill 解析意图 → 选择策略 → 拉取数据 → 套用过滤 → 多因子打分 → 输出选股报告。
   内置 10 种经典选股策略（价值/高股息/成长/动量/技术突破/超跌反弹/涨停龙头/机构资金追踪/
   缠论背驰/多因子横截面），工作流五阶段编排，支持无网络 mock 模式离线运行。
-  适用于 kk-stock-analysis / kk-factor-research / kk-selection-strategies / kk-data-fetch
+  适用于 stock-analysis / factor-research / selection-strategies / data-fetch
   等 skill 的上层"选股入口"场景。
 version: 1.0.0
 author: kk-quant
@@ -110,9 +110,9 @@ metadata:
 | "最近有哪些涨停龙头？" | ✅ 选股入口 |
 | "创业板里有没有低估的成长股？" | ✅ 选股入口 |
 | "用多因子帮我横截面选 20 只" | ✅ 选股入口 |
-| "分析一下 600519" | ❌ 走 kk-stock-analysis |
-| "这只股票的财务三表" | ❌ 走 kk-financial-statement |
-| "回测一下双均线策略" | ❌ 走 kk-strategy-research |
+| "分析一下 600519" | ❌ 走 stock-analysis |
+| "这只股票的财务三表" | ❌ 走 financial-statement |
+| "回测一下双均线策略" | ❌ 走 strategy-research |
 
 ## 快速开始
 
@@ -238,11 +238,11 @@ a-stock-screener/
 
 | Skill | 关系 |
 |---|---|
-| `kk-stock-analysis` | 下游：单只股票的深度分析（被选出来的 TopN 可送过去做深度分析） |
-| `kk-factor-research` | 下游：因子 IC/IR 验证、回测（验证本 skill 用的因子是否有效） |
-| `kk-strategy-research` | 下游：策略回测（验证本 skill 选股逻辑的实盘表现） |
-| `kk-data-fetch` | 数据源：拉取行情/财务原始数据 |
-| `kk-selection-strategies` | 互补：本 skill 提供"对话入口"，该 skill 提供更细的策略调参 |
+| `stock-analysis` | 下游：单只股票的深度分析（被选出来的 TopN 可送过去做深度分析） |
+| `factor-research` | 下游：因子 IC/IR 验证、回测（验证本 skill 用的因子是否有效） |
+| `strategy-research` | 下游：策略回测（验证本 skill 选股逻辑的实盘表现） |
+| `data-fetch` | 数据源：拉取行情/财务原始数据 |
+| `selection-strategies` | 互补：本 skill 提供"对话入口"，该 skill 提供更细的策略调参 |
 
 ## 设计原则
 

@@ -1,4 +1,4 @@
-# kk-etf-analysis
+# etf-analysis
 
 ETF 全维度分析 — 跨平台技能包（双引擎）
 
@@ -60,7 +60,7 @@ python3 scripts/cli.py selector --query "规模最大的ETF"
 ## 目录结构
 
 ```
-kk-etf-analysis/
+etf-analysis/
 ├── SKILL.md              # 跨平台技能定义
 ├── README.md
 ├── LICENSE
@@ -96,7 +96,7 @@ kk-etf-analysis/
 chmod +x scripts/package.sh && scripts/package.sh
 ```
 
-输出：`dist/kk-etf-analysis.skill` + `dist/kk-etf-analysis-1.0.0.tar.gz`
+输出：`dist/etf-analysis.skill` + `dist/etf-analysis-1.0.0.tar.gz`
 
 ## 许可证
 

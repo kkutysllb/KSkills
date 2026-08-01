@@ -1,6 +1,6 @@
 ---
 name: tushare-data
-description: Tushare 官方数据适配技能——A 股/指数/ETF/基金/期货/期权/财务/估值/资金流/宏观全量数据获取的唯一官方入口，分析类技能必须通过本技能或 kk-common.finance_data_gateway 间接调用，禁止直接 import tushare
+description: Tushare 官方数据适配技能——A 股/指数/ETF/基金/期货/期权/财务/估值/资金流/宏观全量数据获取的唯一官方入口，分析类技能必须通过本技能或 common.finance_data_gateway 间接调用，禁止直接 import tushare
 version: 1.1.16
 author: tushare.pro
 license: Official Tushare Skill terms
@@ -75,11 +75,11 @@ tags:
 
 1. **唯一允许直接 `import tushare` 的位置**：
    - 本技能 `scripts/`（官方示例）
-   - `kk-common/src/kk_common/tushare_client.py`（兼容客户端实现）
-2. **其余所有分析脚本**（`kk-stock-analysis`、`kk-futures-analysis`、`kk-etf-analysis`、`backtrader_strategies`、`kk-selection-strategies` 等）**禁止直接 `import tushare` 或调用 `ts.pro_api()`**，必须通过以下任一方式访问：
+   - `common/src/kk_common/tushare_client.py`（兼容客户端实现）
+2. **其余所有分析脚本**（`stock-analysis`、`futures-analysis`、`etf-analysis`、`backtrader_strategies`、`selection-strategies` 等）**禁止直接 `import tushare` 或调用 `ts.pro_api()`**，必须通过以下任一方式访问：
    - `from kk_common import get_finance_data_gateway; gw = get_finance_data_gateway(); df = gw.daily(ts_code='600519.SH')`
    - `from kk_common import get_tushare_client; client = get_tushare_client(); df = client.daily(ts_code='600519.SH')`
-3. `kk-common.finance_data_gateway` 是分析技能的**首选入口**：方法名与 Tushare 官方接口一致，实现可替换，便于单元测试注入 mock 与后续切换运行时。
+3. `common.finance_data_gateway` 是分析技能的**首选入口**：方法名与 Tushare 官方接口一致，实现可替换，便于单元测试注入 mock 与后续切换运行时。
 4. 缺少 token / 接口权限 / 积分时，返回结构化空 DataFrame，**禁止编造数据**。
 5. 完整分析报告统一交由 `common/analysis-report` 渲染，不在本技能内生成。
 

@@ -1,5 +1,5 @@
 """
-kk-common — kk_Skills 公共库
+common — kk_Skills 公共库
 
 提供所有技能包共享的四大核心模块：
 

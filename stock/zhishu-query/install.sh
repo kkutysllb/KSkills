@@ -1,8 +1,8 @@
 #!/bin/sh
-# Install script for kk-zhishu-query
+# Install script for zhishu-query
 set -e
 
-echo "→ Installing kk-zhishu-query..."
+echo "→ Installing zhishu-query..."
 
 # Check Python
 if ! command -v python3 > /dev/null 2>&1; then
@@ -16,7 +16,7 @@ if [ -f requirements.txt ]; then
     echo "  → Python dependencies installed"
 fi
 
-echo "  ✓  kk-zhishu-query installed successfully."
+echo "  ✓  zhishu-query installed successfully."
 echo ""
 echo "  Environment variables needed:"
 echo "    See SKILL.md frontmatter for details."

@@ -1,5 +1,5 @@
 ---
-name: kk-futures-analysis
+name: futures-analysis
 description: A股股指期货四维一体深度分析引擎——行情趋势（K线/均线/OI）+贴升水分析（基差/期限结构/市场情绪）+机构持仓（前20席位多空/中信风向标）+综合研判（100分评分/品种分化/策略建议），开箱即用的跨平台技能包。
 version: 1.0.0
 author: kk-quant

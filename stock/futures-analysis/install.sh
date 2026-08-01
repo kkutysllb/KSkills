@@ -1,8 +1,8 @@
 #!/bin/sh
-# Install script for kk-futures-analysis
+# Install script for futures-analysis
 set -e
 
-echo "→ Installing kk-futures-analysis..."
+echo "→ Installing futures-analysis..."
 
 # Check Python
 if ! command -v python3 > /dev/null 2>&1; then
@@ -16,7 +16,7 @@ if [ -f requirements.txt ]; then
     echo "  → Python dependencies installed"
 fi
 
-echo "  ✓  kk-futures-analysis installed successfully."
+echo "  ✓  futures-analysis installed successfully."
 echo ""
 echo "  Environment variables needed:"
 echo "    See SKILL.md frontmatter for details."

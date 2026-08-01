@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Tushare Pro API 公共客户端（kk-common 版）
+Tushare Pro API 公共客户端（common 版）
 为所有技能包提供统一 Tushare 数据访问层。
 
 用法:

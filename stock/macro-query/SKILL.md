@@ -1,5 +1,5 @@
 ---
-name: kk-macro-query
+name: macro-query
 description: 查询 GDP、CPI、PPI、利率、汇率、社融等宏观经济指标，支持自然语言问句输入，返回相关宏观经济数据结果。当用户询问宏观经济数据、GDP、CPI、PPI、利率、汇率、社融、M2、PMI、工业增加值、消费、投资、进出口等宏观经济指标查询问题时，必须使用此技能。
 version: 1.0.0
 author: kk-quant

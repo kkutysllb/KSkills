@@ -1,4 +1,4 @@
-# kk-market-linkage-engine
+# market-linkage-engine
 
 独立的、可复用的 **A 股市场联动分析引擎**，覆盖 8 大资金与情绪维度，输出结构化分析报告 + 一句话市场情绪总结。
 
@@ -19,7 +19,7 @@
 
 ```bash
 # 1. 先安装公共库
-pip install -e ../kk-common
+pip install -e ../common
 
 # 2. 安装本引擎
 pip install -e .

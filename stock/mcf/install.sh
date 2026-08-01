@@ -1,8 +1,8 @@
 #!/bin/sh
-# Install script for kk-mcf
+# Install script for mcf
 set -e
 
-echo "→ Installing kk-mcf..."
+echo "→ Installing mcf..."
 
 # Check Python
 if ! command -v python3 > /dev/null 2>&1; then
@@ -16,7 +16,7 @@ if [ -f requirements.txt ]; then
     echo "  → Python dependencies installed"
 fi
 
-echo "  ✓  kk-mcf installed successfully."
+echo "  ✓  mcf installed successfully."
 echo ""
 echo "  Environment variables needed:"
 echo "    See SKILL.md frontmatter for details."

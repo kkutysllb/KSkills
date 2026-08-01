@@ -1,5 +1,5 @@
 ---
-name: kk-market-linkage-engine
+name: market-linkage-engine
 description: |
   A 股市场联动分析引擎。独立、可复用的多维度资金与情绪联动分析工具，覆盖 8 大维度：
   主力资金流向、北向资金流向、两融趋势、股指期货基差、7 大期权 ETF 波动率、
@@ -70,15 +70,15 @@ requires:
   env: ["TUSHARE_TOKEN"]
 ---
 
-# kk-market-linkage-engine
+# market-linkage-engine
 
 A 股市场联动分析引擎 — 通过 8 大资金与情绪维度的交叉验证，判断市场整体方向与结构性强弱。
 
 ## ⚠️ 重要：无需安装任何依赖
 
-**本技能及其所有依赖（kk-common、tushare、pandas 等）已在运行环境中预装完毕。**
+**本技能及其所有依赖（common、tushare、pandas 等）已在运行环境中预装完毕。**
 **直接运行下方的命令即可，绝对禁止执行 pip install、npm install 或任何其他安装命令。**
-**不要尝试安装 kk-common 或任何其他依赖包——它们已经就绪。**
+**不要尝试安装 common 或任何其他依赖包——它们已经就绪。**
 
 ## 触发场景
 

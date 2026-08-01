@@ -1,12 +1,12 @@
 #!/bin/sh
-# Uninstall script for kk-industry-analysis
+# Uninstall script for industry-analysis
 set -e
 
-echo "→ Uninstalling kk-industry-analysis..."
+echo "→ Uninstalling industry-analysis..."
 
 if [ -f package.json ]; then
     rm -rf node_modules 2>/dev/null || true
     echo "  → Removed node_modules"
 fi
 
-echo "  ✓  kk-industry-analysis uninstalled successfully."
+echo "  ✓  industry-analysis uninstalled successfully."

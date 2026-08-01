@@ -1,5 +1,5 @@
 ---
-name: kk-earnings-revision
+name: earnings-revision
 description: 盈利预期修正、管理层指引分析与财报后漂移研究框架，用于跟踪分析师一致预期变化、业绩意外模式，以及管理层指引转向，适用于美股与港股。
 version: 1.0.0
 author: kk-quant

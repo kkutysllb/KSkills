@@ -1,4 +1,4 @@
-# kk-strategy-research
+# strategy-research
 
 量化策略研究公共技能包 — 策略设计/编码/回测/评估全链路。
 
@@ -38,7 +38,7 @@ python3 scripts/cli.py validate --file my_strategy.py
 ## 目录结构
 
 ```
-kk-strategy-research/
+strategy-research/
 ├── SKILL.md                              # 技能定义
 ├── scripts/
 │   ├── cli.py                            # 统一 CLI 入口

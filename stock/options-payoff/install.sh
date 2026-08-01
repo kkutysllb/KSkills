@@ -1,8 +1,8 @@
 #!/bin/sh
-# Install script for kk-options-payoff
+# Install script for options-payoff
 set -e
 
-echo "→ Installing kk-options-payoff..."
+echo "→ Installing options-payoff..."
 
 # Check Python
 if ! command -v python3 > /dev/null 2>&1; then
@@ -16,7 +16,7 @@ if [ -f requirements.txt ]; then
     echo "  → Python dependencies installed"
 fi
 
-echo "  ✓  kk-options-payoff installed successfully."
+echo "  ✓  options-payoff installed successfully."
 echo ""
 echo "  Environment variables needed:"
 echo "    See SKILL.md frontmatter for details."

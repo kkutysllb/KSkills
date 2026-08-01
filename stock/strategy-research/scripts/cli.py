@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-kk-strategy-research CLI — 量化策略研究统一入口
+strategy-research CLI — 量化策略研究统一入口
 
 支持模式:
   demo     — 用模拟数据运行策略演示回测
@@ -120,7 +120,7 @@ def cmd_list(args):
 
 def show_help():
     help_text = """
-kk-strategy-research — 量化策略研究技能包
+strategy-research — 量化策略研究技能包
 ==========================================
 
 模式1: demo — 策略演示回测（模拟数据）
@@ -147,7 +147,7 @@ def main():
         show_help()
         sys.exit(0)
 
-    parser = argparse.ArgumentParser(description="kk-strategy-research CLI")
+    parser = argparse.ArgumentParser(description="strategy-research CLI")
     sub = parser.add_subparsers(dest="mode")
 
     # demo 模式

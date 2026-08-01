@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-kk-cb-analysis CLI — 可转债分析统一入口
+cb-analysis CLI — 可转债分析统一入口
 
 三引擎架构：
   selector  — 智能筛选（问财自然语言查询）
@@ -90,7 +90,7 @@ def cmd_dashboard(args):
 def cmd_list(args):
     """列出所有可用模式"""
     output = {
-        "engine": "kk-cb-analysis",
+        "engine": "cb-analysis",
         "modes": {
             "select": {
                 "description": "智能筛选可转债（自然语言查询）",
@@ -113,7 +113,7 @@ def cmd_list(args):
 
 def show_help():
     help_text = """
-kk-cb-analysis — 可转债分析统一入口
+cb-analysis — 可转债分析统一入口
 ====================================
 
 引擎1: select — 智能筛选（问财自然语言查询）
@@ -155,7 +155,7 @@ def main():
         show_help()
         sys.exit(0)
 
-    parser = argparse.ArgumentParser(description="kk-cb-analysis CLI")
+    parser = argparse.ArgumentParser(description="cb-analysis CLI")
     sub = parser.add_subparsers(dest="engine")
 
     # select 引擎

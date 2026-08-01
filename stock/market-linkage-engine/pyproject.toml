@@ -3,7 +3,7 @@ requires = ["setuptools>=68.0", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "kk-market-linkage-engine"
+name = "market-linkage-engine"
 version = "1.0.0"
 description = "A 股市场联动分析引擎 — 8 大维度（主力/北向/两融/期指基差/期权ETF波动率/宽基ETF份额/Shibor/龙虎榜）"
 authors = [{name = "kk-quant"}]
@@ -24,7 +24,7 @@ dev = [
 ]
 
 [project.scripts]
-kk-linkage = "market_linkage_engine.__main__:main"
+linkage = "market_linkage_engine.__main__:main"
 
 [tool.setuptools.packages.find]
 where = ["src"]

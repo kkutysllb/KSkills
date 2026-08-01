@@ -1,4 +1,4 @@
-# kk-futures-analysis
+# futures-analysis
 
 A股股指期货四维一体深度分析引擎 — 跨平台技能包
 
@@ -37,7 +37,7 @@ python3 scripts/analysis-engine/analyze_weekly_futures.py --json
 ## 目录结构
 
 ```
-kk-futures-analysis/
+futures-analysis/
 ├── SKILL.md                          # 跨平台技能定义
 ├── README.md
 ├── LICENSE
@@ -70,7 +70,7 @@ kk-futures-analysis/
 chmod +x scripts/package.sh && scripts/package.sh
 ```
 
-输出：`dist/kk-futures-analysis.skill` + `dist/kk-futures-analysis-1.0.0.tar.gz`
+输出：`dist/futures-analysis.skill` + `dist/futures-analysis-1.0.0.tar.gz`
 
 ## 许可证
 

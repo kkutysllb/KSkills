@@ -1,4 +1,4 @@
-# kk-factor-research
+# factor-research
 
 量化因子研究 — 跨平台技能包
 
@@ -37,7 +37,7 @@ python3 scripts/cli.py help
 ## 目录结构
 
 ```
-kk-factor-research/
+factor-research/
 ├── SKILL.md              # 跨平台技能定义
 ├── README.md
 ├── LICENSE
@@ -64,7 +64,7 @@ kk-factor-research/
 chmod +x scripts/package.sh && scripts/package.sh
 ```
 
-输出: `dist/kk-factor-research.skill` + `dist/kk-factor-research-1.0.0.tar.gz`
+输出: `dist/factor-research.skill` + `dist/factor-research-1.0.0.tar.gz`
 
 ## 许可证
 

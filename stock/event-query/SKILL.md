@@ -1,5 +1,5 @@
 ---
-name: kk-event-query
+name: event-query
 description: 查询个股业绩预告、增发、质押、解禁、调研、监管函等事件数据，支持自然语言问句输入，返回相关事件数据结果。当用户询问业绩预告、增发配股、股权质押、限售解禁、机构调研、监管函等事件数据查询问题时，必须使用此技能。
 version: 1.0.0
 author: kk-quant

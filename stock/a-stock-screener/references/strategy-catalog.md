@@ -38,7 +38,7 @@
 
 | 字段 | 来源 | 说明 |
 |------|------|------|
-| `pe_ttm` | kk-data-fetch / kk-stock-analysis | 市盈率（滚动12个月） |
+| `pe_ttm` | data-fetch / stock-analysis | 市盈率（滚动12个月） |
 | `pb` | 同上 | 市净率 |
 | `roe` | 同上 | 净资产收益率（%） |
 | `market_cap` | 同上 | 总市值（亿元） |
@@ -96,7 +96,7 @@ score_value = 0
 
 | 字段 | 来源 | 说明 |
 |------|------|------|
-| `dividend_yield` | kk-data-fetch | 股息率（%）通常取 TTM |
+| `dividend_yield` | data-fetch | 股息率（%）通常取 TTM |
 | `dividend_payout_ratio` | 同上 | 股利支付率（%） |
 | `roe` | 同上 | ROE（%） |
 | `pe_ttm` | 同上 | PE |
@@ -151,7 +151,7 @@ score_dividend = 0
 
 | 字段 | 来源 | 说明 |
 |------|------|------|
-| `revenue_growth` | kk-data-fetch | 营收同比增长（%） |
+| `revenue_growth` | data-fetch | 营收同比增长（%） |
 | `profit_growth` | 同上 | 净利润同比增长（%） |
 | `roe` | 同上 | ROE（%） |
 | `pe_ttm` | 同上 | PE（用于 PEG） |
@@ -209,7 +209,7 @@ PEG = PE / profit_growth，如果 PEG < 1 加 10 分，否则按比例递减。
 
 | 字段 | 来源 | 说明 |
 |------|------|------|
-| `return_1m` / `return_3m` / `return_6m` | kk-data-fetch / kk-stock-analysis | 区间收益率 |
+| `return_1m` / `return_3m` / `return_6m` | data-fetch / stock-analysis | 区间收益率 |
 | `ma_20` / `ma_60` / `ma_120` | 同上 | 均线价格 |
 | `rsi_14` | 同上 | RSI 指标 |
 | `volume_avg_20` | 同上 | 20 日均量 |
@@ -263,7 +263,7 @@ score_momentum = 0
 
 | 字段 | 来源 | 说明 |
 |------|------|------|
-| `close_price` | kk-data-fetch | 最新收盘价 |
+| `close_price` | data-fetch | 最新收盘价 |
 | `high_20d` / `low_20d` | 同上 | 20 日最高/最低价 |
 | `volume` / `volume_avg_20` | 同上 | 日成交额/均量 |
 | `ma_20` / `ma_60` | 同上 | 均线 |
@@ -316,7 +316,7 @@ score_breakout = 0
 
 | 字段 | 来源 | 说明 |
 |------|------|------|
-| `return_5d` / `return_20d` / `return_60d` | kk-data-fetch | 区间收益率 |
+| `return_5d` / `return_20d` / `return_60d` | data-fetch | 区间收益率 |
 | `rsi_14` | 同上 | RSI |
 | `max_drawdown_60d` | 同上 | 60 日最大回撤 |
 | `close_price` / `ma_60` | 同上 | 价格与均线 |
@@ -370,7 +370,7 @@ score_reversal = 0
 
 | 字段 | 来源 | 说明 |
 |------|------|------|
-| `limit_up_days` | kk-data-fetch | 连续涨停天数 |
+| `limit_up_days` | data-fetch | 连续涨停天数 |
 | `turnover_rate` | 同上 | 换手率（%） |
 | `volume` | 同上 | 日成交额（亿） |
 | `seal_amount` | 同上（level2） | 封单额（亿） |
@@ -427,7 +427,7 @@ score_limit_up = 0
 
 | 字段 | 来源 | 说明 |
 |------|------|------|
-| `north_bound_net_buy_5d` | kk-data-fetch | 北向资金近 5 日净买入 |
+| `north_bound_net_buy_5d` | data-fetch | 北向资金近 5 日净买入 |
 | `institutional_net_buy` | 同上（level2） | 机构净买入（大单+特大单） |
 | `fund_holding_change_q` | 同上 | 公募基金季度持仓变动 |
 | `institution_count` | 同上 | 机构持股家数 |
@@ -481,7 +481,7 @@ score_institutional = 0
 
 | 字段 | 来源 | 说明 |
 |------|------|------|
-| `fractals` | kk-data-fetch / 缠论模块 | 顶底分型 |
+| `fractals` | data-fetch / 缠论模块 | 顶底分型 |
 | `segments` | 同上 | 笔（向上/向下段） |
 | `zhongshu` | 同上 | 中枢边界 |
 | `macd_divergence` | 同上 | 底背驰 / 顶背驰信号 |
@@ -602,10 +602,10 @@ Workflow Engine ──→ 1. 筛选 → 2. 打分 → 3. 排序 → 4. 输出
 
 | 策略 | 可复用的现有 Skill |
 |------|-------------------|
-| value, dividend, growth | kk-fundamental-analysis |
-| momentum, technical_breakout, reversal, limit_up_leader | kk-technical-analysis |
-| chanlun | kk-chanlun |
-| institutional | kk-bei-xiang / kk-level2 |
-| multi_factor | kk-factor-research |
-| 数据获取 | kk-data-fetch |
-| 策略回测 | kk-strategy-research |
+| value, dividend, growth | fundamental-analysis |
+| momentum, technical_breakout, reversal, limit_up_leader | technical-analysis |
+| chanlun | chanlun |
+| institutional | bei-xiang / level2 |
+| multi_factor | factor-research |
+| 数据获取 | data-fetch |
+| 策略回测 | strategy-research |

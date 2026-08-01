@@ -1,5 +1,5 @@
 ---
-name: kk-options-volatility
+name: options-volatility
 description: 期权波动率分析引擎——隐含波动率/实现波动率计算、波动率曲面分析、IV-RV对比、波动率交易策略评估，开箱即用的跨平台技能包。
 version: 1.0.0
 author: kk-quant
@@ -65,7 +65,7 @@ tags:
   - quantitative-analysis
 ---
 
-# kk-options-volatility — 期权波动率分析技能包
+# options-volatility — 期权波动率分析技能包
 
 ## 概述
 

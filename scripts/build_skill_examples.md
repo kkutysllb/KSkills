@@ -26,18 +26,18 @@ python3 scripts/build_skill.py coding/test-driven-development
 
 ## 场景 2：打包一个 Python 技能（有代码 + API 依赖）
 
-以 `stock/kk-business-query` 为例（含 `scripts/cli.py`，依赖 `IWENCAI_API_KEY`）。
+以 `stock/business-query` 为例（含 `scripts/cli.py`，依赖 `IWENCAI_API_KEY`）。
 
 ```bash
 # 1. 打包
-python3 scripts/build_skill.py stock/kk-business-query
-# → dist/kk-business-query-1.0.0.skill
+python3 scripts/build_skill.py stock/business-query
+# → dist/business-query-1.0.0.skill
 
 # 2. 校验完整性（推荐）
-./scripts/install_skill.sh dist/kk-business-query-1.0.0.skill --verify
+./scripts/install_skill.sh dist/business-query-1.0.0.skill --verify
 
 # 3. 安装（交互模式，会询问是否执行 install.sh）
-./scripts/install_skill.sh dist/kk-business-query-1.0.0.skill ~/.agents/skills/
+./scripts/install_skill.sh dist/business-query-1.0.0.skill ~/.agents/skills/
 ```
 
 安装器输出示例：
@@ -57,10 +57,10 @@ python3 scripts/build_skill.py stock/kk-business-query
 
 ## 场景 3：打包带 setup.py 的复杂技能
 
-以 `stock/kk-announcement-search` 为例（含 `setup.py`、`__pycache__`、`.pytest_cache`）。
+以 `stock/announcement-search` 为例（含 `setup.py`、`__pycache__`、`.pytest_cache`）。
 
 ```bash
-python3 scripts/build_skill.py stock/kk-announcement-search
+python3 scripts/build_skill.py stock/announcement-search
 # → 自动排除 12 个污染文件（__pycache__、.pytest_cache、.DS_Store）
 # → dist/announcement-search-1.0.0.skill (28.1 KB)
 ```
@@ -89,8 +89,8 @@ python3 scripts/build_skill.py --all
 ```bash
 # 打包 stock/ 下全部 36 个技能
 python3 scripts/build_skill.py stock
-# → dist/kk-business-query-1.0.0.skill
-# → dist/kk-factor-research-1.0.0.skill
+# → dist/business-query-1.0.0.skill
+# → dist/factor-research-1.0.0.skill
 # → ...
 
 # 打包 coding/ 下全部技能，输出到指定目录
@@ -105,7 +105,7 @@ python3 scripts/build_skill.py media research
 
 | 传入路径                            | 脚本行为                         |
 |------------------------------------|---------------------------------|
-| `stock/kk-business-query`（含 SKILL.md） | 打包单个技能（向后兼容）         |
+| `stock/business-query`（含 SKILL.md） | 打包单个技能（向后兼容）         |
 | `stock`（不含 SKILL.md，但子目录有）   | 批量打包该类别下所有技能          |
 | `stock coding/refactor`（混传）       | 先批量打包 stock/，再打包单个 refactor |
 | 不含 SKILL.md 且无子技能的目录         | 报错退出                        |
@@ -118,11 +118,11 @@ python3 scripts/build_skill.py media research
 
 ```bash
 # 打包（CI 中可跳过校验以加速，或保留校验确保质量）
-python3 scripts/build_skill.py stock/kk-business-query --no-validate
+python3 scripts/build_skill.py stock/business-query --no-validate
 
 # 安装（自动执行 install.sh，不询问）
 KSKILLS_AUTO_INSTALL=1 ./scripts/install_skill.sh \
-  dist/kk-business-query-1.0.0.skill \
+  dist/business-query-1.0.0.skill \
   ~/.agents/skills/
 ```
 
@@ -132,11 +132,11 @@ KSKILLS_AUTO_INSTALL=1 ./scripts/install_skill.sh \
 
 ```bash
 # 1. 用 --force 覆盖旧版本
-./scripts/install_skill.sh dist/kk-business-query-1.1.0.skill ~/.agents/skills/ --force
+./scripts/install_skill.sh dist/business-query-1.1.0.skill ~/.agents/skills/ --force
 
 # 或先卸载再安装
-rm -rf ~/.agents/skills/kk-business-query
-./scripts/install_skill.sh dist/kk-business-query-1.1.0.skill ~/.agents/skills/
+rm -rf ~/.agents/skills/business-query
+./scripts/install_skill.sh dist/business-query-1.1.0.skill ~/.agents/skills/
 ```
 
 ---
@@ -145,7 +145,7 @@ rm -rf ~/.agents/skills/kk-business-query
 
 | 需求                         | 推荐命令                                                |
 |-----------------------------|--------------------------------------------------------|
-| 打包一个技能                  | `build_skill.py stock/kk-business-query`                 |
+| 打包一个技能                  | `build_skill.py stock/business-query`                 |
 | 打包某类别下所有技能           | `build_skill.py stock`                                   |
 | 同时打包多个类别/技能          | `build_skill.py media research coding/refactor`          |
 | 打包整个仓库                  | `build_skill.py --all`                                   |

@@ -13,8 +13,8 @@
 #   ./scripts/install_skill.sh <package.skill> --verify
 #
 # Examples:
-#   ./scripts/install_skill.sh dist/kk-business-query-1.0.0.skill ~/.agents/skills/
-#   ./scripts/install_skill.sh dist/kk-business-query-1.0.0.skill --list
+#   ./scripts/install_skill.sh dist/business-query-1.0.0.skill ~/.agents/skills/
+#   ./scripts/install_skill.sh dist/business-query-1.0.0.skill --list
 #   KSKILLS_AUTO_INSTALL=1 ./scripts/install_skill.sh dist/foo.skill ~/.agents/skills/
 
 set -eu

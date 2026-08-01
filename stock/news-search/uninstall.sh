@@ -1,12 +1,12 @@
 #!/bin/sh
-# Uninstall script for kk-news-search
+# Uninstall script for news-search
 set -e
 
-echo "→ Uninstalling kk-news-search..."
+echo "→ Uninstalling news-search..."
 
 if [ -f package.json ]; then
     rm -rf node_modules 2>/dev/null || true
     echo "  → Removed node_modules"
 fi
 
-echo "  ✓  kk-news-search uninstalled successfully."
+echo "  ✓  news-search uninstalled successfully."

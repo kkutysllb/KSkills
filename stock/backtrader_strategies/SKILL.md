@@ -1,6 +1,6 @@
 ---
 name: backtrader_strategies
-description: 量化选股策略适配器库——封装价值投资、成长股、动量突破、高股息、技术突破、超跌反弹、连板龙头、融资追踪 8 大策略的选股逻辑，从 API 层分离核心算法。被 kk-selection-strategies 等技能引用。当需要实现批量量化选股、多策略组合筛选、策略回测适配时使用此技能。
+description: 量化选股策略适配器库——封装价值投资、成长股、动量突破、高股息、技术突破、超跌反弹、连板龙头、融资追踪 8 大策略的选股逻辑，从 API 层分离核心算法。被 selection-strategies 等技能引用。当需要实现批量量化选股、多策略组合筛选、策略回测适配时使用此技能。
 version: 1.0.0
 author: kk-quant
 license: MIT
@@ -69,7 +69,7 @@ tags:
 
 ## 用途
 
-本库被 `kk-selection-strategies` 技能引用，提供策略适配器层 —— 把策略核心算法与 API 接口层分离，便于策略集中管理与复用。
+本库被 `selection-strategies` 技能引用，提供策略适配器层 —— 把策略核心算法与 API 接口层分离，便于策略集中管理与复用。
 
 ## 8 大策略适配器
 
@@ -88,7 +88,7 @@ tags:
 
 ```python
 import sys, os
-# 把 stock/ 目录加入 sys.path（与 kk-selection-strategies 一致）
+# 把 stock/ 目录加入 sys.path（与 selection-strategies 一致）
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from backtrader_strategies.strategy_adapters import (

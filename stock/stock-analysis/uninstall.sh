@@ -1,12 +1,12 @@
 #!/bin/sh
-# Uninstall script for kk-stock-analysis
+# Uninstall script for stock-analysis
 set -e
 
-echo "→ Uninstalling kk-stock-analysis..."
+echo "→ Uninstalling stock-analysis..."
 
 if [ -f package.json ]; then
     rm -rf node_modules 2>/dev/null || true
     echo "  → Removed node_modules"
 fi
 
-echo "  ✓  kk-stock-analysis uninstalled successfully."
+echo "  ✓  stock-analysis uninstalled successfully."

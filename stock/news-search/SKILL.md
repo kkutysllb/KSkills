@@ -1,5 +1,5 @@
 ---
-name: kk-news-search
+name: news-search
 description: 财经领域为主的资讯搜索引擎，囊获了各类型媒体：官媒、主流财经媒体、垂直行业网站、知名上市公司/非上市公司官网等，可以帮助你了解最新财经事件、政策动态、行业革新、企业业务进展等等。
 version: 1.0.0
 author: kk-quant

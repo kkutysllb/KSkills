@@ -21,11 +21,11 @@ from typing import Optional, Dict, Any
 import pandas as pd
 
 # ---------------------------------------------------------------------
-# 接入 kk-common（提供 TushareClient + IwencaiClient）
-# 通过 sys.path 注入同级 kk-common 包，兼容多种安装方式。
+# 接入 common（提供 TushareClient + IwencaiClient）
+# 通过 sys.path 注入同级 common 包，兼容多种安装方式。
 # ---------------------------------------------------------------------
 _KK_COMMON_SRC = os.path.normpath(
-    os.path.join(os.path.dirname(__file__), "..", "..", "..", "..", "kk-common", "src")
+    os.path.join(os.path.dirname(__file__), "..", "..", "..", "..", "common", "src")
 )
 if os.path.isdir(_KK_COMMON_SRC) and _KK_COMMON_SRC not in sys.path:
     sys.path.insert(0, _KK_COMMON_SRC)
@@ -36,7 +36,7 @@ try:
 except Exception as e:  # pragma: no cover - 环境异常兜底
     _HAS_KK_COMMON = False
     logging.getLogger(__name__).warning(
-        "kk-common 未安装，将仅支持离线/测试模式。原因: %s", e
+        "common 未安装，将仅支持离线/测试模式。原因: %s", e
     )
 
 logger = logging.getLogger("market_linkage_engine.fetcher")
@@ -56,20 +56,20 @@ class LinkageFetcher:
     def __init__(
         self,
         use_iwencai: bool = False,
-        iwencai_skill_name: str = "kk-market-linkage-engine",
+        iwencai_skill_name: str = "market-linkage-engine",
     ):
         self.use_iwencai = use_iwencai
         self.iwencai_skill_name = iwencai_skill_name
 
         if not _HAS_KK_COMMON:
             raise RuntimeError(
-                "未找到 kk-common 公共库，请先安装：\n"
-                "  pip install -e ../kk-common\n"
-                "或确保 ../kk-common/src 在 PYTHONPATH 中。"
+                "未找到 common 公共库，请先安装：\n"
+                "  pip install -e ../common\n"
+                "或确保 ../common/src 在 PYTHONPATH 中。"
             )
 
         self.ts = get_tushare_client()
-        # 原始 pro 对象，用于调用 kk-common 尚未封装的接口（shibor/opt_daily/hsgt_top10）
+        # 原始 pro 对象，用于调用 common 尚未封装的接口（shibor/opt_daily/hsgt_top10）
         self.pro = getattr(self.ts, "pro", None)
         self._iwencai: Optional[Any] = None
 
@@ -204,7 +204,7 @@ class LinkageFetcher:
     ) -> pd.DataFrame:
         """期权日线 opt_daily（含隐含波动率）。
 
-        通过 kk-common 封装的 opt_daily 调用。
+        通过 common 封装的 opt_daily 调用。
         """
         if trade_date is None:
             start, end = self._date_range(days, end)

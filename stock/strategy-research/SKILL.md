@@ -1,5 +1,5 @@
 ---
-name: kk-strategy-research
+name: strategy-research
 description: 量化策略研究公共技能包——策略设计/编码/回测/评估全链路，支持A股/港股/美股/加密货币多市场，内置3种经典策略模板（双均线/RSI/MACD），SignalEngine合约规范，config.json标准配置，策略评审标准，开箱即用。
 version: 1.0.0
 author: kk-quant
@@ -66,7 +66,7 @@ tags:
   - quantitative-analysis
 ---
 
-# kk-strategy-research — 量化策略研究技能包
+# strategy-research — 量化策略研究技能包
 
 ## 概述
 

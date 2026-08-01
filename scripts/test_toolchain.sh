@@ -21,7 +21,7 @@
 #
 # Usage:
 #   ./scripts/test_toolchain.sh                          # 默认测试 coding/refactor
-#   ./scripts/test_toolchain.sh stock/kk-factor-research  # 指定其他技能
+#   ./scripts/test_toolchain.sh stock/factor-research  # 指定其他技能
 #
 # 依赖：
 #   - bash（POSIX sh 即可，但用 bash 跑更安全）

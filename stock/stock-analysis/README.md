@@ -1,4 +1,4 @@
-# kk-stock-analysis
+# stock-analysis
 
 A股个股十五维一体深度分析引擎 — 跨平台技能包
 
@@ -108,7 +108,7 @@ python3 scripts/ml-prediction/run_model_train.py --json
 ## 目录结构
 
 ```
-kk-stock-analysis/
+stock-analysis/
 ├── SKILL.md                          # 跨平台技能定义（主入口）
 ├── README.md                         # 本文件
 ├── LICENSE                           # MIT 许可证
@@ -198,8 +198,8 @@ chmod +x scripts/package.sh && scripts/package.sh
 ```
 
 输出文件：
-- `dist/kk-stock-analysis.skill` — OpenClaw 格式（ZIP）
-- `dist/kk-stock-analysis-v3.5.0.tar.gz` — 通用格式
+- `dist/stock-analysis.skill` — OpenClaw 格式（ZIP）
+- `dist/stock-analysis-v3.5.0.tar.gz` — 通用格式
 
 ## 环境要求
 

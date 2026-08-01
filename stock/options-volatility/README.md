@@ -1,4 +1,4 @@
-# kk-options-volatility
+# options-volatility
 
 期权波动率分析引擎 — 跨平台技能包
 
@@ -46,7 +46,7 @@ python3 scripts/analysis-engine/analyze_option_volatility.py \
 ## 目录结构
 
 ```
-kk-options-volatility/
+options-volatility/
 ├── SKILL.md                              # 跨平台技能定义
 ├── README.md
 ├── LICENSE
@@ -76,7 +76,7 @@ kk-options-volatility/
 chmod +x scripts/package.sh && scripts/package.sh
 ```
 
-输出：`dist/kk-options-volatility.skill` + `dist/kk-options-volatility-1.0.0.tar.gz`
+输出：`dist/options-volatility.skill` + `dist/options-volatility-1.0.0.tar.gz`
 
 ## 许可证
 

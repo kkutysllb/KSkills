@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-kk-factor-research CLI — 量化因子研究统一入口
+factor-research CLI — 量化因子研究统一入口
 
 支持三种模式:
   analyze  — IC/IR 分析 + 分层回测
@@ -87,7 +87,7 @@ def cmd_filter(args):
 
 def show_help():
     help_text = """
-kk-factor-research — 量化因子研究技能包
+factor-research — 量化因子研究技能包
 ======================================
 
 模式1: analyze — 因子有效性分析
@@ -128,7 +128,7 @@ def main():
         sys.exit(0)
 
     parser = argparse.ArgumentParser(
-        description="kk-factor-research — 量化因子研究技能包",
+        description="factor-research — 量化因子研究技能包",
     )
     sub = parser.add_subparsers(dest="mode")
 

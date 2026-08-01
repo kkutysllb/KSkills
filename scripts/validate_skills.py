@@ -102,12 +102,9 @@ def validate_file(path):
         if not isinstance(name, str) or not name.strip():
             findings.append((SEV_ERROR, "field 'name' must be a non-empty string"))
         else:
-            # dir name should match skill name (with or without kk- prefix)
+            # dir name must match skill name exactly (kk- prefix removed in 2026-08)
             dir_name = os.path.basename(os.path.dirname(path))
-            base_name = name
-            # allow kk- prefix mismatch for media/ stock dirs
-            candidates = {dir_name, dir_name.removeprefix("kk-")}
-            if name not in candidates and dir_name not in {name, f"kk-{name}"}:
+            if dir_name != name:
                 findings.append((SEV_WARN,
                     f"dir name '{dir_name}' does not match skill name '{name}'"))
 

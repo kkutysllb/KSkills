@@ -1,5 +1,5 @@
 ---
-name: kk-factor-research
+name: factor-research
 description: 量化因子研究公共技能包——整合因子方法论、IC/IR分析引擎、分层回测、基本面筛选、多因子选股和小盘成长股挖掘，覆盖因子定义→有效性检验→组合构建→选股应用全链路，开箱即用的跨平台技能包。
 version: 1.0.0
 author: kk-quant
@@ -67,7 +67,7 @@ tags:
   - A-share
 ---
 
-# kk-factor-research — 量化因子研究技能包
+# factor-research — 量化因子研究技能包
 
 ## 概述
 

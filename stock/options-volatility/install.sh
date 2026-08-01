@@ -1,8 +1,8 @@
 #!/bin/sh
-# Install script for kk-options-volatility
+# Install script for options-volatility
 set -e
 
-echo "→ Installing kk-options-volatility..."
+echo "→ Installing options-volatility..."
 
 # Check Python
 if ! command -v python3 > /dev/null 2>&1; then
@@ -16,7 +16,7 @@ if [ -f requirements.txt ]; then
     echo "  → Python dependencies installed"
 fi
 
-echo "  ✓  kk-options-volatility installed successfully."
+echo "  ✓  options-volatility installed successfully."
 echo ""
 echo "  Environment variables needed:"
 echo "    See SKILL.md frontmatter for details."

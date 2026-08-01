@@ -1,5 +1,5 @@
 ---
-name: kk-earnings-forecast
+name: earnings-forecast
 description: 盈利预测与一致预期分析框架，涵盖自上而下、自下而上预测方法、SUE、PEAD 与分析师预期修正，用于捕捉业绩超预期交易机会。
 version: 1.0.0
 author: kk-quant

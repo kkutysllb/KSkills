@@ -48,14 +48,14 @@ A股 / 港股 / 美股 / 期货 / 期权的量化分析与数据查询技能。
 
 | 类别 | 技能 |
 |------|------|
-| **数据源（唯一官方入口）** | `tushare-data`（Tushare 官方适配包；分析技能禁止直接 import tushare，须通过 `kk-common` 的 `FinanceDataGateway` 或 `TushareClient` 访问） |
-| **数据查询** | `kk-common`（金融数据网关 + iWencai/Tushare 统一客户端）`kk-zhishu-query` `kk-business-query` `kk-event-query` `kk-macro-query` `kk-announcement-search` `kk-news-search` `kk-report-search` `kk-hithink-futures` |
-| **个股分析** | `kk-stock-analysis`（十五维一体）`kk-financial-statement`（三表深度解读）`kk-valuation-model`（DCF/DDM/SOTP）`kk-cb-analysis`（可转债）`kk-etf-analysis` |
-| **量化研究** | `kk-factor-research`（因子研究）`kk-strategy-research`（策略回测）`backtrader-strategies`（策略适配器库）`kk-selection-strategies` `a-stock-screener`（对话式选股） |
-| **衍生品** | `kk-futures-analysis`（股指期货）`kk-options-payoff`（盈亏分析）`kk-options-volatility`（波动率） |
-| **市场宏观** | `kk-industry-analysis`（行业六维一体）`kk-market-linkage-engine`（市场联动）`kk-earnings-forecast`（盈利预测）`kk-earnings-revision`（预期修正）`kk-mcf` |
+| **数据源（唯一官方入口）** | `tushare-data`（Tushare 官方适配包；分析技能禁止直接 import tushare，须通过 `common` 的 `FinanceDataGateway` 或 `TushareClient` 访问） |
+| **数据查询** | `common`（金融数据网关 + iWencai/Tushare 统一客户端）`zhishu-query` `business-query` `event-query` `macro-query` `announcement-search` `news-search` `report-search` `hithink-futures` |
+| **个股分析** | `stock-analysis`（十五维一体）`financial-statement`（三表深度解读）`valuation-model`（DCF/DDM/SOTP）`cb-analysis`（可转债）`etf-analysis` |
+| **量化研究** | `factor-research`（因子研究）`strategy-research`（策略回测）`backtrader-strategies`（策略适配器库）`selection-strategies` `a-stock-screener`（对话式选股） |
+| **衍生品** | `futures-analysis`（股指期货）`options-payoff`（盈亏分析）`options-volatility`（波动率） |
+| **市场宏观** | `industry-analysis`（行业六维一体）`market-linkage-engine`（市场联动）`earnings-forecast`（盈利预测）`earnings-revision`（预期修正）`mcf` |
 
-> **变更说明**：原 `kk-chan-theory`（缠论）已内嵌为 `kk-stock-analysis/chan_theory_v2/`，不再作为独立技能分发；原 `kk-backtrader-strategies` 重命名为 `backtrader-strategies`（Python 包名对齐）。
+> **变更说明**：原 `kk-chan-theory`（缠论）已内嵌为 `stock-analysis/chan_theory_v2/`，不再作为独立技能分发；原 `kk-backtrader-strategies` 重命名为 `backtrader-strategies`（Python 包名对齐）。
 
 ### 🎨 media — 内容创作（5）
 
@@ -98,7 +98,7 @@ A股 / 港股 / 美股 / 期货 / 期权的量化分析与数据查询技能。
 
 ```yaml
 ---
-name: kk-factor-research
+name: factor-research
 description: 量化因子研究公共技能包——整合因子方法论、IC/IR分析、分层回测...
 version: 1.0.0
 author: kk-quant
@@ -132,7 +132,7 @@ tags:
   - factor-research
 ---
 
-# kk-factor-research
+# factor-research
 
 正文：使用指南、工作流程、示例...
 ```
@@ -188,7 +188,7 @@ python3 scripts/validate_skills.py .
 
 ```bash
 # 打包单个技能（最常用）
-python3 scripts/build_skill.py stock/kk-business-query
+python3 scripts/build_skill.py stock/business-query
 
 # 指定输出目录（默认 dist/）
 python3 scripts/build_skill.py coding/test-driven-development -o ./releases
@@ -197,7 +197,7 @@ python3 scripts/build_skill.py coding/test-driven-development -o ./releases
 python3 scripts/build_skill.py --all
 
 # 跳过校验快速打包（调试用，不推荐）
-python3 scripts/build_skill.py stock/kk-business-query --no-validate
+python3 scripts/build_skill.py stock/business-query --no-validate
 ```
 
 输出：`dist/<name>-<version>.skill`，内含技能全部文件 + 自动生成的 `SKILL-MANIFEST.json` 清单（含每个文件的 sha256 校验和、依赖声明）。
@@ -210,16 +210,16 @@ python3 scripts/build_skill.py stock/kk-business-query --no-validate
 
 ```bash
 # 安装到指定目录（平台负责选择目标位置）
-./scripts/install_skill.sh dist/kk-business-query-1.0.0.skill ~/.agents/skills/
+./scripts/install_skill.sh dist/business-query-1.0.0.skill ~/.agents/skills/
 
 # 仅查看包内容
-./scripts/install_skill.sh dist/kk-business-query-1.0.0.skill --list
+./scripts/install_skill.sh dist/business-query-1.0.0.skill --list
 
 # 校验包完整性（zip + sha256）
-./scripts/install_skill.sh dist/kk-business-query-1.0.0.skill --verify
+./scripts/install_skill.sh dist/business-query-1.0.0.skill --verify
 
 # 强制覆盖已存在的安装
-./scripts/install_skill.sh dist/kk-business-query-1.0.0.skill ~/.agents/skills/ --force
+./scripts/install_skill.sh dist/business-query-1.0.0.skill ~/.agents/skills/ --force
 
 # 非交互模式（自动执行 install.sh，适用于 CI）
 KSKILLS_AUTO_INSTALL=1 ./scripts/install_skill.sh dist/foo.skill ~/.agents/skills/
@@ -233,7 +233,7 @@ KSKILLS_AUTO_INSTALL=1 ./scripts/install_skill.sh dist/foo.skill ~/.agents/skill
 
 ```json
 {
-  "name": "kk-business-query",
+  "name": "business-query",
   "version": "1.0.0",
   "package_type": "python",       // knowledge-only | python | node
   "entry": "scripts/cli.py",

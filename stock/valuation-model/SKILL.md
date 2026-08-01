@@ -1,5 +1,5 @@
 ---
-name: kk-valuation-model
+name: valuation-model
 description: 估值方法论，涵盖 DCF、DDM、SOTP 等绝对估值，以及 PE-Band、PB-ROE、EV-EBITDA 等相对估值，并包含敏感性分析与估值陷阱识别。
 version: 1.0.0
 author: kk-quant

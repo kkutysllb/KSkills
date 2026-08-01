@@ -1,5 +1,5 @@
 ---
-name: kk-common
+name: common
 description: kk_Skills 公共库——金融数据网关（FinanceDataGateway）+ iWencai/Tushare 统一客户端 + 金融分析格式化工具集；分析技能必须通过 get_finance_data_gateway() 访问 Tushare，禁止直接 import tushare
 version: 1.1.0
 author: kk-quant
@@ -58,7 +58,7 @@ tags:
   - formatters
 ---
 
-# kk-common
+# common
 
 kk_Skills 公共库。提供金融数据网关、iWencai / Tushare 统一客户端与金融分析格式化工具集，供股票类技能复用。
 

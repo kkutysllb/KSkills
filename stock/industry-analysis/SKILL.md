@@ -1,5 +1,5 @@
 ---
-name: kk-industry-analysis
+name: industry-analysis
 description: A股行业六维一体深度分析引擎——结构层（产业链上中下游拆解）+数据层（行业估值/财务/盈利排名）+框架层（五模块产业链解读）+研究层（券商研报）+资讯层（实时财经资讯）+宏观框架层（全球宏观周期定位），开箱即用的跨平台技能包。
 version: 2.0.0
 author: kk-quant
@@ -17,9 +17,9 @@ capabilities:
     description: "行业数据查询：估值排名、财务指标、盈利数据、板块行情、涨跌幅排名"
   - id: industry-framework
     description: "五模块产业链解读框架：顶层评估→核心驱动→产业本质→产业链拆解→风险验证"
-  - id: kk-report-search
+  - id: report-search
     description: "券商研报搜索：行业研究报告、机构评级、目标价、投资逻辑摘要"
-  - id: kk-news-search
+  - id: news-search
     description: "行业资讯搜索：实时财经资讯、政策动态、技术突破、竞争格局、投融资"
   - id: global-macro
     description: "全球宏观框架：宏观周期定位、加息/降息周期行业映射、美元/地缘风险传导"
@@ -155,12 +155,12 @@ python3 scripts/industry-query-cli.py --query "新能源板块行情"
 
 **维度3: 研究层** — 问财研报搜索 API
 - API: `POST https://openapi.iwencai.com/v1/comprehensive/search`
-- Headers: `X-Claw-Skill-Id: kk-report-search, X-Claw-Skill-Version: 2.0.0`
+- Headers: `X-Claw-Skill-Id: report-search, X-Claw-Skill-Version: 2.0.0`
 - Query: `"{行业名}行业研究报告"`
 
 **维度4: 资讯层** — 问财经资讯搜索 API
 - API: `POST https://openapi.iwencai.com/v1/comprehensive/search`
-- Headers: `X-Claw-Skill-Id: kk-news-search, X-Claw-Skill-Version: 1.0.0`
+- Headers: `X-Claw-Skill-Id: news-search, X-Claw-Skill-Version: 1.0.0`
 
 ### 阶段二：五模块框架分析
 

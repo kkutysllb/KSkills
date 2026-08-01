@@ -31,7 +31,7 @@ import pandas as pd
 
 logger = logging.getLogger("DataAdapter")
 
-# ── 尝试导入 kk-common ──────────────────────────────────────────────────────
+# ── 尝试导入 common ──────────────────────────────────────────────────────
 try:
     from kk_common.iwencai_client import IwencaiClient, APIError as IwencaiError
     from kk_common.tushare_client import get_tushare_client, TushareClient
@@ -42,7 +42,7 @@ except ImportError:
     IwencaiClient = None  # type: ignore
     IwencaiError = Exception
     TushareClient = None  # type: ignore
-    logger.warning("kk-common 未安装，将使用 Mock 数据模式")
+    logger.warning("common 未安装，将使用 Mock 数据模式")
 
 
 # ═════════════════════════════════════════════════════════════════════════════
@@ -68,7 +68,7 @@ class DataAdapter:
     统一数据适配器。
 
     提供 a-stock-screener 所需的全部数据获取方法。
-    支持实时模式（kk-common）和 Mock 模式（无外部依赖时降级）。
+    支持实时模式（common）和 Mock 模式（无外部依赖时降级）。
     """
 
     def __init__(

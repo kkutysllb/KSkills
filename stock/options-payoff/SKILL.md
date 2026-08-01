@@ -1,5 +1,5 @@
 ---
-name: kk-options-payoff
+name: options-payoff
 description: 期权盈亏分析引擎——Black-Scholes 定价、Greeks 计算、多腿策略盈亏图、盈亏平衡点、隐含波动率反解、波动率情景分析，开箱即用的跨平台技能包。
 version: 1.0.0
 author: kk-quant
@@ -65,7 +65,7 @@ tags:
   - quantitative-analysis
 ---
 
-# kk-options-payoff — 期权盈亏分析技能包
+# options-payoff — 期权盈亏分析技能包
 
 ## 概述
 

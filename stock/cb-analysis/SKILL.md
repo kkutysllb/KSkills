@@ -1,5 +1,5 @@
 ---
-name: kk-cb-analysis
+name: cb-analysis
 description: 可转债全链路分析技能包——筛选+分析+看板三引擎一体化。覆盖16大看板模块（强赎/下修/龙虎榜/配债安全垫/妖债监控等）、六维度深度分析（基本指标/正股联动/债底保护/时间价值/资金面/套利信号）、智能自然语言筛选。基于同花顺问财OpenAPI，Python3标准库零依赖。
 version: 1.0.0
 author: kk-quant
@@ -73,7 +73,7 @@ metadata:
 
 ---
 
-# kk-cb-analysis — 可转债全链路分析技能包
+# cb-analysis — 可转债全链路分析技能包
 
 ## 三引擎架构
 
@@ -162,7 +162,7 @@ export IWENCAI_API_KEY="your-api-key"
 | Header | 说明 |
 |--------|------|
 | Authorization | Bearer <API Key> |
-| X-Claw-Skill-Id | kk-cb-analysis |
+| X-Claw-Skill-Id | cb-analysis |
 | X-Claw-Trace-Id | 64字符唯一ID |
 | X-Claw-Call-Type | normal / retry |
 

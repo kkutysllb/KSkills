@@ -1,4 +1,4 @@
-# kk-hithink-futures
+# hithink-futures
 
 问财期货期权数据查询 — 跨平台技能包
 
@@ -35,7 +35,7 @@ python3 scripts/cli.py --query "期货行情" --page 2 --limit 20
 ## 目录结构
 
 ```
-kk-hithink-futures/
+hithink-futures/
 ├── SKILL.md              # 跨平台技能定义
 ├── README.md
 ├── LICENSE
@@ -68,7 +68,7 @@ kk-hithink-futures/
 chmod +x scripts/package.sh && scripts/package.sh
 ```
 
-输出：`dist/kk-hithink-futures.skill` + `dist/kk-hithink-futures-1.0.0.tar.gz`
+输出：`dist/hithink-futures.skill` + `dist/hithink-futures-1.0.0.tar.gz`
 
 ## 许可证
 

@@ -1,8 +1,8 @@
 #!/bin/sh
-# Install script for kk-stock-analysis
+# Install script for stock-analysis
 set -e
 
-echo "→ Installing kk-stock-analysis..."
+echo "→ Installing stock-analysis..."
 
 # Check Python
 if ! command -v python3 > /dev/null 2>&1; then
@@ -16,7 +16,7 @@ if [ -f requirements.txt ]; then
     echo "  → Python dependencies installed"
 fi
 
-echo "  ✓  kk-stock-analysis installed successfully."
+echo "  ✓  stock-analysis installed successfully."
 echo ""
 echo "  Environment variables needed:"
 echo "    See SKILL.md frontmatter for details."

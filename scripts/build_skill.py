@@ -3,7 +3,7 @@
 Skill Packager — 打包技能目录为 .skill 压缩包
 
 支持三种打包范围：
-  1. 单个技能   : python3 scripts/build_skill.py stock/kk-business-query
+  1. 单个技能   : python3 scripts/build_skill.py stock/business-query
   2. 类别目录   : python3 scripts/build_skill.py stock          # 打包 stock/ 下所有技能
   3. 全仓库     : python3 scripts/build_skill.py --all
 
@@ -21,7 +21,7 @@ Usage:
   - 两者皆无                    → 报错退出
 
 Examples:
-    python3 scripts/build_skill.py stock/kk-business-query
+    python3 scripts/build_skill.py stock/business-query
     python3 scripts/build_skill.py coding/test-driven-development -o ./dist
     python3 scripts/build_skill.py stock                        # 打包 stock 下所有技能
     python3 scripts/build_skill.py media research               # 同时打包多个类别（未来扩展）
@@ -337,7 +337,7 @@ def main(argv=None) -> int:
         epilog="""\
 示例:
   # 单个技能
-  python3 scripts/build_skill.py stock/kk-business-query
+  python3 scripts/build_skill.py stock/business-query
   python3 scripts/build_skill.py coding/test-driven-development -o ./releases
 
   # 类别目录下所有技能（自动识别）
@@ -349,7 +349,7 @@ def main(argv=None) -> int:
   python3 scripts/build_skill.py --all
 """,
     )
-    ap.add_argument("paths", nargs="*", help="技能目录或类别目录路径（如 stock/kk-foo 或 stock）；可传多个")
+    ap.add_argument("paths", nargs="*", help="技能目录或类别目录路径（如 stock/foo 或 stock）；可传多个")
     ap.add_argument("-o", "--output", default="dist", help="输出目录（默认 dist/）")
     ap.add_argument("--all", action="store_true", help="打包仓库内所有技能")
     ap.add_argument("--no-validate", action="store_true", help="跳过 frontmatter 校验")

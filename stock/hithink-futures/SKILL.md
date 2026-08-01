@@ -1,5 +1,5 @@
 ---
-name: kk-hithink-futures
+name: hithink-futures
 description: 问财期货期权数据查询——支持期货行情、期权波动率、产销数据、会员持仓、会员榜单、行权数据的自然语言查询，基于同花顺问财 OpenAPI，开箱即用的跨平台技能包。
 version: 1.0.0
 author: kk-quant
@@ -72,7 +72,7 @@ tags:
   - iwencai
 ---
 
-# kk-hithink-futures — 问财期货期权查询技能包
+# hithink-futures — 问财期货期权查询技能包
 
 ## 概述
 

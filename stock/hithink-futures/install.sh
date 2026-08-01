@@ -1,8 +1,8 @@
 #!/bin/sh
-# Install script for kk-hithink-futures
+# Install script for hithink-futures
 set -e
 
-echo "→ Installing kk-hithink-futures..."
+echo "→ Installing hithink-futures..."
 
 # Check Python
 if ! command -v python3 > /dev/null 2>&1; then
@@ -16,7 +16,7 @@ if [ -f requirements.txt ]; then
     echo "  → Python dependencies installed"
 fi
 
-echo "  ✓  kk-hithink-futures installed successfully."
+echo "  ✓  hithink-futures installed successfully."
 echo ""
 echo "  Environment variables needed:"
 echo "    See SKILL.md frontmatter for details."

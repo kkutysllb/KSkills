@@ -1,12 +1,12 @@
 #!/bin/sh
-# Uninstall script for kk-zhishu-query
+# Uninstall script for zhishu-query
 set -e
 
-echo "→ Uninstalling kk-zhishu-query..."
+echo "→ Uninstalling zhishu-query..."
 
 if [ -f package.json ]; then
     rm -rf node_modules 2>/dev/null || true
     echo "  → Removed node_modules"
 fi
 
-echo "  ✓  kk-zhishu-query uninstalled successfully."
+echo "  ✓  zhishu-query uninstalled successfully."

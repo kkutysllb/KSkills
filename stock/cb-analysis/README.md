@@ -1,4 +1,4 @@
-# kk-cb-analysis
+# cb-analysis
 
 可转债全链路分析技能包 — 筛选 + 分析 + 看板三引擎一体化。
 
@@ -32,7 +32,7 @@ python3 scripts/cli.py dashboard --module forced-redeem
 ## 目录结构
 
 ```
-kk-cb-analysis/
+cb-analysis/
 ├── SKILL.md                    # 技能定义
 ├── scripts/
 │   ├── cli.py                  # 统一 CLI 入口

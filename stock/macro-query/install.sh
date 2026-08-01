@@ -1,8 +1,8 @@
 #!/bin/sh
-# Install script for kk-macro-query
+# Install script for macro-query
 set -e
 
-echo "→ Installing kk-macro-query..."
+echo "→ Installing macro-query..."
 
 # Check Python
 if ! command -v python3 > /dev/null 2>&1; then
@@ -16,7 +16,7 @@ if [ -f requirements.txt ]; then
     echo "  → Python dependencies installed"
 fi
 
-echo "  ✓  kk-macro-query installed successfully."
+echo "  ✓  macro-query installed successfully."
 echo ""
 echo "  Environment variables needed:"
 echo "    See SKILL.md frontmatter for details."
