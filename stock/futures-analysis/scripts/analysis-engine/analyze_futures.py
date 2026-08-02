@@ -145,7 +145,11 @@ def print_symbol_analysis(sym: str, sym_data: Dict):
             print("| 合约代码 | 乘数 | 到期日 |")
             print("|----------|------|--------|")
             for item in contracts[:4]:
-                print(f"| {item['symbol']} | {item['multiplier']:.0f} | {item['delist_date']} |")
+                if isinstance(item, str):
+                    # 兼容仅含主力合约代码（无乘数/到期日）的情况
+                    print(f"| {item} | - | - |")
+                else:
+                    print(f"| {item['symbol']} | {item['multiplier']:.0f} | {item['delist_date']} |")
     
     # 1. 行情趋势
     print_price_analysis(sym, sym_data)
@@ -238,7 +242,7 @@ def print_price_analysis(sym: str, sym_data: Dict):
         
         recent = history[-10:]
         for h in recent:
-            print(f"| {h['date']} | {h['close']:.2f} | {h['settle']:.2f} | {_num(h['vol'])} | {_num(h['oi'])} |")
+            print(f"| {h.get('date', '-')} | {h.get('close', 0):.2f} | {h.get('settle', 0):.2f} | {_num(h.get('vol', 0))} | {_num(h.get('oi', 0))} |")
     
     # 小s解读
     print("\n**小s解读：**\n")

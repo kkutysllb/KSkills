@@ -39,6 +39,8 @@ requires:
   bins: ["python3"]
   packages: ["pandas", "tushare"]
   env: ["TUSHARE_TOKEN"]
+required-secrets:
+  - TUSHARE_TOKEN
 
 metadata:
   openclaw:
@@ -62,44 +64,3 @@ tags:
   - selection-strategies
   - tushare
 ---
-
-# backtrader-strategies
-
-量化选股策略适配器库，封装 8 大核心策略的选股逻辑。
-
-## 用途
-
-本库被 `selection-strategies` 技能引用，提供策略适配器层 —— 把策略核心算法与 API 接口层分离，便于策略集中管理与复用。
-
-## 8 大策略适配器
-
-| 适配器 | 策略类型 | 说明 |
-|--------|---------|------|
-| `value_investment_adapter` | 价值投资 | 低估值 + 高 ROE + 稳定现金流 |
-| `growth_stock_adapter` | 成长股 | EPS / 营收增速，PEG 分级筛选 |
-| `momentum_breakthrough_adapter` | 动量突破 | 关键阻力位突破信号 |
-| `high_dividend_adapter` | 高股息 | 股息率 + 分红稳定性 |
-| `technical_breakthrough_adapter` | 技术突破 | MACD / 均线 / 量价技术信号 |
-| `oversold_rebound_adapter_simple` | 超跌反弹 | 短期超跌技术性反弹 |
-| `limit_up_leader_adapter_simple` | 连板龙头 | 涨停板龙头追踪 |
-| `fund_flow_tracking_adapter` | 融资追踪 | 主力资金 + 融资融券分析 |
-
-## 引用方式
-
-```python
-import sys, os
-# 把 stock/ 目录加入 sys.path（与 selection-strategies 一致）
-sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-
-from backtrader_strategies.strategy_adapters import (
-    ValueInvestmentAdapter,
-    GrowthStockAdapter,
-    # ... 其他适配器
-)
-```
-
-## 依赖
-
-- Python 3.8+
-- `pandas`、`tushare`
-- 环境变量：`TUSHARE_TOKEN`

@@ -42,15 +42,23 @@ class FuturesDataFetcher:
         self.pro = pro
 
     def get_dominant_contract(self, symbol: str) -> Optional[str]:
-        """获取主力合约代码"""
+        """获取主力合约代码
+
+        fut_mapping 返回全市场合约映射（ts_code 为连续合约代码，如 IFL2.CFX；
+        mapping_ts_code 为该品种主力映射合约，如 IF2609.CFX），且不按 symbol
+        过滤，因此需按品种前缀过滤后取最新交易日映射。
+        """
         if not self.pro:
             return None
         try:
-            today = datetime.now().strftime('%Y%m%d')
             df = self.pro.fut_mapping(symbol=symbol)
-            if df is not None and not df.empty:
-                latest = df.iloc[-1]
-                return latest.get('symbol', f'{symbol}2401')
+            if df is not None and not df.empty and 'mapping_ts_code' in df.columns:
+                filtered = df[df['ts_code'].astype(str).str.startswith(symbol)]
+                if not filtered.empty:
+                    latest = filtered.sort_values('trade_date').iloc[-1]
+                    code = latest.get('mapping_ts_code')
+                    if code:
+                        return str(code)
         except Exception:
             pass
         # Fallback: construct a plausible contract
@@ -100,12 +108,16 @@ class FuturesDataFetcher:
         return pd.DataFrame()
 
     def get_holding_data(self, ts_code: str) -> pd.DataFrame:
-        """获取机构持仓数据"""
+        """获取机构持仓数据
+
+        fut_holding 的 symbol 参数为短格式（如 IF2703），需去除交易所后缀。
+        """
         if not self.pro:
             return pd.DataFrame()
+        symbol = ts_code.split('.')[0]
         try:
             today = datetime.now().strftime('%Y%m%d')
-            df = self.pro.fut_holding(ts_code=ts_code, trade_date=today)
+            df = self.pro.fut_holding(symbol=symbol, trade_date=today)
             if df is not None and not df.empty:
                 return df
         except Exception:
@@ -114,7 +126,7 @@ class FuturesDataFetcher:
         for i in range(1, 7):
             prev = (datetime.now() - timedelta(days=i)).strftime('%Y%m%d')
             try:
-                df = self.pro.fut_holding(ts_code=ts_code, trade_date=prev)
+                df = self.pro.fut_holding(symbol=symbol, trade_date=prev)
                 if df is not None and not df.empty:
                     return df
             except Exception:
@@ -180,9 +192,9 @@ class FuturesAnalyzer:
             'contracts': [main_contract] if main_contract else [],
         }
 
-        # 行情数据
+        # 行情数据（fut_daily 需完整合约代码，如 IF2609.CFX）
         prefix = sym_info.get('code_prefix', sym)
-        bars = self.fetcher.get_daily_bars(prefix, days)
+        bars = self.fetcher.get_daily_bars(main_contract or prefix, days)
         if bars is not None and not bars.empty:
             result['price'] = self._analyze_price(bars)
 
@@ -301,48 +313,119 @@ class FuturesAnalyzer:
         }
 
     def _analyze_holding(self, df: pd.DataFrame) -> Dict[str, Any]:
-        """分析机构持仓"""
+        """分析机构持仓
+
+        Tushare fut_holding 字段：broker / long_hld / short_hld / long_chg / short_chg。
+        输出结构对齐 analyze_futures.py 的打印格式（top10_long/top10_short 席位明细、
+        中信 vs 其他机构汇总与信号）。
+        """
         if df.empty:
             return {}
 
-        # fut_holding 数据: broker, long_vol, short_vol, long_chg, short_chg 等
         result = {
-            'top_brokers': [],
+            'top10_long': [],
+            'top10_short': [],
             'citic_signal': '-',
             'position_signal': '-',
+            'chg_signal': '-',
+            'total_long': 0, 'total_short': 0,
+            'net_position': 0, 'net_chg': 0, 'ls_ratio': 0.0,
+            'citic_long': 0, 'citic_short': 0, 'citic_net': 0, 'citic_net_chg': 0,
+            'others_long': 0, 'others_short': 0, 'others_net': 0, 'others_net_chg': 0,
+            'others_signal': '-', 'citic_vs_others_signal': '-',
         }
 
         try:
-            # 按多单持仓排序
-            if 'long_vol' in df.columns:
-                top_long = df.nlargest(5, 'long_vol')
-                for _, row in top_long.iterrows():
-                    result['top_brokers'].append({
-                        'broker': str(row.get('broker', '-')),
-                        'long_vol': int(float(row.get('long_vol', 0))),
-                        'short_vol': int(float(row.get('short_vol', 0))),
-                        'long_chg': int(float(row.get('long_chg', 0))),
-                        'short_chg': int(float(row.get('short_chg', 0))),
-                    })
+            # 字段兼容：旧列名 long_vol/short_vol 与新列名 long_hld/short_hld
+            def pick(*names):
+                for n in names:
+                    if n in df.columns:
+                        return n
+                return None
 
-            # 中信期货信号
-            citic = df[df['broker'].str.contains('中信', na=False)] if 'broker' in df.columns else pd.DataFrame()
-            if not citic.empty:
-                citic_row = citic.iloc[0]
-                citic_long = int(float(citic_row.get('long_vol', 0)))
-                citic_short = int(float(citic_row.get('short_vol', 0)))
-                citic_net = citic_long - citic_short
-                result['citic_signal'] = '偏多' if citic_net > 0 else '偏空' if citic_net < 0 else '中性'
+            long_c = pick('long_vol', 'long_hld')
+            short_c = pick('short_vol', 'short_hld')
+            long_chg_c = pick('long_chg')
+            short_chg_c = pick('short_chg')
 
-            # 持仓信号
-            total_long = int(float(df['long_vol'].sum())) if 'long_vol' in df.columns else 0
-            total_short = int(float(df['short_vol'].sum())) if 'short_vol' in df.columns else 0
-            if total_long > total_short * 1.05:
-                result['position_signal'] = '净多头（偏多）'
-            elif total_short > total_long * 1.05:
-                result['position_signal'] = '净空头（偏空）'
-            else:
-                result['position_signal'] = '多空均衡'
+            if long_c and short_c:
+                valid = df.dropna(subset=[long_c, short_c])
+                total_long = float(valid[long_c].sum())
+                total_short = float(valid[short_c].sum())
+                net = total_long - total_short
+                result['total_long'] = int(total_long)
+                result['total_short'] = int(total_short)
+                result['net_position'] = int(net)
+                result['ls_ratio'] = round(total_long / total_short, 3) if total_short else 0.0
+                if total_long > total_short * 1.05:
+                    result['position_signal'] = '净多头（偏多）'
+                elif total_short > total_long * 1.05:
+                    result['position_signal'] = '净空头（偏空）'
+                else:
+                    result['position_signal'] = '多空均衡'
+
+                # 当日多空单变化信号
+                if long_chg_c and short_chg_c:
+                    net_chg = float(valid[long_chg_c].sum()) - float(valid[short_chg_c].sum())
+                    result['net_chg'] = int(net_chg)
+                    if net_chg > 0:
+                        result['chg_signal'] = '净增仓'
+                    elif net_chg < 0:
+                        result['chg_signal'] = '净减仓'
+                    else:
+                        result['chg_signal'] = '持平'
+
+                # 多头/空头前 10 席位
+                top_long = valid.nlargest(10, long_c)
+                top_short = valid.nlargest(10, short_c)
+                result['top10_long'] = [
+                    {'broker': str(r.get('broker', '-')),
+                     'long_hld': int(float(r.get(long_c, 0))),
+                     'long_chg': int(float(r.get(long_chg_c, 0))) if long_chg_c else 0}
+                    for _, r in top_long.iterrows()
+                ]
+                result['top10_short'] = [
+                    {'broker': str(r.get('broker', '-')),
+                     'short_hld': int(float(r.get(short_c, 0))),
+                     'short_chg': int(float(r.get(short_chg_c, 0))) if short_chg_c else 0}
+                    for _, r in top_short.iterrows()
+                ]
+
+                # 中信期货信号（净持仓 + 当日净变化）
+                if 'broker' in df.columns:
+                    citic = df[df['broker'].astype(str).str.contains('中信', na=False)]
+                    if not citic.empty:
+                        citic_row = citic.iloc[0]
+                        c_long = float(citic_row.get(long_c, 0) or 0)
+                        c_short = float(citic_row.get(short_c, 0) or 0)
+                        c_net = c_long - c_short
+                        c_net_chg = (float(citic_row.get(long_chg_c, 0) or 0)
+                                     - float(citic_row.get(short_chg_c, 0) or 0)) if long_chg_c and short_chg_c else 0
+                        result['citic_long'] = int(c_long)
+                        result['citic_short'] = int(c_short)
+                        result['citic_net'] = int(c_net)
+                        result['citic_net_chg'] = int(c_net_chg)
+                        result['citic_signal'] = '偏多' if c_net > 0 else '偏空' if c_net < 0 else '中性'
+
+                        # 其他十九家 = 总量 - 中信
+                        others_long = total_long - c_long
+                        others_short = total_short - c_short
+                        result['others_long'] = int(others_long)
+                        result['others_short'] = int(others_short)
+                        result['others_net'] = int(others_long - others_short)
+                        result['others_net_chg'] = int(result['net_chg'] - c_net_chg)
+                        result['others_signal'] = ('偏多' if others_long > others_short else
+                                                   '偏空' if others_short > others_long else '中性')
+
+                        # 中信 vs 其他：比较净持仓方向
+                        if c_net > 0 and (others_long - others_short) > 0:
+                            result['citic_vs_others_signal'] = '同向做多'
+                        elif c_net < 0 and (others_long - others_short) < 0:
+                            result['citic_vs_others_signal'] = '同向做空'
+                        elif c_net == 0 and (others_long - others_short) == 0:
+                            result['citic_vs_others_signal'] = '均中性'
+                        else:
+                            result['citic_vs_others_signal'] = '方向分歧'
         except Exception:
             pass
 
