@@ -1,7 +1,7 @@
 ---
 name: stock-analysis
 description: A股个股十四维一体深度分析引擎——技术面+财务面+财报深度解读+筹码面+估值面+多模型估值+股本股东+事件统计+消息/机构/资讯层+实时行情+经营数据穿透+缠论分析+艾略特波浪+谐波形态+社交媒体情绪分析，附10大智能选股策略。开箱即用的跨平台技能包，支持 OpenClaw/Claude Code/Qoder 等 Agent 架构。
-version: 3.5.0
+version: 3.5.1
 author: kk-quant
 license: MIT
 category: finance
@@ -43,8 +43,6 @@ capabilities:
     description: "艾略特波浪分析：5浪推动+3浪调整结构、斐波那契关系校验、趋势见顶/调整完成信号"
   - id: harmonic-pattern-analysis
     description: "谐波形态分析：Gartley/Bat/Butterfly/Crab等XABCD五点形态、PRZ潜在反转区"
-  - id: ml-trend-prediction
-    description: "机器学习趋势预测：LightGBM/XGBoost/CatBoost集成模型、多源特征工程、置信度评分"
   - id: multi-valuation-models
     description: "多估值模型分析：DCF现金流折现+DDM股息折现+PE-Band历史分位+PB-ROE矩阵+EV/EBITDA+SOTP分部估值+10项估值陷阱检测+多模型交叉验证+综合目标价"
   - id: financial-deep-analysis

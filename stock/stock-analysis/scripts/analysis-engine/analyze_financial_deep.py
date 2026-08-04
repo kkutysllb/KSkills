@@ -30,7 +30,7 @@ try:
     import numpy as np
     import pandas as pd
 except ImportError:
-    print(json.dumps({"error": "缺少依赖: pip install pandas numpy"}, ensure_ascii=False))
+    print(json.dumps({"error": "缺少依赖: pandas/numpy 不可用，请检查 Python 运行时配置"}, ensure_ascii=False))
     sys.exit(1)
 
 try:
@@ -81,7 +81,7 @@ class FinancialDataFetcher:
         """获取全部财务数据"""
         ts_code, stock_name = self._resolve_ts_code(stock)
         if not self.pro:
-            return {"error": "TUSHARE_TOKEN 未设置或 tushare 未安装"}
+            return {"error": "TUSHARE_TOKEN 未设置或 tushare 不可用"}
 
         start_date = f"{datetime.now().year - self.years - 1}0101"
         result = {"ts_code": ts_code, "stock_name": stock_name}
