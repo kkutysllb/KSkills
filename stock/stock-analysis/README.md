@@ -1,10 +1,10 @@
 # stock-analysis
 
-A股个股十五维一体深度分析引擎 — 跨平台技能包
+A股个股十四维一体深度分析引擎 — 跨平台技能包
 
 ## 简介
 
-本技能包提供完整的A股个股分析能力，整合七大核心维度 + 8大高级分析模块 + 10大智能选股策略，可在 OpenClaw、Claude Code、Qoder 等 Agent 架构中开箱即用。
+本技能包提供完整的A股个股分析能力，整合七大核心维度 + 7大高级分析模块 + 10大智能选股策略，可在 OpenClaw、Claude Code、Qoder 等 Agent 架构中开箱即用。
 
 ### 七大分析维度
 
@@ -18,14 +18,13 @@ A股个股十五维一体深度分析引擎 — 跨平台技能包
 | 实时行情 | 价格/涨跌/成交量/资金流向/技术指标快照 | 问财 API |
 | 经营数据 | 主营/客户/供应商/参控股/重大合同 | 问财 API |
 
-### 8大高级分析模块
+### 7大高级分析模块
 
 | 模块 | 能力 | 数据源 |
 |------|------|--------|
 | 缠论分析 | 分型/笔/线段/中枢/MACD背驰/三类买卖点/多级别联立 | Tushare Pro |
 | 艾略特波浪 | 5浪推动+3浪调整+斐波那契校验+Zigzag检测 | Tushare Pro |
 | 谐波形态 | Gartley/Bat/Butterfly/Crab XABCD五点形态+PRZ | Tushare Pro |
-| 机器学习预测 | LightGBM/XGBoost/CatBoost集成+多源特征+置信度 | MongoDB |
 | 社交媒体情绪 | 多平台舆情采集+情绪评分+恐惧贪婪指数+反转检测+价格-情绪背离 | 问财 API |
 | 财报深度解读 | 三表勾稽+盈利质量评分+12项造假红旗+杜邦分析+现金流矩阵 | Tushare Pro |
 | 多估值模型 | DCF+DDM+SOTP+PE-Band+PB-ROE+EV/EBITDA+估值陷阱+交叉验证+目标价 | Tushare Pro |
@@ -72,9 +71,6 @@ python3 scripts/analysis-engine/analyze_elliott_wave.py --stock 600519.SH --json
 # 谐波形态分析
 python3 scripts/analysis-engine/analyze_harmonic_pattern.py --stock 600519.SH --json
 
-# 机器学习趋势预测
-python3 scripts/analysis-engine/analyze_trend_prediction.py --stock 600519.SH --json
-
 # 社交媒体情绪分析
 python3 scripts/analysis-engine/analyze_social_media.py --stock 600519.SH --json
 
@@ -100,9 +96,6 @@ python3 scripts/selection-strategies/run_value_investment.py --json
 
 # 缠论背驰选股
 python3 scripts/selection-strategies/run_chan_stock_selector.py --pool hs300 --signal buy --json
-
-# 模型训练
-python3 scripts/ml-prediction/run_model_train.py --json
 ```
 
 ## 目录结构
@@ -114,7 +107,7 @@ stock-analysis/
 ├── LICENSE                           # MIT 许可证
 ├── install.sh                        # 自动安装脚本
 ├── scripts/
-│   ├── analysis-engine/              # 17个分析脚本
+│   ├── analysis-engine/              # 16个分析脚本
 │   │   ├── analyze_technical.py          # 技术分析
 │   │   ├── analyze_financial_report.py   # 财务分析
 │   │   ├── analyze_stock_chips.py        # 筹码分析
@@ -127,7 +120,6 @@ stock-analysis/
 │   │   ├── analyze_stock_chan.py          # 缠论分析（内嵌引擎）
 │   │   ├── analyze_elliott_wave.py        # 艾略特波浪分析
 │   │   ├── analyze_harmonic_pattern.py    # 谐波形态分析
-│   │   ├── analyze_trend_prediction.py    # 机器学习趋势预测（桥接）
 │   │   ├── analyze_social_media.py         # 社交媒体情绪分析
 │   │   ├── analyze_financial_deep.py       # 财报深度解读
 │   │   ├── analyze_valuation_models.py     # 多估值模型分析（DCF+DDM+PE-Band+PB-ROE+EV/EBITDA）
@@ -144,8 +136,6 @@ stock-analysis/
 │   │   ├── run_chan_stock_selector.py      # 缠论背驰选股（内嵌引擎）
 │   │   └── run_multi_factor.py             # 多因子横截面选股
 │   ├── chan_theory_v2/              # 缠论引擎（内嵌）
-│   ├── ml-prediction/                # ML训练脚本
-│   │   └── run_model_train.py            # 趋势预测模型训练（桥接）
 │   ├── market-query-cli.py           # 实时行情查询CLI
 │   ├── business-query-cli.py         # 经营数据查询CLI
 │   ├── management-query-cli.py       # 股东管理查询CLI
