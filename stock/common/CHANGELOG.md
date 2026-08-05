@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.0] - 2026-08-05
+
+### Added
+- `finance_data_gateway` 新增 4 个接口：`stk_surv`（机构调研明细）、
+  `stock_company`（上市公司基本信息）、`report_rc`（业绩快报）、
+  `cyq_chips`（每日筹码分布）。
+
 ## [1.1.1] - 2026-08-05
 
 ### Fixed
