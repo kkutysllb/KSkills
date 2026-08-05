@@ -1,5 +1,14 @@
 # Changelog
 
+## [1.1.1] - 2026-08-05
+
+### Fixed
+- `tushare_client`：兼容小写频率参数（daily/weekly/monthly → D/W/M），修复
+  tushare 库 `pro_bar` 内部各频率分支均不命中导致的 `UnboundLocalError`。
+- `tushare_client`：用 `redirect_stdout` 隔离 tushare 库 `pro_bar` 内部裸
+  `print(e)` 对 stdout 的污染，避免破坏 JSON 等结构化输出。
+- `tushare_client.stock_basic`：支持按 `ts_code` / `name` 过滤（与官方接口一致）。
+
 ## [1.1.0] - 2026-07-25
 
 ### Added
