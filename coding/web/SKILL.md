@@ -1,6 +1,9 @@
 ---
 name: Web
 description: "Fetch URLs and search the web to ground answers in current information."
+
+package:
+  type: knowledge-only
 ---
 # Web Skill
 

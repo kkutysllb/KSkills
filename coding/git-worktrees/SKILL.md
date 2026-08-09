@@ -1,6 +1,9 @@
 ---
 name: Git Worktrees
 description: "Isolate parallel work in git worktrees so branches don't clobber each other's working state."
+
+package:
+  type: knowledge-only
 ---
 # Git Worktrees Skill
 

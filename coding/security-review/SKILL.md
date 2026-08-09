@@ -1,6 +1,9 @@
 ---
 name: Security Review
 description: "Read-only security audit of a change: injection, auth, secrets, dependencies, least privilege."
+
+package:
+  type: knowledge-only
 ---
 # Security Review Skill
 

@@ -1,6 +1,9 @@
 ---
 name: Planning
 description: "Draft and refine implementation plans; gate coding work behind an approved plan."
+
+package:
+  type: knowledge-only
 ---
 # Planning Skill
 

@@ -1,6 +1,9 @@
 ---
 name: Systematic Debugging
 description: "Reproduce, isolate, hypothesize, and verify a fix for a bug — never guess."
+
+package:
+  type: knowledge-only
 ---
 # Systematic Debugging Skill
 

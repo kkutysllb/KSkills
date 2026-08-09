@@ -1,6 +1,9 @@
 ---
 name: Goal
 description: "Set and steer a long-running objective that persists across turns; pause, resume, or clear it."
+
+package:
+  type: knowledge-only
 ---
 # Goal Skill
 

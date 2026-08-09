@@ -1,6 +1,9 @@
 ---
 name: Refactoring
 description: "Improve code structure in small, behavior-preserving steps verified by tests."
+
+package:
+  type: knowledge-only
 ---
 # Refactoring Skill
 
