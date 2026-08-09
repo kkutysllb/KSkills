@@ -4,6 +4,7 @@ description: Deploy and manage projects on Vercel using token-based authenticati
 
 package:
   type: knowledge-only
+license: MIT
 metadata:
   author: vercel
   version: "1.0.0"

@@ -1,5 +1,5 @@
 ---
-name: Goal
+name: goal
 description: "Set and steer a long-running objective that persists across turns; pause, resume, or clear it."
 
 package:

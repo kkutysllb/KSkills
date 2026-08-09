@@ -2,7 +2,7 @@
 
 KSkills 是一套面向 Coding Agent / OClaw 平台的**技能包（Skill Pack）集合**。每个技能是一个独立目录，核心是 `SKILL.md` 文件（YAML frontmatter + Markdown 指南），按类别归档，开箱即用。
 
-本仓库共收录 **157 个 SKILL.md（152 个技能包）**，覆盖软件工程、金融量化、内容创作、深度研究、办公文档五大领域。
+本仓库共收录 **152 个 SKILL.md（147 个技能包）**，覆盖软件工程、金融量化、内容创作、深度研究、办公文档五大领域。
 
 ---
 
@@ -10,7 +10,7 @@ KSkills 是一套面向 Coding Agent / OClaw 平台的**技能包（Skill Pack�
 
 ```
 KSkills/
-├── coding/     # 软件工程技能（102）
+├── coding/     # 软件工程技能（97）
 ├── stock/      # 金融量化技能（29）
 ├── media/      # 内容创作技能（5）
 ├── research/   # 深度研究技能（3）
@@ -30,18 +30,18 @@ KSkills/
 
 ## 技能总览
 
-### 🖥 coding — 软件工程（102）
+### 🖥 coding — 软件工程（97）
 
 覆盖软件交付全生命周期：需求 → 设计 → 编码 → 测试 → 审查 → 发布 → 运维。
 
 | 类别 | 技能 |
 |------|------|
 | **规划与需求** | `requirements-analysis` `product-spec` `technical-design` `architecture` `task-decomposition` `planning` `goal` `planning-with-files` `planning-with-files-ar` `planning-with-files-de` `planning-with-files-es` `planning-with-files-zh` `planning-with-files-zht` `pi-planning-with-files` `executing-plans` `writing-plans` `project-delivery-workflow` `project-scaffolding` |
-| **编码实现** | `implement` `refactor` `refactoring` `migration` `vertical-slice-development` `api-design` `database` `state-management` `typescript` `react-nextjs` `fastapi-backend` `frontend-engineering` `web` `brainstorming` `frontend-design` `frontend-polish` `web-artifacts-builder` `web-design-guidelines` `brand-guidelines` `theme-factory` `canvas-design` `remotion-best-practices` `algorithmic-art` `claude-api` |
-| **质量与测试** | `test-driven-development` `tdd` `test-writer` `qa-test-plan` `code-review` `pr-review-advanced` `acceptance-criteria` `verification-before-completion` `playwright-verification` `webapp-testing` `web-accessibility` `bug-hunt` `requesting-code-review` `receiving-code-review` |
-| **调试与运维** | `debug` `debugging` `systematic-debugging` `error-handling` `observability` `performance` `operations-runbook` `deployment` `ci-cd` `release-engineering` `rollback-recovery` `deploy-to-vercel` `vercel-cli-with-tokens` `vercel-composition-patterns` `vercel-react-best-practices` `vercel-react-native-skills` `vercel-react-view-transitions` `release-notes` `todo` |
-| **工程治理** | `security-hardening` `security-review` `build-system` `dependency-upgrade` `diff-analysis` `codebase-analysis` `environment-setup` `scratch-workspace` `using-git-worktrees` `git-worktrees` `workflow-automation` `ui-polish` `patch-authoring` `finishing-a-development-branch` `subagent-driven-development` |
-| **文档与协作** | `docs` `handoff-docs` `context-management` `agent-memory-isolation` `subagent-orchestration` `skill-authoring` `using-superpowers` `qiongqi-roi` `writing-skills` `internal-comms` `dispatching-parallel-agents` `review` |
+| **编码实现** | `implement` `refactor` `migration` `vertical-slice-development` `api-design` `database` `state-management` `typescript` `react-nextjs` `fastapi-backend` `frontend-engineering` `web` `brainstorming` `frontend-design` `frontend-polish` `web-artifacts-builder` `web-design-guidelines` `brand-guidelines` `theme-factory` `canvas-design` `remotion-best-practices` `algorithmic-art` `claude-api` |
+| **质量与测试** | `test-driven-development` `test-writer` `qa-test-plan` `code-review` `pr-review-advanced` `acceptance-criteria` `verification-before-completion` `playwright-verification` `webapp-testing` `web-accessibility` `bug-hunt` `requesting-code-review` `receiving-code-review` |
+| **调试与运维** | `debug` `systematic-debugging` `error-handling` `observability` `performance` `operations-runbook` `deployment` `ci-cd` `release-engineering` `rollback-recovery` `deploy-to-vercel` `vercel-cli-with-tokens` `vercel-composition-patterns` `vercel-react-best-practices` `vercel-react-native-skills` `vercel-react-view-transitions` `release-notes` `todo` |
+| **工程治理** | `security-hardening` `security-review` `build-system` `dependency-upgrade` `diff-analysis` `codebase-analysis` `environment-setup` `scratch-workspace` `using-git-worktrees` `workflow-automation` `ui-polish` `patch-authoring` `finishing-a-development-branch` `subagent-driven-development` |
+| **文档与协作** | `docs` `handoff-docs` `context-management` `agent-memory-isolation` `subagent-orchestration` `skill-authoring` `using-superpowers` `qiongqi-roi` `writing-skills` `internal-comms` `dispatching-parallel-agents` |
 
 ### 📈 stock — 金融量化（29）
 

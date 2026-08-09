@@ -1,5 +1,5 @@
 ---
-name: Todo
+name: todo
 description: "Track the active thread's step-by-step todo list and mark progress as work proceeds."
 
 package:

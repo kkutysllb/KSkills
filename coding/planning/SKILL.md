@@ -1,5 +1,5 @@
 ---
-name: Planning
+name: planning
 description: "Draft and refine implementation plans; gate coding work behind an approved plan."
 
 package:

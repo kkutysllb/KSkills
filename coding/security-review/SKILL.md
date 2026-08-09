@@ -1,5 +1,5 @@
 ---
-name: Security Review
+name: security-review
 description: "Read-only security audit of a change: injection, auth, secrets, dependencies, least privilege."
 
 package:

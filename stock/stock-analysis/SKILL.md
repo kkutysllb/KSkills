@@ -85,7 +85,7 @@ inputs:
 metadata:
   openclaw:
     emoji: "📊"
-    version: "3.5.0"
+    version: "3.5.1"
     author: "kk-quant"
     category: "finance"
     tags:
@@ -167,7 +167,7 @@ tags:
 | `analyze_harmonic_pattern.py` | 谐波形态分析（Gartley/Bat/Butterfly/Crab XABCD） | `--stock 600519.SH --json` |
 | `analyze_social_media.py` | 社交媒体情绪分析（多平台舆情+情绪评分+恐惧贪婪指数+反转检测） | `--stock 600519.SH --days 7 --json` |
 
-### 智能选股策略（`scripts/selection-strategies/`）
+### 智能选股策略（独立技能 `stock/selection-strategies/`，脚本位于该技能包根目录）
 
 | 脚本文件 | 策略 | 说明 |
 |---------|------|------|
@@ -253,21 +253,21 @@ python3 scripts/business-query-cli.py --query "贵州茅台主营业务构成"
 # 股东管理数据
 python3 scripts/management-query-cli.py --query "贵州茅台股本结构"
 
-# =================== 智能选股 ===================
+# =================== 智能选股（脚本位于独立技能 stock/selection-strategies/ 根目录） ===================
 
 # 价值投资策略
-python3 scripts/selection-strategies/run_value_investment.py --json
+python3 ../selection-strategies/run_value_investment.py --json
 
 # 高股息策略
-python3 scripts/selection-strategies/run_high_dividend.py --json
+python3 ../selection-strategies/run_high_dividend.py --json
 
 # 缠论背驰选股（全市场/指定股票池）
-python3 scripts/selection-strategies/run_chan_stock_selector.py --json
-python3 scripts/selection-strategies/run_chan_stock_selector.py --pool hs300 --signal buy --json
+python3 ../selection-strategies/run_chan_stock_selector.py --json
+python3 ../selection-strategies/run_chan_stock_selector.py --pool hs300 --signal buy --json
 
 # 多因子横截面选股（7因子Z-score+TopN等权组合）
-python3 scripts/selection-strategies/run_multi_factor.py --json
-python3 scripts/selection-strategies/run_multi_factor.py --top-n 20 --momentum-window 10 --json
+python3 ../selection-strategies/run_multi_factor.py --json
+python3 ../selection-strategies/run_multi_factor.py --top-n 20 --momentum-window 10 --json
 
 # =================== 多估值模型分析 ===================
 
