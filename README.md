@@ -2,7 +2,7 @@
 
 KSkills 是一套面向 Coding Agent / OClaw 平台的**技能包（Skill Pack）集合**。每个技能是一个独立目录，核心是 `SKILL.md` 文件（YAML frontmatter + Markdown 指南），按类别归档，开箱即用。
 
-本仓库共收录 **95 个技能**，覆盖软件工程、金融量化、内容创作、深度研究四大领域。
+本仓库共收录 **157 个 SKILL.md（152 个技能包）**，覆盖软件工程、金融量化、内容创作、深度研究、办公文档五大领域。
 
 ---
 
@@ -10,11 +10,12 @@ KSkills 是一套面向 Coding Agent / OClaw 平台的**技能包（Skill Pack�
 
 ```
 KSkills/
-├── coding/     # 软件工程技能（59）
-├── stock/      # 金融量化技能（28）
+├── coding/     # 软件工程技能（102）
+├── stock/      # 金融量化技能（29）
 ├── media/      # 内容创作技能（5）
 ├── research/   # 深度研究技能（3）
-├── common/     # 跨领域公共技能（2）
+├── common/     # 跨领域公共技能（5）
+├── office/     # 办公文档技能（8 包 / 13 个 SKILL.md，含 microsoft-foundry 嵌套子技能）
 └── scripts/    # 维护工具（frontmatter 校验器 + 打包/安装/卸载）
 ```
 
@@ -29,20 +30,20 @@ KSkills/
 
 ## 技能总览
 
-### 🖥 coding — 软件工程（59）
+### 🖥 coding — 软件工程（102）
 
 覆盖软件交付全生命周期：需求 → 设计 → 编码 → 测试 → 审查 → 发布 → 运维。
 
 | 类别 | 技能 |
 |------|------|
-| **规划与需求** | `requirements-analysis` `product-spec` `technical-design` `architecture` `task-decomposition` `planning` `project-delivery-workflow` `project-scaffolding` |
-| **编码实现** | `implement` `refactor` `migration` `vertical-slice-development` `api-design` `database` `state-management` `typescript` `react-nextjs` `fastapi-backend` `frontend-engineering` |
-| **质量与测试** | `test-driven-development` `test-writer` `qa-test-plan` `code-review` `pr-review-advanced` `acceptance-criteria` `verification-before-completion` `playwright-verification` `webapp-testing` `web-accessibility` |
-| **调试与运维** | `debug` `systematic-debugging` `error-handling` `observability` `performance` `operations-runbook` `deployment` `ci-cd` `release-engineering` `rollback-recovery` |
-| **工程治理** | `security-hardening` `security-review` `build-system` `dependency-upgrade` `diff-analysis` `codebase-analysis` `environment-setup` `scratch-workspace` `using-git-worktrees` `workflow-automation` `ui-polish` `patch-authoring` |
-| **文档与协作** | `docs` `handoff-docs` `context-management` `agent-memory-isolation` `subagent-orchestration` `skill-authoring` `using-superpowers` `qiongqi-roi` |
+| **规划与需求** | `requirements-analysis` `product-spec` `technical-design` `architecture` `task-decomposition` `planning` `goal` `planning-with-files` `planning-with-files-ar` `planning-with-files-de` `planning-with-files-es` `planning-with-files-zh` `planning-with-files-zht` `pi-planning-with-files` `executing-plans` `writing-plans` `project-delivery-workflow` `project-scaffolding` |
+| **编码实现** | `implement` `refactor` `refactoring` `migration` `vertical-slice-development` `api-design` `database` `state-management` `typescript` `react-nextjs` `fastapi-backend` `frontend-engineering` `web` `brainstorming` `frontend-design` `frontend-polish` `web-artifacts-builder` `web-design-guidelines` `brand-guidelines` `theme-factory` `canvas-design` `remotion-best-practices` `algorithmic-art` `claude-api` |
+| **质量与测试** | `test-driven-development` `tdd` `test-writer` `qa-test-plan` `code-review` `pr-review-advanced` `acceptance-criteria` `verification-before-completion` `playwright-verification` `webapp-testing` `web-accessibility` `bug-hunt` `requesting-code-review` `receiving-code-review` |
+| **调试与运维** | `debug` `debugging` `systematic-debugging` `error-handling` `observability` `performance` `operations-runbook` `deployment` `ci-cd` `release-engineering` `rollback-recovery` `deploy-to-vercel` `vercel-cli-with-tokens` `vercel-composition-patterns` `vercel-react-best-practices` `vercel-react-native-skills` `vercel-react-view-transitions` `release-notes` `todo` |
+| **工程治理** | `security-hardening` `security-review` `build-system` `dependency-upgrade` `diff-analysis` `codebase-analysis` `environment-setup` `scratch-workspace` `using-git-worktrees` `git-worktrees` `workflow-automation` `ui-polish` `patch-authoring` `finishing-a-development-branch` `subagent-driven-development` |
+| **文档与协作** | `docs` `handoff-docs` `context-management` `agent-memory-isolation` `subagent-orchestration` `skill-authoring` `using-superpowers` `qiongqi-roi` `writing-skills` `internal-comms` `dispatching-parallel-agents` `review` |
 
-### 📈 stock — 金融量化（28）
+### 📈 stock — 金融量化（29）
 
 A股 / 港股 / 美股 / 期货 / 期权的量化分析与数据查询技能。
 
@@ -50,24 +51,28 @@ A股 / 港股 / 美股 / 期货 / 期权的量化分析与数据查询技能。
 |------|------|
 | **数据源（唯一官方入口）** | `tushare-data`（Tushare 官方适配包；分析技能禁止直接 import tushare，须通过 `common` 的 `FinanceDataGateway` 或 `TushareClient` 访问） |
 | **数据查询** | `common`（金融数据网关 + iWencai/Tushare 统一客户端）`zhishu-query` `business-query` `event-query` `macro-query` `announcement-search` `news-search` `report-search` `hithink-futures` |
-| **个股分析** | `stock-analysis`（十五维一体）`financial-statement`（三表深度解读）`valuation-model`（DCF/DDM/SOTP）`cb-analysis`（可转债）`etf-analysis` |
-| **量化研究** | `factor-research`（因子研究）`strategy-research`（策略回测）`backtrader-strategies`（策略适配器库）`selection-strategies` `a-stock-screener`（对话式选股） |
-| **衍生品** | `futures-analysis`（股指期货）`options-payoff`（盈亏分析）`options-volatility`（波动率） |
-| **市场宏观** | `industry-analysis`（行业六维一体）`market-linkage-engine`（市场联动）`earnings-forecast`（盈利预测）`earnings-revision`（预期修正）`mcf` |
+| **个股分析** | `stock-analysis`（十五维一体）`financial-statement`（三表深度解读）`valuation-model`（DCF/DDM/SOTP）`dcf`（自由现金流估值）`cb-analysis`（可转债）`etf-analysis` |
+| **量化研究** | `factor-research`（因子研究）`strategy-research`（策略回测）`backtrader_strategies`（策略适配器库）`selection-strategies` `a-stock-screener`（对话式选股） |
+| **衍生品** | `futures-analysis`（股指期货）`option-futures-linkage`（期权期货联动）`options-payoff`（盈亏分析）`options-volatility`（波动率） |
+| **市场宏观** | `industry-analysis`（行业六维一体）`market-linkage-engine`（市场联动）`earnings-forecast`（盈利预测）`earnings-revision`（预期修正） |
 
-> **变更说明**：原 `kk-chan-theory`（缠论）已内嵌为 `stock-analysis/chan_theory_v2/`，不再作为独立技能分发；原 `kk-backtrader-strategies` 重命名为 `backtrader-strategies`（Python 包名对齐）。
+> **变更说明**：原 `kk-chan-theory`（缠论）已内嵌为 `stock-analysis/chan_theory_v2/`，不再作为独立技能分发；原 `kk-backtrader-strategies` 重命名为 `backtrader_strategies`（Python 包名对齐）；原 `mcf` 已更名为 `dcf`。
 
 ### 🎨 media — 内容创作（5）
 
-`baoyu-comic`（知识漫画）`image-generation`（图像）`music-generation`（音乐）`podcast-generation`（播客）`video-generation`（视频）
+`comic`（知识漫画）`image-generation`（图像）`music-generation`（音乐）`podcast-generation`（播客）`video-generation`（视频）
 
 ### 🔬 research — 深度研究（3）
 
 `deep-research`（深度网络研究）`academic-paper-review`（学术论文审阅）`consulting-analysis`（咨询报告）
 
-### 🧰 common — 跨领域公共（2）
+### 🧰 common — 跨领域公共（5）
 
-`analysis-report`（结构化分析报告，强制 Markdown + 暗色/亮色双主题 HTML 看板）`chart-visualization`（26 种图表）
+`analysis-report`（结构化分析报告，强制 Markdown + 暗色/亮色双主题 HTML 看板）`chart-visualization`（26 种图表）`find-skills`（技能发现与安装）`mcp-builder`（MCP 服务器构建）`skill-creator`（技能创作辅助）
+
+### 📄 office — 办公文档（8 包 / 13 个 SKILL.md）
+
+`docx`（Word 文档生成与编辑）`pdf`（PDF 生成与注释）`pptx`（PowerPoint 演示文稿）`xlsx`（Excel 表格）`slidev`（Slidev 演示）`doc-coauthoring`（文档协作）`slack-gif-creator`（Slack GIF 生成）`microsoft-foundry`（Microsoft Foundry 模型部署，含 `finetuning` / `models/deploy-model` 及 capacity / customize / preset 子技能）
 
 ---
 
@@ -92,7 +97,7 @@ A股 / 港股 / 美股 / 期货 / 期权的量化分析与数据查询技能。
 | `inputs` | ⬜ | list | 输入参数定义 |
 | `category` | ⬜ | string | 分类 |
 
-> **Profile 说明**：`stock` 和 `common` 类别采用 **rich** profile（需全套字段）；`coding` / `media` / `research` 采用 **minimal** profile（仅需 `name` + `description`）。
+> **Profile 说明**：`stock` 和 `common` 类别采用 **rich** profile（需全套字段）；`coding` / `media` / `research` / `office` 采用 **minimal** profile（仅需 `name` + `description`）。
 
 ### 示例（rich profile）
 
