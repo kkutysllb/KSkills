@@ -19,7 +19,7 @@ from datetime import date
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
-CATEGORIES = ["coding", "stock", "common", "media", "research"]
+CATEGORIES = ["coding", "stock", "common", "media", "research", "office"]
 DRY_RUN = "--dry-run" in sys.argv or "--dry" in sys.argv
 
 

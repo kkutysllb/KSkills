@@ -33,7 +33,10 @@ RICH_OPTIONAL = ["requires", "inputs", "category"]
 MINIMAL_REQUIRED = ["name", "description"]
 MINIMAL_OPTIONAL = ["license", "version", "author"]
 
-KNOWN_KEYS = set(RICH_REQUIRED + RICH_OPTIONAL + MINIMAL_REQUIRED + MINIMAL_OPTIONAL + ["dependencies", "keywords", "package"])
+KNOWN_KEYS = set(RICH_REQUIRED + RICH_OPTIONAL + MINIMAL_REQUIRED + MINIMAL_OPTIONAL
+             + ["dependencies", "keywords", "package",
+                # OClaw platform extensions (used by stock/ and coding/ skills)
+                "required-secrets", "user-invocable", "allowed-tools", "hooks"])
 
 # ── Severity ─────────────────────────────────────────────────────────────────
 
