@@ -62,22 +62,16 @@ def get_version(fm):
     return "1.0.0"
 
 
-def has_scripts(skill_dir):
-    return (skill_dir / "scripts").is_dir()
-
-
 def classify(cat, skill_dir):
     """Return: 'node' | 'python' | 'knowledge-only'"""
-    if not has_scripts(skill_dir):
-        return "knowledge-only"
-    if (skill_dir / "package.json").exists():
-        return "node"
-    # Check for .js files in scripts/
     scripts_dir = skill_dir / "scripts"
-    if scripts_dir.is_dir():
-        for f in scripts_dir.iterdir():
-            if f.suffix == ".js":
-                return "node"
+    # 根目录脚本（无 scripts/ 子目录，如 selection-strategies 的 run_*.py）
+    root_py = any(f.suffix == ".py" and f.is_file() for f in skill_dir.iterdir())
+    root_js = any(f.suffix == ".js" and f.is_file() for f in skill_dir.iterdir())
+    if not scripts_dir.is_dir() and not root_py and not root_js:
+        return "knowledge-only"
+    if (skill_dir / "package.json").exists() or root_js:
+        return "node"
     return "python"
 
 
@@ -97,7 +91,11 @@ def guess_entry(pkg_type, skill_dir):
     for f in sorted(scripts_dir.iterdir()):
         if f.suffix in (".py", ".js") and f.is_file():
             return f"scripts/{f.name}"
-    return "scripts/"
+    # 根目录脚本（无 scripts/ 子目录）：取首个 .py/.js 文件
+    for f in sorted(skill_dir.iterdir()):
+        if f.suffix in (".py", ".js") and f.is_file():
+            return f.name
+    return None
 
 
 def file_exists(path):
