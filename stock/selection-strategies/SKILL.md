@@ -1,14 +1,14 @@
 ---
 name: selection-strategies
 description: A股多策略选股运行框架，提供10种经典选股策略的CLI运行脚本，涵盖成长股、价值投资、高股息、动量突破、技术突破、超跌反弹、涨停龙头、主力资金追踪、缠论背驰选股与多因子横截面。每种策略独立运行、可配置参数，支持市值/股票池过滤与结果导出。
-version: 1.0.0
+version: 1.0.1
 author: kk-quant
 license: MIT
 category: finance
 
 
 package:
-  type: python
+  type: knowledge-only
 requires:
   packages: ["numpy", "pandas"]
 required-secrets:
@@ -61,44 +61,3 @@ tags:
   - strategy
   - quantitative
 ---
-
-# selection-strategies
-
-A股多策略选股运行框架，提供 10 种经典选股策略的独立 CLI 脚本，每种策略支持参数配置、市值/股票池过滤与 JSON/CSV 结果导出。
-
-## 策略脚本清单（位于技能包根目录）
-
-| 脚本 | 策略 | 依赖 |
-|------|------|------|
-| `run_growth_stock.py` | 成长股（EPS/营收双驱动 + PEG） | backtrader_strategies |
-| `run_value_investment.py` | 价值投资（低PE/PB + 高ROE） | backtrader_strategies |
-| `run_high_dividend.py` | 高股息（股息率≥4% + 连续分红） | backtrader_strategies |
-| `run_momentum_breakthrough.py` | 动量突破（20/60日动量 + 量比） | backtrader_strategies |
-| `run_technical_breakthrough.py` | 技术突破（年线/箱体 + MACD金叉） | backtrader_strategies |
-| `run_oversold_rebound.py` | 超跌反弹（RSI<30 + 乖离率） | backtrader_strategies |
-| `run_limit_up_leader.py` | 涨停龙头（连板 + 板块共振） | backtrader_strategies |
-| `run_fund_flow_tracking.py` | 主力资金追踪（北向/净流入） | backtrader_strategies |
-| `run_multi_factor.py` | 多因子横截面（7因子 Z-score + TopN） | numpy / pandas |
-| `run_chan_stock_selector.py` | 缠论背驰选股（wrapper） | **stock-analysis + stock/common** |
-
-## 依赖技能包
-
-- **`stock/backtrader_strategies`**：8 个策略脚本的适配器库（`from backtrader_strategies.strategy_adapters...`），需将该包加入 `PYTHONPATH` 或安装。
-- **`stock/stock-analysis`**：缠论选股引擎（`scripts/run_chan_stock_selector.py` 完整实现 + `chan_theory_v2/` 缠论模块）。本技能中的 `run_chan_stock_selector.py` 为薄封装，通过相对路径调用该引擎，请勿单独分发使用。
-- **`stock/common`**：`kk_common` 金融数据网关（缠论引擎数据入口）。
-- 环境变量 `TUSHARE_TOKEN`：全部策略的数据访问凭证。
-
-## 使用示例
-
-```bash
-# 价值投资策略
-python run_value_investment.py --json
-
-# 多因子横截面（Top20 等权组合）
-python run_multi_factor.py --top-n 20 --json
-
-# 缠论背驰选股（需先安装 stock-analysis 与 stock/common）
-python run_chan_stock_selector.py --pool hs300 --signal buy --json
-```
-
-> 所有策略脚本均在技能包根目录运行：`cd stock/selection-strategies && python run_xxx.py`

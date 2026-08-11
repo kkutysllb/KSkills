@@ -1,20 +1,26 @@
 # Changelog
 
-## [1.2.0] - 2026-08-05
-
-### Added
-- `finance_data_gateway` 新增 4 个接口：`stk_surv`（机构调研明细）、
-  `stock_company`（上市公司基本信息）、`report_rc`（业绩快报）、
-  `cyq_chips`（每日筹码分布）。
-
-## [1.1.1] - 2026-08-05
+## [1.1.1] - 2026-08-11
 
 ### Fixed
-- `tushare_client`：兼容小写频率参数（daily/weekly/monthly → D/W/M），修复
-  tushare 库 `pro_bar` 内部各频率分支均不命中导致的 `UnboundLocalError`。
-- `tushare_client`：用 `redirect_stdout` 隔离 tushare 库 `pro_bar` 内部裸
-  `print(e)` 对 stdout 的污染，避免破坏 JSON 等结构化输出。
-- `tushare_client.stock_basic`：支持按 `ts_code` / `name` 过滤（与官方接口一致）。
+- `TushareClient.trade_cal` 封装缺 `limit` 参数：`pro.trade_cal(..., limit=N)` 抛
+  TypeError 被吞返回空 DataFrame，导致 selection-strategies 等技能拿不到交易日历。
+  补 `limit: Optional[int] = None` 透传官方接口。
+
+
+## [1.2.0] - 2026-08-02
+
+### Fixed
+- `TushareClient.stock_basic` 补 `ts_code`/`name` 参数：此前引擎按单只股票查询时
+  TypeError 被网关静默吞掉返回空表，导致 10+ 个股分析引擎拿不到基本信息。
+- `FinanceDataGateway` 补齐 4 个缺失接口封装：`stock_company` / `report_rc` /
+  `stk_surv` / `cyq_chips`（引擎已调用但网关未封装会 AttributeError）。
+- `TushareClient.pro_bar` 兼容小写频率（daily/weekly/monthly → D/W/M）：tushare 库
+  pro_bar 仅识别大写，传小写时内部频率分支全不命中、`data` 未赋值而抛
+  UnboundLocalError，最终回退到非复权 daily 接口。
+- `TushareClient.pro_bar` 用 `contextlib.redirect_stdout` 隔离 tushare 库内部裸
+  `print(e)` 到 stdout 的缺陷（异常分支不 return 且循环重试），避免污染
+  `--json` 等结构化输出；重定向内容记入 debug 日志。
 
 ## [1.1.0] - 2026-07-25
 
